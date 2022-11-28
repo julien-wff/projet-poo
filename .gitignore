@@ -2,3 +2,6 @@
 .idea
 x64
 x86
+.env
+.env.*
+!.env.template
