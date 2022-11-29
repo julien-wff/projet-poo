@@ -65,13 +65,35 @@ namespace Components
             }
         }
 
+        // Active boolean property
+    private:
+        bool _active;
+    public:
+        property bool BtnActive
+        {
+            bool get()
+            {
+                return _active;
+            }
+
+            void set(bool value)
+            {
+                _active = value;
+                if (_active)
+                    this->BackColor = System::Drawing::Color::FromArgb(57, 99, 173);
+                else
+                    this->BackColor = System::Drawing::Color::Transparent;
+            }
+        }
+
         // Click event
         event EventHandler^ ButtonClick;
 
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
-            System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(SidebarBtn::typeid));
+            System::ComponentModel::ComponentResourceManager^ resources = (gcnew
+                System::ComponentModel::ComponentResourceManager(SidebarBtn::typeid));
             this->Icon = (gcnew System::Windows::Forms::PictureBox());
             this->TableLayout = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->Label = (gcnew System::Windows::Forms::Label());
@@ -94,9 +116,12 @@ namespace Components
             // TableLayout
             // 
             this->TableLayout->ColumnCount = 2;
-            this->TableLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
-            this->TableLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+            this->TableLayout->ColumnStyles->Add(
+                (gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->ColumnStyles->Add(
+                (gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayout->ColumnStyles->Add(
+                (gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute, 20)));
             this->TableLayout->Controls->Add(this->Icon, 0, 0);
             this->TableLayout->Controls->Add(this->Label, 1, 0);
             this->TableLayout->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -104,7 +129,8 @@ namespace Components
             this->TableLayout->Location = System::Drawing::Point(0, 0);
             this->TableLayout->Name = L"TableLayout";
             this->TableLayout->RowCount = 1;
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayout->Size = System::Drawing::Size(200, 40);
             this->TableLayout->TabIndex = 1;
             // 
@@ -112,6 +138,9 @@ namespace Components
             // 
             this->Label->AutoSize = true;
             this->Label->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->Label->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular,
+                                                             System::Drawing::GraphicsUnit::Point,
+                                                             static_cast<System::Byte>(0)));
             this->Label->Location = System::Drawing::Point(43, 0);
             this->Label->Name = L"Label";
             this->Label->Size = System::Drawing::Size(154, 40);
@@ -131,7 +160,6 @@ namespace Components
             this->TableLayout->ResumeLayout(false);
             this->TableLayout->PerformLayout();
             this->ResumeLayout(false);
-
         }
 #pragma endregion
     private:
