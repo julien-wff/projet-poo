@@ -5,3 +5,4 @@ x86
 .env
 .env.*
 !.env.template
+Application.sln.DotSettings.user
