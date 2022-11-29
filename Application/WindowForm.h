@@ -28,16 +28,42 @@ protected:
     }
 
 private:
-    System::ComponentModel::Container^ components;
+    Components::Sidebar^ Sidebar;
+
+
+       System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
     void InitializeComponent(void)
     {
-        this->components = gcnew System::ComponentModel::Container();
-        this->Size = System::Drawing::Size(300, 300);
-        this->Text = L"WindowForm";
-        this->Padding = System::Windows::Forms::Padding(0);
+        this->Sidebar = (gcnew Components::Sidebar());
+        this->SuspendLayout();
+        // 
+        // Sidebar
+        // 
+        this->Sidebar->BackColor = System::Drawing::SystemColors::ControlLight;
+        this->Sidebar->Dock = System::Windows::Forms::DockStyle::Left;
+        this->Sidebar->Location = System::Drawing::Point(0, 0);
+        this->Sidebar->Name = L"Sidebar";
+        this->Sidebar->Size = System::Drawing::Size(200, 600);
+        this->Sidebar->TabIndex = 0;
+        this->Sidebar->HandleSidebarClick += gcnew System::EventHandler(this, &WindowForm::sidebar1_HandleSidebarClick);
+        // 
+        // WindowForm
+        // 
+        this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
         this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+        this->ClientSize = System::Drawing::Size(1000, 600);
+        this->Controls->Add(this->Sidebar);
+        this->Name = L"WindowForm";
+        this->Text = L"Application de gestion";
+        this->ResumeLayout(false);
+
     }
 #pragma endregion
+
+    void sidebar1_HandleSidebarClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        SidebarEventArgs^ args = safe_cast<SidebarEventArgs^>(e);
+    }
 };

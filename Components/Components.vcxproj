@@ -120,17 +120,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sidebar.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="SidebarBtn.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="events\sidebarEventArgs.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sidebar.cpp" />
+    <ClCompile Include="SidebarBtn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -141,7 +151,25 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sidebar.resx">
+      <DependentUpon>Sidebar.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SidebarBtn.resx">
+      <DependentUpon>SidebarBtn.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\round_article_black_24dp.png" />
+    <Content Include="icons\round_engineering_black_24dp.png" />
+    <Content Include="icons\round_group_black_24dp.png" />
+    <Content Include="icons\round_insights_black_24dp.png" />
+    <Content Include="icons\round_menu_black_24dp.png" />
+    <Content Include="icons\round_shopping_basket_black_24dp.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
