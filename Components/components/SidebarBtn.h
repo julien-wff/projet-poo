@@ -104,7 +104,6 @@ namespace Components
             // Icon
             // 
             this->Icon->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->Icon->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Icon.Image")));
             this->Icon->Location = System::Drawing::Point(3, 3);
             this->Icon->Name = L"Icon";
             this->Icon->Size = System::Drawing::Size(34, 34);
