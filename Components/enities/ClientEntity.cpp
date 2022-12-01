@@ -15,7 +15,7 @@ Entities::ClientEntity::ClientEntity(int clientId, Entities::PersonEntity^ perso
 {
 }
 
-Entities::ClientEntity::ClientEntity(DataRow^ row)
+Entities::ClientEntity::ClientEntity(DataRow^ row) : PersonEntity(row)
 {
     this->ClientId = Convert::ToInt32(row["id"]);
     this->BirthDate = Convert::ToDateTime(row["birth_date"]);

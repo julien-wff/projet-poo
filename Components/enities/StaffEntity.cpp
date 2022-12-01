@@ -5,48 +5,50 @@ Entities::StaffEntity::StaffEntity()
 {
 }
 
-Entities::StaffEntity::StaffEntity(Entities::PersonEntity^ person, DateTime hireDate, int supervisedBy) : Entities::PersonEntity(person), HireDate(hireDate), SupervisedBy(supervisedBy)
+Entities::StaffEntity::StaffEntity(Entities::PersonEntity^ person, DateTime hireDate, int supervisedBy) :
+    Entities::PersonEntity(person), HireDate(hireDate), SupervisedBy(supervisedBy)
 {
 }
 
 Entities::StaffEntity::StaffEntity(int staffId, Entities::PersonEntity^ person, DateTime hireDate, int supervisedBy)
-	: StaffId(staffId), Entities::PersonEntity(person), HireDate(hireDate), SupervisedBy(supervisedBy)
+    : StaffId(staffId), Entities::PersonEntity(person), HireDate(hireDate), SupervisedBy(supervisedBy)
 {
 }
 
-Entities::StaffEntity::StaffEntity(DataRow^ row)
+Entities::StaffEntity::StaffEntity(DataRow^ row) : PersonEntity(row)
 {
-	this->StaffId = Convert::ToInt32(row["id"]);
-	this->HireDate = Convert::ToDateTime(row["hire_date"]);
-	this->SupervisedBy = Convert::ToInt32(row["supervisor_id"]);
+    this->StaffId = Convert::ToInt32(row["id"]);
+    this->HireDate = Convert::ToDateTime(row["hire_date"]);
+    if (row["supervisor_id"] != DBNull::Value)
+        this->SupervisedBy = Convert::ToInt32(row["supervisor_id"]);
 }
 
 int Entities::StaffEntity::GetStaffId()
 {
-	return StaffId;
+    return StaffId;
 }
 
 DateTime Entities::StaffEntity::GetHireDate()
 {
-	return HireDate;
+    return HireDate;
 }
 
 int Entities::StaffEntity::GetSupervisedBy()
 {
-	return SupervisedBy;
+    return SupervisedBy;
 }
 
 void Entities::StaffEntity::SetStaffId(int staffId)
 {
-	StaffId = staffId;
+    StaffId = staffId;
 }
 
 void Entities::StaffEntity::SetHireDate(DateTime hireDate)
 {
-	HireDate = hireDate;
+    HireDate = hireDate;
 }
 
 void Entities::StaffEntity::SetSupervisedBy(int supervisedBy)
 {
-	SupervisedBy = supervisedBy;
+    SupervisedBy = supervisedBy;
 }
