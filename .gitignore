@@ -8,3 +8,4 @@ x86
 Application.sln.DotSettings.user
 Application.vcxproj.*
 Components.vcxproj.*
+app.config

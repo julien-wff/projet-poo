@@ -6,6 +6,7 @@ using namespace Collections;
 using namespace Windows::Forms;
 using namespace Data;
 using namespace Drawing;
+using namespace System::Configuration;
 
 /// <summary>
 /// The principal form of the application. This code is run when the application starts.
@@ -75,12 +76,40 @@ private:
         this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
         this->Name = L"WindowForm";
         this->Text = L"Application de gestion";
+        this->Shown += gcnew System::EventHandler(this, &WindowForm::WindowForm_Shown);
         this->ResumeLayout(false);
     }
 #pragma endregion
 
-    void sidebar1_HandleSidebarClick(System::Object^ sender, System::EventArgs^ e)
+    System::Void sidebar1_HandleSidebarClick(System::Object^ sender, System::EventArgs^ e)
     {
         SidebarEventArgs^ args = safe_cast<SidebarEventArgs^>(e);
+    }
+
+    System::Void WindowForm_Shown(System::Object^ sender, System::EventArgs^ e)
+    {
+        Application::DoEvents();
+        String^ connectionString = ConfigurationManager::AppSettings["connectionString"];
+        if (connectionString == nullptr)
+        {
+            MessageBox::Show("La connexion à la base de données n'a pas été configurée.",
+                             "Erreur avec la base de données",
+                             MessageBoxButtons::OK,
+                             MessageBoxIcon::Error);
+            this->Close();
+            return;
+        }
+        auto dbProvider = gcnew Providers::DbProvider(connectionString);
+        auto exception = dbProvider->Connect();
+        if (exception != nullptr)
+        {
+            MessageBox::Show(exception->Message,
+                             "Erreur avec la base de données",
+                             MessageBoxButtons::OK,
+                             MessageBoxIcon::Error);
+            this->Close();
+            return;
+        }
+        Services::AbstractService::SetProvider(dbProvider);
     }
 };

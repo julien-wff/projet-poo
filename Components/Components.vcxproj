@@ -126,14 +126,19 @@
     <ClInclude Include="components\SidebarBtn.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="enities\PersonEntity.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="providers\DbProvider.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="services\AbstractService.h" />
+    <ClInclude Include="services\PersonService.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
+    <ClCompile Include="enities\PersonEntity.cpp" />
     <ClCompile Include="events\sidebarEventArgs.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -141,6 +146,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="providers\DbProvider.cpp" />
+    <ClCompile Include="services\AbstractService.cpp" />
+    <ClCompile Include="services\PersonService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
