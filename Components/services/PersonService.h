@@ -12,7 +12,7 @@ namespace Services
     public:
         DataTable^ GetPersons();
         Entities::PersonEntity^ GetPerson(int id);
-        bool AddPerson(Entities::PersonEntity^ person);
+        int AddPerson(Entities::PersonEntity^ person);
         bool UpdatePerson(Entities::PersonEntity^ person);
         bool DeletePerson(int id);
         bool DeletePerson(Entities::PersonEntity^ person);

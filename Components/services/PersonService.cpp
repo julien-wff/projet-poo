@@ -18,13 +18,13 @@ Entities::PersonEntity^ Services::PersonService::GetPerson(int id)
 }
 
 
-bool Services::PersonService::AddPerson(Entities::PersonEntity^ person)
+int Services::PersonService::AddPerson(Entities::PersonEntity^ person)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "INSERT INTO [management].[persons] ([firstname], [lastname]) VALUES (@firstname, @lastname)");
+        "INSERT INTO [management].[persons] ([firstname], [lastname]) OUTPUT inserted.id VALUES (@firstname, @lastname)");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@firstname", person->GetFirstname()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@lastname", person->GetLastname()));
-    return dbProvider->ExecuteNonQuery(command) == 1;
+    return safe_cast<int>(dbProvider->ExecuteScalar(command));
 }
 
 
