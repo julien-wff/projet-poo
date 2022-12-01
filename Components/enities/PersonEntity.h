@@ -15,6 +15,7 @@ namespace Entities
         PersonEntity();
         PersonEntity(String^ firstname, String^ lastname);
         PersonEntity(int personId, String^ firstname, String^ lastname);
+        PersonEntity(PersonEntity^ person);
         PersonEntity(DataRow^ row);
         int GetPersonId();
         String^ GetFirstname();

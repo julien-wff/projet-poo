@@ -14,6 +14,12 @@ Entities::PersonEntity::PersonEntity(int personId, String^ firstname, String^ la
 {
 }
 
+Entities::PersonEntity::PersonEntity(PersonEntity^ person) : PersonId(person->GetPersonId()),
+                                                             Firstname(person->GetFirstname()),
+                                                             Lastname(person->GetLastname())
+{
+}
+
 Entities::PersonEntity::PersonEntity(DataRow^ row)
 {
     this->PersonId = Convert::ToInt32(row["id"]);
