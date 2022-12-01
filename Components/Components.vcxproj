@@ -126,6 +126,7 @@
     <ClInclude Include="components\SidebarBtn.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="enities\ArticleEntity.h" />
     <ClInclude Include="enities\ClientEntity.h" />
     <ClInclude Include="enities\OrderEntity.h" />
     <ClInclude Include="enities\OrderItemEntity.h" />
@@ -146,6 +147,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
+    <ClCompile Include="enities\ArticleEntity.cpp" />
     <ClCompile Include="enities\ClientEntity.cpp" />
     <ClCompile Include="enities\OrderEntity.cpp" />
     <ClCompile Include="enities\OrderItemEntity.cpp" />
