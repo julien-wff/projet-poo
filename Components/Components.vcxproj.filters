@@ -21,7 +21,28 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sidebar.h">
+    <ClInclude Include="components\Sidebar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="components\SidebarBtn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enities\PersonEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="events\sidebarEventArgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="providers\DbProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="services\AbstractService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="services\PersonService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="views\LoadingVue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +53,28 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sidebar.cpp">
+    <ClCompile Include="components\Sidebar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="components\SidebarBtn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enities\PersonEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="events\sidebarEventArgs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="providers\DbProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="services\AbstractService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="services\PersonService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="views\LoadingVue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
