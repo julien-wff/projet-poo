@@ -17,8 +17,8 @@ Entities::StaffEntity::StaffEntity(int staffId, Entities::PersonEntity^ person, 
 Entities::StaffEntity::StaffEntity(DataRow^ row)
 {
 	this->StaffId = Convert::ToInt32(row["id"]);
-	this->HireDate = Convert::ToDateTime(row["HireDate"]);
-	this->SupervisedBy = Convert::ToInt32(row["SupervisedBy"]);
+	this->HireDate = Convert::ToDateTime(row["hire_date"]);
+	this->SupervisedBy = Convert::ToInt32(row["supervisor_id"]);
 }
 
 int Entities::StaffEntity::GetStaffId()
