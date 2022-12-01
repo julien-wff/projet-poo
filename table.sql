@@ -71,19 +71,19 @@ CREATE TABLE [management].[clients]
 
 CREATE TABLE [management].[orders]
 (
-    reference         VARCHAR(16) IDENTITY
+    reference     VARCHAR(16)
         CONSTRAINT orders_pk
             PRIMARY KEY,
-    client_id  INT
+    client_id     INT
         CONSTRAINT orders_clients_fk
             REFERENCES [management].[clients] (id),
-    delivery_date  DATE,
+    delivery_date DATE,
     creation_date DATE,
 )
 
 CREATE TABLE [management].[payment_modes]
 (
-    id         INT IDENTITY
+    id   INT IDENTITY
         CONSTRAINT payment_modes_pk
             PRIMARY KEY,
     name VARCHAR(63),
@@ -91,57 +91,57 @@ CREATE TABLE [management].[payment_modes]
 
 CREATE TABLE [management].[payments]
 (
-    id         INT IDENTITY
+    id              INT IDENTITY
         CONSTRAINT payments_pk
             PRIMARY KEY,
-    payment_mode_id  INT
+    payment_mode_id INT
         CONSTRAINT payments_payment_modes_fk
             REFERENCES [management].[payment_modes] (id),
-    order_reference  VARCHAR(16)
+    order_reference VARCHAR(16)
         CONSTRAINT payments_orders_fk
             REFERENCES [management].[orders] (reference),
-    expected_date  DATE,
-    payment_date DATE,
-    amount FLOAT,
-)
-
-CREATE TABLE [management].[order_items]
-(
-    article_variant_id  INT
-        CONSTRAINT orderitems_article_variants_fk
-            REFERENCES [management].[article_variants] (id),
-    order_reference  VARCHAR(16)
-        CONSTRAINT order_items_orders_fk
-            REFERENCES [management].[orders] (reference),
-    price FLOAT,
-    vat FLOAT,
-    reduction_value FLOAT,
-    item_count INT,
+    expected_date   DATE,
+    payment_date    DATE,
+    amount          FLOAT,
 )
 
 CREATE TABLE [management].[articles]
 (
-    reference         INT IDENTITY
+    reference INT IDENTITY
         CONSTRAINT articles_pk
             PRIMARY KEY,
-    name VARCHAR(63),
-    stock INT,
+    name      VARCHAR(63),
+    stock     INT,
     max_stock INT,
-    vat FLOAT,
-    price FLOAT,
+    vat       FLOAT,
+    price     FLOAT,
 )
 
-CREATE TABLE [managment].[article_variants]
+CREATE TABLE [management].[article_variants]
 (
-    id          INT IDENTITY
+    id                      INT IDENTITY
         CONSTRAINT article_variants_pk
-    PRIMARY KEY,
-    articles_reference  INT
+            PRIMARY KEY,
+    articles_reference      INT
         CONSTRAINT article_variants_articles_fk
             REFERENCES [management].[articles] (reference),
-    reduction_value FLOAT,
+    reduction_value         FLOAT,
     reduction_product_count INT,
-    color VARCHAR(31),
+    color                   VARCHAR(31),
+)
+
+CREATE TABLE [management].[order_items]
+(
+    article_variant_id INT
+        CONSTRAINT order_items_article_variants_fk
+            REFERENCES [management].[article_variants] (id),
+    order_reference    VARCHAR(16)
+        CONSTRAINT order_items_orders_fk
+            REFERENCES [management].[orders] (reference),
+    price              FLOAT,
+    vat                FLOAT,
+    reduction_value    FLOAT,
+    item_count         INT,
 )
 
 -- Tables population
