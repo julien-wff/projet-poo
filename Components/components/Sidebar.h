@@ -195,46 +195,46 @@ namespace Components
 
         System::Void SidebarEmployeeBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
-            SidebarEventArgs^ args = gcnew SidebarEventArgs("employees");
+            SidebarEventArgs^ args = gcnew SidebarEventArgs(SidebarActions::Employees);
             this->HandleSidebarClick(this, args);
             this->SetActiveBtn(args->Action);
         }
 
         System::Void SidebarClientBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
-            SidebarEventArgs^ args = gcnew SidebarEventArgs("clients");
+            SidebarEventArgs^ args = gcnew SidebarEventArgs(SidebarActions::Clients);
             this->HandleSidebarClick(this, args);
             this->SetActiveBtn(args->Action);
         }
 
         System::Void SidebarArticleBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
-            SidebarEventArgs^ args = gcnew SidebarEventArgs("articles");
+            SidebarEventArgs^ args = gcnew SidebarEventArgs(SidebarActions::Articles);
             this->HandleSidebarClick(this, args);
             this->SetActiveBtn(args->Action);
         }
 
         System::Void SidebarOrderBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
-            SidebarEventArgs^ args = gcnew SidebarEventArgs("orders");
+            SidebarEventArgs^ args = gcnew SidebarEventArgs(SidebarActions::Orders);
             this->HandleSidebarClick(this, args);
             this->SetActiveBtn(args->Action);
         }
 
         System::Void SidebarStatisticsBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
-            SidebarEventArgs^ args = gcnew SidebarEventArgs("statistics");
+            SidebarEventArgs^ args = gcnew SidebarEventArgs(SidebarActions::Statistics);
             this->HandleSidebarClick(this, args);
             this->SetActiveBtn(args->Action);
         }
 
-        System::Void SetActiveBtn(String^ action)
+        System::Void SetActiveBtn(SidebarActions action)
         {
-            this->EmployeesBtn->BtnActive = action == "employees";
-            this->ClientsBtn->BtnActive = action == "clients";
-            this->ArticlesBtn->BtnActive = action == "articles";
-            this->OrdersBtn->BtnActive = action == "orders";
-            this->StatisticsBtn->BtnActive = action == "statistics";
+            this->EmployeesBtn->BtnActive = action == SidebarActions::Employees;
+            this->ClientsBtn->BtnActive = action == SidebarActions::Clients;
+            this->ArticlesBtn->BtnActive = action == SidebarActions::Articles;
+            this->OrdersBtn->BtnActive = action == SidebarActions::Orders;
+            this->StatisticsBtn->BtnActive = action == SidebarActions::Statistics;
         }
     };
 }

@@ -2,13 +2,24 @@
 
 using namespace System;
 
+public enum class SidebarActions
+{
+    Menu,
+    Employees,
+    Clients,
+    Articles,
+    Orders,
+    Statistics,
+};
+
+
 public ref class SidebarEventArgs : public EventArgs
 {
 public:
-    SidebarEventArgs(String^ action)
+    SidebarEventArgs(SidebarActions action)
     {
         this->Action = action;
     }
 
-    property String^ Action;
+    property SidebarActions Action;
 };
