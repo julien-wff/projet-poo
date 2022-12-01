@@ -133,6 +133,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="services\AbstractService.h" />
     <ClInclude Include="services\PersonService.h" />
+    <ClInclude Include="enities\StaffEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="providers\DbProvider.cpp" />
     <ClCompile Include="services\AbstractService.cpp" />
     <ClCompile Include="services\PersonService.cpp" />
+    <ClCompile Include="enities\StaffEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
