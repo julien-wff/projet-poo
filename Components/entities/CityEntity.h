@@ -16,6 +16,7 @@ namespace Entities
         CityEntity();
         CityEntity(int zipCode, String^ city);
         CityEntity(int cityId, int zipCode, String^ city);
+        CityEntity(CityEntity^ city);
         CityEntity(DataRow^ row);
         int GetCityId();
         String^ GetCity();

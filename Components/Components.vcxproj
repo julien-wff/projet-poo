@@ -132,6 +132,7 @@
     <ClInclude Include="components\TableHeader.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="entities\AddressEntity.h" />
     <ClInclude Include="entities\AddressTypeEntity.h" />
     <ClInclude Include="entities\ArticleEntity.h" />
     <ClInclude Include="entities\ArticleVariantEntity.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="components\TableDisplay.cpp" />
     <ClCompile Include="components\TableHeader.cpp" />
+    <ClCompile Include="entities\AddressEntity.cpp" />
     <ClCompile Include="entities\AddressTypeEntity.cpp" />
     <ClCompile Include="entities\ArticleEntity.cpp" />
     <ClCompile Include="entities\ArticleVariantEntity.cpp">

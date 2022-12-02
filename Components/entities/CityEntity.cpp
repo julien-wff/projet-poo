@@ -13,6 +13,11 @@ Entities::CityEntity::CityEntity(int cityId, int zipCode, String^ city) : CityId
 {
 }
 
+Entities::CityEntity::CityEntity(CityEntity^ city)
+    : CityId(city->GetCityId()), ZipCode(city->GetZipCode()), City(city->GetCity())
+{
+}
+
 Entities::CityEntity::CityEntity(DataRow^ row)
 {
     this->CityId = Convert::ToInt32(row["id"]);
