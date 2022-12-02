@@ -41,7 +41,7 @@ CREATE TABLE [management].[addresses]
     address_type_id INT
         CONSTRAINT addresses_address_types_fk
             REFERENCES [management].[address_types] (id),
-    city            VARCHAR(63),
+    street          VARCHAR(63),
 )
 
 CREATE TABLE [management].[staffs]
