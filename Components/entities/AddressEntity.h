@@ -10,26 +10,25 @@ namespace Entities
 {
     public ref class AddressEntity : public Entities::CityEntity
     {
-        protected :
+    protected :
         int AddressId;
         String^ Street;
         int PersonId;
         int AddressTypeId;
-        
-        public :
+
+    public :
         AddressEntity();
         AddressEntity(CityEntity^ city, AddressTypeEntity^ addressType, PersonEntity^ person, String^ street);
-        AddressEntity(int addressId, CityEntity^ city, AddressTypeEntity^ addressType, PersonEntity^ person, String^ street);
+        AddressEntity(int addressId, CityEntity^ city, AddressTypeEntity^ addressType, PersonEntity^ person,
+                      String^ street);
         AddressEntity(DataRow^ row);
         int GetAddressId();
         String^ GetStreet();
         int GetAddressTypeId();
-        int GetPersonId ();
+        int GetPersonId();
         void SetAddressId(int addressId);
         void SetStreet(String^ street);
         void SetAddressTypeId(int addressTypeId);
         void SetPersonId(int personId);
     };
-        
-        
-        
+}
