@@ -6,14 +6,15 @@ Entities::AddressEntity::AddressEntity()
 }
 
 Entities::AddressEntity::AddressEntity(CityEntity^ city, AddressTypeEntity^ addressType, PersonEntity^ person,
-    String^ street)
-    : CityEntity(city), AddressTypeId(addressType->GetAddressId()), PersonId(person->GetPersonId()), Street(street)
+                                       String^ street)
+    : CityEntity(city), AddressTypeId(addressType->GetAddressTypeId()), PersonId(person->GetPersonId()), Street(street)
 {
 }
 
 Entities::AddressEntity::AddressEntity(int addressId, CityEntity^ city, AddressTypeEntity^ addressType,
-    PersonEntity^ person, String^ street)
-    : AddressId(addressId), CityEntity(city), AddressTypeId(addressType->GetAddressId()), PersonId(person->GetPersonId()), Street(street)
+                                       PersonEntity^ person, String^ street)
+    : AddressId(addressId), CityEntity(city), AddressTypeId(addressType->GetAddressTypeId()),
+      PersonId(person->GetPersonId()), Street(street)
 {
 }
 
