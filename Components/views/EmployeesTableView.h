@@ -30,6 +30,10 @@ namespace Components
             }
         }
 
+    public:
+        event EventHandler^ CreateClick;
+        event EventHandler<int>^ EmployeeClick;
+
     private:
         System::Windows::Forms::TableLayoutPanel^ TableLayoutPanel;
         Components::TableHeader^ TableHeader;
@@ -78,6 +82,8 @@ namespace Components
             this->TableHeader->TabIndex = 0;
             this->TableHeader->RefreshClick += gcnew System::EventHandler(
                 this, &EmployeesTableView::TableHeader_RefreshClick);
+            this->TableHeader->AddClick += gcnew System::EventHandler(
+                this, &EmployeesTableView::TableHeader_AddClick);
             // 
             // TableDisplay
             // 
@@ -88,6 +94,8 @@ namespace Components
             this->TableDisplay->Size = System::Drawing::Size(800, 560);
             this->TableDisplay->TabIndex = 1;
             this->TableDisplay->Load += gcnew System::EventHandler(this, &EmployeesTableView::TableDisplay_Load);
+            this->TableDisplay->RowSelect += gcnew System::EventHandler<DataRow^>(
+                this, &EmployeesTableView::TableDisplay_RowSelected);
             // 
             // EmployeesTableView
             // 
@@ -113,6 +121,16 @@ namespace Components
         System::Void TableHeader_RefreshClick(System::Object^ sender, System::EventArgs^ e)
         {
             this->LoadData();
+        }
+
+        System::Void TableHeader_AddClick(System::Object^ sender, System::EventArgs^ e)
+        {
+            this->CreateClick(this, e);
+        }
+
+        System::Void TableDisplay_RowSelected(System::Object^ sender, DataRow^ row)
+        {
+            this->EmployeeClick(this, safe_cast<int>(row["id"]));
         }
 
     public:

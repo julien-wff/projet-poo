@@ -27,6 +27,9 @@ namespace Components
             }
         }
 
+    public:
+        event EventHandler<DataRow^>^ RowSelect;
+
     private:
         System::Windows::Forms::DataGridView^ DataGridView;
         System::ComponentModel::Container^ components;
@@ -58,6 +61,8 @@ namespace Components
             this->DataGridView->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
             this->DataGridView->DefaultCellStyle->SelectionBackColor = Color::White;
             this->DataGridView->DefaultCellStyle->SelectionForeColor = Color::Black;
+            this->DataGridView->CellClick += gcnew DataGridViewCellEventHandler(
+                this, &TableDisplay::DataGridView_CellClick);
             // 
             // TableDisplay
             // 
@@ -68,6 +73,14 @@ namespace Components
             this->Size = System::Drawing::Size(800, 560);
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGridView))->EndInit();
             this->ResumeLayout(false);
+        }
+
+        System::Void DataGridView_CellClick(System::Object^ sender,
+                                            System::Windows::Forms::DataGridViewCellEventArgs^ e)
+        {
+            // Get corresponding DataRow based on the DataSouce of the DataGridView
+            DataRowView^ drv = (DataRowView^)DataGridView->Rows[e->RowIndex]->DataBoundItem;
+            RowSelect(this, drv->Row);
         }
 
     public:

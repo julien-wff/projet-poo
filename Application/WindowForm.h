@@ -34,6 +34,7 @@ private:
     System::Windows::Forms::TableLayoutPanel^ MainLayoutPanel;
     Components::LoadingView^ LoadingView;
     Components::EmployeesTableView^ EmployeesTableView;
+    Components::EmployeesEditView^ EmployeesEditView;
     System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -43,24 +44,29 @@ private:
         this->Sidebar = (gcnew Components::Sidebar());
         this->LoadingView = (gcnew Components::LoadingView());
         this->EmployeesTableView = (gcnew Components::EmployeesTableView());
+        this->EmployeesEditView = (gcnew Components::EmployeesEditView());
         this->MainLayoutPanel->SuspendLayout();
         this->SuspendLayout();
         // 
         // MainLayoutPanel
         // 
-        this->MainLayoutPanel->ColumnCount = 3;
+        this->MainLayoutPanel->ColumnCount = 4;
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Absolute,
             200)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            50)));
+            33.33333F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            50)));
+            33.33333F)));
+        this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+            System::Windows::Forms::SizeType::Percent,
+            33.33333F)));
         this->MainLayoutPanel->Controls->Add(this->Sidebar, 0, 0);
         this->MainLayoutPanel->Controls->Add(this->LoadingView, 1, 0);
         this->MainLayoutPanel->Controls->Add(this->EmployeesTableView, 2, 0);
+        this->MainLayoutPanel->Controls->Add(this->EmployeesEditView, 3, 0);
         this->MainLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
         this->MainLayoutPanel->Location = System::Drawing::Point(0, 0);
         this->MainLayoutPanel->Margin = System::Windows::Forms::Padding(0);
@@ -96,17 +102,31 @@ private:
         this->LoadingView->Location = System::Drawing::Point(200, 0);
         this->LoadingView->Margin = System::Windows::Forms::Padding(0);
         this->LoadingView->Name = L"LoadingView";
-        this->LoadingView->Size = System::Drawing::Size(392, 561);
+        this->LoadingView->Size = System::Drawing::Size(261, 561);
         this->LoadingView->TabIndex = 1;
         // 
         // EmployeesTableView
         // 
         this->EmployeesTableView->Dock = System::Windows::Forms::DockStyle::Fill;
-        this->EmployeesTableView->Location = System::Drawing::Point(592, 0);
+        this->EmployeesTableView->Location = System::Drawing::Point(461, 0);
         this->EmployeesTableView->Margin = System::Windows::Forms::Padding(0);
         this->EmployeesTableView->Name = L"EmployeesTableView";
-        this->EmployeesTableView->Size = System::Drawing::Size(392, 561);
+        this->EmployeesTableView->Size = System::Drawing::Size(261, 561);
         this->EmployeesTableView->TabIndex = 2;
+        this->EmployeesTableView->CreateClick += gcnew System::EventHandler(
+            this, &WindowForm::EmployeesTableView_CreateClick);
+        this->EmployeesTableView->EmployeeClick += gcnew System::EventHandler<int>(
+            this, &WindowForm::EmployeesTableView_EmployeeClick);
+        // 
+        // EmployeesEditView
+        // 
+        this->EmployeesEditView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->EmployeesEditView->Location = System::Drawing::Point(889, 139);
+        this->EmployeesEditView->Margin = System::Windows::Forms::Padding(0);
+        this->EmployeesEditView->Name = L"EmployeesEditView";
+        this->EmployeesEditView->Size = System::Drawing::Size(800, 601);
+        this->EmployeesEditView->TabIndex = 3;
+        this->EmployeesEditView->Back += gcnew System::EventHandler(this, &WindowForm::EmployeesEditView_BackClick);
         // 
         // WindowForm
         // 
@@ -205,6 +225,9 @@ private:
         case ApplicationViews::EmployeesTable:
             ShowColumn(2);
             break;
+        case ApplicationViews::EmployeeEdit:
+            ShowColumn(3);
+            break;
         }
 
         // Resume layout to apply changes
@@ -216,5 +239,25 @@ private:
     {
         this->MainLayoutPanel->ColumnStyles[index]->Width = 100;
         this->MainLayoutPanel->GetControlFromPosition(index, 0)->Show();
+    }
+
+    System::Void EmployeesTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        EmployeesEditView->LoadForm(EditorMode::Create);
+        SetCurrentView(ApplicationViews::EmployeeEdit);
+    }
+
+    System::Void EmployeesEditView_BackClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+        EmployeesTableView->LoadData();
+        SetCurrentView(ApplicationViews::EmployeesTable);
+    }
+
+    System::Void EmployeesTableView_EmployeeClick(System::Object^ sender, int staffId)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+        EmployeesEditView->LoadForm(EditorMode::Edit, staffId);
+        SetCurrentView(ApplicationViews::EmployeeEdit);
     }
 };

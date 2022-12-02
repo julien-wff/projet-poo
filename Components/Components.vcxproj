@@ -120,6 +120,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="components\EditorHeader.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="components\Sidebar.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -143,6 +146,7 @@
     <ClInclude Include="entities\PaymentEntity.h" />
     <ClInclude Include="entities\PaymentModeEntity.h" />
     <ClInclude Include="entities\PersonEntity.h" />
+    <ClInclude Include="enums\EditorMode.h" />
     <ClInclude Include="enums\views.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
@@ -156,6 +160,9 @@
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="entities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
+    <ClInclude Include="views\EmployeesEditView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="views\EmployeesTableView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -165,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="components\EditorHeader.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="components\TableDisplay.cpp" />
@@ -266,6 +274,7 @@
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
+    <ClCompile Include="views\EmployeesEditView.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
     <ClCompile Include="views\LoadingView.cpp" />
   </ItemGroup>
@@ -302,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\EmployeesEditView.resx">
+      <DependentUpon>views\EmployeesEditView.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\EmployeesTableView.resx">
       <DependentUpon>views\EmployeesTableView.h</DependentUpon>
