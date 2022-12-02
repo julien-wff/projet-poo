@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractService.h"
-#include "../enities/PersonEntity.h"
+#include "../entities/PersonEntity.h"
 
 using namespace System;
 using namespace Data;

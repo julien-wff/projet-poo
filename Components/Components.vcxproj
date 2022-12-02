@@ -132,15 +132,15 @@
     <ClInclude Include="components\TableHeader.h">
       <FileType>CppControl</FileType>
     </ClInclude>
-    <ClInclude Include="enities\AddressTypeEntity.h" />
-    <ClInclude Include="enities\ArticleEntity.h" />
-    <ClInclude Include="enities\CityEntity.h" />
-    <ClInclude Include="enities\ClientEntity.h" />
-    <ClInclude Include="enities\OrderEntity.h" />
-    <ClInclude Include="enities\OrderItemEntity.h" />
-    <ClInclude Include="enities\PaymentEntity.h" />
-    <ClInclude Include="enities\PaymentModeEntity.h" />
-    <ClInclude Include="enities\PersonEntity.h" />
+    <ClInclude Include="entities\AddressTypeEntity.h" />
+    <ClInclude Include="entities\ArticleEntity.h" />
+    <ClInclude Include="entities\CityEntity.h" />
+    <ClInclude Include="entities\ClientEntity.h" />
+    <ClInclude Include="entities\OrderEntity.h" />
+    <ClInclude Include="entities\OrderItemEntity.h" />
+    <ClInclude Include="entities\PaymentEntity.h" />
+    <ClInclude Include="entities\PaymentModeEntity.h" />
+    <ClInclude Include="entities\PersonEntity.h" />
     <ClInclude Include="enums\views.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
@@ -148,7 +148,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="services\AbstractService.h" />
     <ClInclude Include="services\PersonService.h" />
-    <ClInclude Include="enities\StaffEntity.h" />
+    <ClInclude Include="entities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
     <ClInclude Include="views\EmployeesTableView.h">
       <FileType>CppControl</FileType>
@@ -163,15 +163,15 @@
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="components\TableDisplay.cpp" />
     <ClCompile Include="components\TableHeader.cpp" />
-    <ClCompile Include="enities\AddressTypeEntity.cpp" />
-    <ClCompile Include="enities\ArticleEntity.cpp" />
-    <ClCompile Include="enities\CityEntity.cpp" />
-    <ClCompile Include="enities\ClientEntity.cpp" />
-    <ClCompile Include="enities\OrderEntity.cpp" />
-    <ClCompile Include="enities\OrderItemEntity.cpp" />
-    <ClCompile Include="enities\PaymentEntity.cpp" />
-    <ClCompile Include="enities\PaymentModeEntity.cpp" />
-    <ClCompile Include="enities\PersonEntity.cpp" />
+    <ClCompile Include="entities\AddressTypeEntity.cpp" />
+    <ClCompile Include="entities\ArticleEntity.cpp" />
+    <ClCompile Include="entities\CityEntity.cpp" />
+    <ClCompile Include="entities\ClientEntity.cpp" />
+    <ClCompile Include="entities\OrderEntity.cpp" />
+    <ClCompile Include="entities\OrderItemEntity.cpp" />
+    <ClCompile Include="entities\PaymentEntity.cpp" />
+    <ClCompile Include="entities\PaymentModeEntity.cpp" />
+    <ClCompile Include="entities\PersonEntity.cpp" />
     <ClCompile Include="events\sidebarEventArgs.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -182,7 +182,7 @@
     <ClCompile Include="providers\DbProvider.cpp" />
     <ClCompile Include="services\AbstractService.cpp" />
     <ClCompile Include="services\PersonService.cpp" />
-    <ClCompile Include="enities\StaffEntity.cpp" />
+    <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
     <ClCompile Include="views\LoadingVue.cpp" />

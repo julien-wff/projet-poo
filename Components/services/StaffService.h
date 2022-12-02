@@ -1,6 +1,6 @@
 #pragma once
 #include "PersonService.h"
-#include "../enities/StaffEntity.h"
+#include "../entities/StaffEntity.h"
 
 namespace Services
 {
