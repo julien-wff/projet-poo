@@ -10,16 +10,16 @@ using namespace System::Drawing;
 
 namespace Components
 {
-    public ref class LoadingVue : public System::Windows::Forms::UserControl
+    public ref class LoadingView : public System::Windows::Forms::UserControl
     {
     public:
-        LoadingVue(void)
+        LoadingView(void)
         {
             InitializeComponent();
         }
 
     protected:
-        ~LoadingVue()
+        ~LoadingView()
         {
             if (components)
             {
@@ -94,12 +94,12 @@ namespace Components
             this->CenterLayoutPanel->Size = System::Drawing::Size(800, 600);
             this->CenterLayoutPanel->TabIndex = 1;
             // 
-            // LoadingVue
+            // LoadingView
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->Controls->Add(this->CenterLayoutPanel);
-            this->Name = L"LoadingVue";
+            this->Name = L"LoadingView";
             this->Size = System::Drawing::Size(800, 600);
             this->CenterLayoutPanel->ResumeLayout(false);
             this->CenterLayoutPanel->PerformLayout();

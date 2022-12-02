@@ -32,7 +32,7 @@ protected:
 private:
     Components::Sidebar^ Sidebar;
     System::Windows::Forms::TableLayoutPanel^ MainLayoutPanel;
-    Components::LoadingVue^ LoadingVue;
+    Components::LoadingView^ LoadingView;
     Components::EmployeesTableView^ EmployeesTableView;
     System::ComponentModel::Container^ components;
 
@@ -41,7 +41,7 @@ private:
     {
         this->MainLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
         this->Sidebar = (gcnew Components::Sidebar());
-        this->LoadingVue = (gcnew Components::LoadingVue());
+        this->LoadingView = (gcnew Components::LoadingView());
         this->EmployeesTableView = (gcnew Components::EmployeesTableView());
         this->MainLayoutPanel->SuspendLayout();
         this->SuspendLayout();
@@ -59,7 +59,7 @@ private:
             System::Windows::Forms::SizeType::Percent,
             50)));
         this->MainLayoutPanel->Controls->Add(this->Sidebar, 0, 0);
-        this->MainLayoutPanel->Controls->Add(this->LoadingVue, 1, 0);
+        this->MainLayoutPanel->Controls->Add(this->LoadingView, 1, 0);
         this->MainLayoutPanel->Controls->Add(this->EmployeesTableView, 2, 0);
         this->MainLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
         this->MainLayoutPanel->Location = System::Drawing::Point(0, 0);
@@ -89,15 +89,15 @@ private:
         this->Sidebar->TabIndex = 0;
         this->Sidebar->HandleSidebarClick += gcnew System::EventHandler(this, &WindowForm::Sidebar_HandleSidebarClick);
         // 
-        // LoadingVue
+        // LoadingView
         // 
-        this->LoadingVue->Dock = System::Windows::Forms::DockStyle::Fill;
-        this->LoadingVue->LoadingText = L"Chargement...";
-        this->LoadingVue->Location = System::Drawing::Point(200, 0);
-        this->LoadingVue->Margin = System::Windows::Forms::Padding(0);
-        this->LoadingVue->Name = L"LoadingVue";
-        this->LoadingVue->Size = System::Drawing::Size(392, 561);
-        this->LoadingVue->TabIndex = 1;
+        this->LoadingView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->LoadingView->LoadingText = L"Chargement...";
+        this->LoadingView->Location = System::Drawing::Point(200, 0);
+        this->LoadingView->Margin = System::Windows::Forms::Padding(0);
+        this->LoadingView->Name = L"LoadingView";
+        this->LoadingView->Size = System::Drawing::Size(392, 561);
+        this->LoadingView->TabIndex = 1;
         // 
         // EmployeesTableView
         // 

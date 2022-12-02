@@ -159,7 +159,7 @@
     <ClInclude Include="views\EmployeesTableView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
-    <ClInclude Include="views\LoadingVue.h">
+    <ClInclude Include="views\LoadingView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
   </ItemGroup>
@@ -267,7 +267,7 @@
     <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
-    <ClCompile Include="views\LoadingVue.cpp" />
+    <ClCompile Include="views\LoadingView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
