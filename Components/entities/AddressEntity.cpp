@@ -20,7 +20,8 @@ Entities::AddressEntity::AddressEntity(int addressId, CityEntity^ city, AddressT
 
 Entities::AddressEntity::AddressEntity(DataRow^ row)
 {
-    this->AddressId = Convert::ToInt32(row["city_id"]);
+    this->CityId = Convert::ToInt32(row["city_id"]);
+    this->AddressId = Convert::ToInt32(row["id"]);
     this->AddressTypeId = Convert::ToInt32(row["address_type_id"]);
     this->Street = row["street"]->ToString();
     this->PersonId = Convert::ToInt32(row["person_id"]);
