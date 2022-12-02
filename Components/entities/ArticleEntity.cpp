@@ -23,7 +23,7 @@ Entities::ArticleEntity::ArticleEntity(DataRow^ row)
     this->MaxStock = Convert::ToInt32(row["max_stock"]);
     this->Vat = Convert::ToSingle(row["vat"]);
     this->Stock = Convert::ToInt32(row["stock"]);
-    this->Stock = Convert::ToSingle(row["price"]); 
+    this->Price = Convert::ToSingle(row["price"]); 
 }
 
 float Entities::ArticleEntity::GetPrice()
