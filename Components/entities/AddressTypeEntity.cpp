@@ -34,7 +34,7 @@ void Entities::AddressTypeEntity::SetAddressTypeId(int addressTypeId)
     AddressTypeId = addressTypeId;
 }
 
-void Entities::AddressTypeEntity::setName(String^ name)
+void Entities::AddressTypeEntity::SetName(String^ name)
 {
     Name = name;
 }

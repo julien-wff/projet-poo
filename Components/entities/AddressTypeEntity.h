@@ -18,6 +18,6 @@ namespace Entities
         int GetAddressTypeId();
         String^ GetName();
         void SetAddressTypeId(int addressTypeId);
-        void setName(String^ name);
+        void SetName(String^ name);
     };
 }
