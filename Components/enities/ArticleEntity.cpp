@@ -5,15 +5,14 @@ Entities::ArticleEntity::ArticleEntity()
 {
 }
 
-Entities::ArticleEntity::ArticleEntity(String^ name)
+Entities::ArticleEntity::ArticleEntity(int stock, String^ name, int maxStock, float vat, float price) : Stock(stock),
+    Name(name), MaxStock(maxStock), Vat(vat), Price(price)
 {
 }
 
-Entities::ArticleEntity::ArticleEntity(int articleReference, String^ firstname)
-{
-}
-
-Entities::ArticleEntity::ArticleEntity(ArticleEntity^ person)
+Entities::ArticleEntity::ArticleEntity(int articleReference, int stock, String^ name, int maxStock, float vat,
+                                       float price) : ArticleReference(articleReference), Stock(stock), Name(name),
+                                                      MaxStock(maxStock), Vat(vat), Price(price)
 {
 }
 
@@ -21,9 +20,10 @@ Entities::ArticleEntity::ArticleEntity(DataRow^ row)
 {
     this->ArticleReference = Convert::ToInt32(row["reference"]);
     this->Name = row["name"]->ToString();
-    this->MaxStock = Convert::ToInt32(row["stock"]);
+    this->MaxStock = Convert::ToInt32(row["max_stock"]);
     this->Vat = Convert::ToSingle(row["vat"]);
-        
+    this->Stock = Convert::ToInt32(row["stock"]);
+    this->Stock = Convert::ToSingle(row["price"]); 
 }
 
 float Entities::ArticleEntity::GetPrice()
@@ -50,11 +50,15 @@ String^ Entities::ArticleEntity::GetName()
 {
     return Name;
 }
+int Entities::ArticleEntity::GetStock()
+{
+    return Stock;
+}
+
 
 void Entities::ArticleEntity::SetArticleReference(int articleReference)
 {
     ArticleReference = articleReference;
-    
 }
 
 void Entities::ArticleEntity::SetName(String^ name)
@@ -62,7 +66,7 @@ void Entities::ArticleEntity::SetName(String^ name)
     Name = name;
 }
 
-void Entities::ArticleEntity::SetMaxstock(int maxStock)
+void Entities::ArticleEntity::SetMaxStock(int maxStock)
 {
     MaxStock = maxStock;
 }
@@ -74,8 +78,10 @@ void Entities::ArticleEntity::SetVat(float vat)
 
 void Entities::ArticleEntity::SetPrice(float price)
 {
-    Price = price;
+     Price = price;
 }
-
-
+void Entities::ArticleEntity::SetStock(int maxStock)
+{
+    MaxStock = maxStock;
+}
 

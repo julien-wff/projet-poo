@@ -17,20 +17,22 @@ protected:
     float Price;
 public:
     ArticleEntity();
-    ArticleEntity(String^ name);
-    ArticleEntity(int articleReference, String^ firstname);
-    ArticleEntity(ArticleEntity^ person);
+    ArticleEntity(int stock, String^ name, int maxStock, float vat, float price);
+    ArticleEntity(int articleReference, int stock, String^ name, int maxStock, float vat, float price);
     ArticleEntity(DataRow^ row);
     float GetPrice();
     int GetArticleReference();
     int GetMaxStock();
     float GetVat();
     String^ GetName();
+    int GetStock();
     void SetArticleReference(int articleReference);
     void SetName(String^ name);
-    void SetMaxstock(int maxStock);
+    void SetMaxStock(int maxStock);
     void SetVat(float vat);
     void SetPrice(float price);
+    void SetStock (int stock);
 };
+
 
 }
