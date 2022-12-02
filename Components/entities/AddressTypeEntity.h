@@ -8,16 +8,16 @@ namespace Entities
     public ref class AddressTypeEntity
     {
     protected:
-        int AddressId;
+        int AddressTypeId;
         String^ Name;
     public:
         AddressTypeEntity();
         AddressTypeEntity(String^ name);
-        AddressTypeEntity(int addressId, String^ name);
+        AddressTypeEntity(int addressTypeId, String^ name);
         AddressTypeEntity(DataRow^ row);
-        int GetAddressId();
+        int GetAddressTypeId();
         String^ GetName();
-        void SetAddressId(int addressId);
+        void SetAddressTypeId(int addressTypeId);
         void setName(String^ name);
     };
 }

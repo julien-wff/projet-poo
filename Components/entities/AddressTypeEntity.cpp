@@ -5,23 +5,23 @@ Entities::AddressTypeEntity::AddressTypeEntity()
 {
 }
 
-Entities::AddressTypeEntity::AddressTypeEntity(String^ name): Name(name)
+Entities::AddressTypeEntity::AddressTypeEntity(String^ name) : Name(name)
 {
 }
 
-Entities::AddressTypeEntity::AddressTypeEntity(int addressId, String^ name): AddressId(addressId), Name(name)
+Entities::AddressTypeEntity::AddressTypeEntity(int addressTypeId, String^ name) : AddressTypeId(addressTypeId), Name(name)
 {
 }
 
 Entities::AddressTypeEntity::AddressTypeEntity(DataRow^ row)
 {
-    this->AddressId = Convert::ToInt32(row["id"]);
+    this->AddressTypeId = Convert::ToInt32(row["id"]);
     this->Name = Convert::ToString(row["name"]);
 }
 
-int Entities::AddressTypeEntity::GetAddressId()
+int Entities::AddressTypeEntity::GetAddressTypeId()
 {
-    return AddressId;
+    return AddressTypeId;
 }
 
 String^ Entities::AddressTypeEntity::GetName()
@@ -29,9 +29,9 @@ String^ Entities::AddressTypeEntity::GetName()
     return  Name;
 }
 
-void Entities::AddressTypeEntity::SetAddressId(int addressId)
+void Entities::AddressTypeEntity::SetAddressTypeId(int addressTypeId)
 {
-    AddressId = addressId;
+    AddressTypeId = addressTypeId;
 }
 
 void Entities::AddressTypeEntity::setName(String^ name)
