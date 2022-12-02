@@ -128,9 +128,11 @@
     </ClInclude>
     <ClInclude Include="enities\AddressTypeEntity.h" />
     <ClInclude Include="enities\ArticleEntity.h" />
+    <ClInclude Include="enities\CityEntity.h" />
     <ClInclude Include="enities\ClientEntity.h" />
     <ClInclude Include="enities\OrderEntity.h" />
     <ClInclude Include="enities\OrderItemEntity.h" />
+    <ClInclude Include="enities\PaymentEntity.h" />
     <ClInclude Include="enities\PaymentEntity.h" />
     <ClInclude Include="enities\PaymentModeEntity.h" />
     <ClInclude Include="enities\PersonEntity.h" />
@@ -152,6 +154,7 @@
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="enities\AddressTypeEntity.cpp" />
     <ClCompile Include="enities\ArticleEntity.cpp" />
+    <ClCompile Include="enities\CityEntity.cpp" />
     <ClCompile Include="enities\ClientEntity.cpp" />
     <ClCompile Include="enities\OrderEntity.cpp" />
     <ClCompile Include="enities\OrderItemEntity.cpp" />
