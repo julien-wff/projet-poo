@@ -126,10 +126,12 @@
     <ClInclude Include="components\SidebarBtn.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="enities\AddressTypeEntity.h" />
     <ClInclude Include="enities\ArticleEntity.h" />
     <ClInclude Include="enities\ClientEntity.h" />
     <ClInclude Include="enities\OrderEntity.h" />
     <ClInclude Include="enities\OrderItemEntity.h" />
+    <ClInclude Include="enities\PaymentEntity.h" />
     <ClInclude Include="enities\PaymentModeEntity.h" />
     <ClInclude Include="enities\PersonEntity.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
@@ -148,10 +150,12 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
+    <ClCompile Include="enities\AddressTypeEntity.cpp" />
     <ClCompile Include="enities\ArticleEntity.cpp" />
     <ClCompile Include="enities\ClientEntity.cpp" />
     <ClCompile Include="enities\OrderEntity.cpp" />
     <ClCompile Include="enities\OrderItemEntity.cpp" />
+    <ClCompile Include="enities\PaymentEntity.cpp" />
     <ClCompile Include="enities\PaymentModeEntity.cpp" />
     <ClCompile Include="enities\PersonEntity.cpp" />
     <ClCompile Include="events\sidebarEventArgs.cpp" />
