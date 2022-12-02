@@ -148,6 +148,7 @@
     <ClInclude Include="providers\DbProvider.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="services\AbstractService.h" />
+    <ClInclude Include="services\CityService.h" />
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="entities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
@@ -253,6 +254,7 @@
     </ClCompile>
     <ClCompile Include="providers\DbProvider.cpp" />
     <ClCompile Include="services\AbstractService.cpp" />
+    <ClCompile Include="services\CityService.cpp" />
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
