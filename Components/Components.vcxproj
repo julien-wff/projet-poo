@@ -130,6 +130,7 @@
     <ClInclude Include="enities\ClientEntity.h" />
     <ClInclude Include="enities\OrderEntity.h" />
     <ClInclude Include="enities\OrderItemEntity.h" />
+    <ClInclude Include="enities\PaymentModeEntity.h" />
     <ClInclude Include="enities\PersonEntity.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="enities\ClientEntity.cpp" />
     <ClCompile Include="enities\OrderEntity.cpp" />
     <ClCompile Include="enities\OrderItemEntity.cpp" />
+    <ClCompile Include="enities\PaymentModeEntity.cpp" />
     <ClCompile Include="enities\PersonEntity.cpp" />
     <ClCompile Include="events\sidebarEventArgs.cpp" />
     <ClCompile Include="pch.cpp">
