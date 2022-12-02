@@ -1,4 +1,5 @@
 #pragma once
+#include "../Components/enums/views.h"
 
 using namespace System;
 using namespace ComponentModel;
@@ -32,8 +33,7 @@ private:
     Components::Sidebar^ Sidebar;
     System::Windows::Forms::TableLayoutPanel^ MainLayoutPanel;
     Components::LoadingVue^ LoadingVue;
-
-
+    Components::EmployeesTableView^ EmployeesTableView;
     System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -42,20 +42,25 @@ private:
         this->MainLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
         this->Sidebar = (gcnew Components::Sidebar());
         this->LoadingVue = (gcnew Components::LoadingVue());
+        this->EmployeesTableView = (gcnew Components::EmployeesTableView());
         this->MainLayoutPanel->SuspendLayout();
         this->SuspendLayout();
         // 
         // MainLayoutPanel
         // 
-        this->MainLayoutPanel->ColumnCount = 2;
+        this->MainLayoutPanel->ColumnCount = 3;
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Absolute,
             200)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            100)));
+            50)));
+        this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+            System::Windows::Forms::SizeType::Percent,
+            50)));
         this->MainLayoutPanel->Controls->Add(this->Sidebar, 0, 0);
         this->MainLayoutPanel->Controls->Add(this->LoadingVue, 1, 0);
+        this->MainLayoutPanel->Controls->Add(this->EmployeesTableView, 2, 0);
         this->MainLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
         this->MainLayoutPanel->Location = System::Drawing::Point(0, 0);
         this->MainLayoutPanel->Margin = System::Windows::Forms::Padding(0);
@@ -88,11 +93,20 @@ private:
         // 
         this->LoadingVue->Dock = System::Windows::Forms::DockStyle::Fill;
         this->LoadingVue->LoadingText = L"Chargement...";
-        this->LoadingVue->Location = System::Drawing::Point(204, 4);
-        this->LoadingVue->Margin = System::Windows::Forms::Padding(4);
+        this->LoadingVue->Location = System::Drawing::Point(200, 0);
+        this->LoadingVue->Margin = System::Windows::Forms::Padding(0);
         this->LoadingVue->Name = L"LoadingVue";
-        this->LoadingVue->Size = System::Drawing::Size(776, 553);
+        this->LoadingVue->Size = System::Drawing::Size(392, 561);
         this->LoadingVue->TabIndex = 1;
+        // 
+        // EmployeesTableView
+        // 
+        this->EmployeesTableView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->EmployeesTableView->Location = System::Drawing::Point(592, 0);
+        this->EmployeesTableView->Margin = System::Windows::Forms::Padding(0);
+        this->EmployeesTableView->Name = L"EmployeesTableView";
+        this->EmployeesTableView->Size = System::Drawing::Size(392, 561);
+        this->EmployeesTableView->TabIndex = 2;
         // 
         // WindowForm
         // 
@@ -112,6 +126,7 @@ private:
         this->Margin = System::Windows::Forms::Padding(4);
         this->Name = L"WindowForm";
         this->Text = L"Application de gestion";
+        this->Load += gcnew System::EventHandler(this, &WindowForm::WindowForm_Load);
         this->Shown += gcnew System::EventHandler(this, &WindowForm::WindowForm_Shown);
         this->MainLayoutPanel->ResumeLayout(false);
         this->ResumeLayout(false);
@@ -121,6 +136,17 @@ private:
     System::Void Sidebar_HandleSidebarClick(System::Object^ sender, System::EventArgs^ e)
     {
         SidebarEventArgs^ args = safe_cast<SidebarEventArgs^>(e);
+        switch (args->Action)
+        {
+        case SidebarActions::Employees:
+            SetCurrentView(ApplicationViews::Loading);
+            EmployeesTableView->LoadData();
+            SetCurrentView(ApplicationViews::EmployeesTable);
+            break;
+        default:
+            SetCurrentView(ApplicationViews::Loading);
+            break;
+        }
     }
 
     System::Void WindowForm_Shown(System::Object^ sender, System::EventArgs^ e)
@@ -148,5 +174,47 @@ private:
             return;
         }
         Services::AbstractService::SetProvider(dbProvider);
+        this->EmployeesTableView->LoadData();
+        SetCurrentView(ApplicationViews::EmployeesTable);
+    }
+
+    System::Void WindowForm_Load(System::Object^ sender, System::EventArgs^ e)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+    }
+
+    void SetCurrentView(ApplicationViews view)
+    {
+        // Suspend layout to prevent flickering
+        this->SuspendLayout();
+        this->MainLayoutPanel->SuspendLayout();
+
+        // For each column of the layout, set the width to 0 and hide the control
+        for (int i = 1; i < this->MainLayoutPanel->ColumnCount; i++)
+        {
+            this->MainLayoutPanel->ColumnStyles[i]->Width = 0;
+            this->MainLayoutPanel->GetControlFromPosition(i, 0)->Hide();
+        }
+
+        // Enable the corresponding column and trigger the loading of the panel
+        switch (view)
+        {
+        case ApplicationViews::Loading:
+            ShowColumn(1);
+            break;
+        case ApplicationViews::EmployeesTable:
+            ShowColumn(2);
+            break;
+        }
+
+        // Resume layout to apply changes
+        this->MainLayoutPanel->ResumeLayout();
+        this->ResumeLayout();
+    }
+
+    void ShowColumn(int index)
+    {
+        this->MainLayoutPanel->ColumnStyles[index]->Width = 100;
+        this->MainLayoutPanel->GetControlFromPosition(index, 0)->Show();
     }
 };

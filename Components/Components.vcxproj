@@ -126,6 +126,12 @@
     <ClInclude Include="components\SidebarBtn.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="components\TableDisplay.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="components\TableHeader.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="enities\AddressTypeEntity.h" />
     <ClInclude Include="enities\ArticleEntity.h" />
     <ClInclude Include="enities\CityEntity.h" />
@@ -133,9 +139,9 @@
     <ClInclude Include="enities\OrderEntity.h" />
     <ClInclude Include="enities\OrderItemEntity.h" />
     <ClInclude Include="enities\PaymentEntity.h" />
-    <ClInclude Include="enities\PaymentEntity.h" />
     <ClInclude Include="enities\PaymentModeEntity.h" />
     <ClInclude Include="enities\PersonEntity.h" />
+    <ClInclude Include="enums\views.h" />
     <ClInclude Include="events\sidebarEventArgs.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="providers\DbProvider.h" />
@@ -144,6 +150,9 @@
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="enities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
+    <ClInclude Include="views\EmployeesTableView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="views\LoadingVue.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -152,6 +161,8 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
+    <ClCompile Include="components\TableDisplay.cpp" />
+    <ClCompile Include="components\TableHeader.cpp" />
     <ClCompile Include="enities\AddressTypeEntity.cpp" />
     <ClCompile Include="enities\ArticleEntity.cpp" />
     <ClCompile Include="enities\CityEntity.cpp" />
@@ -173,6 +184,7 @@
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="enities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
+    <ClCompile Include="views\EmployeesTableView.cpp" />
     <ClCompile Include="views\LoadingVue.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,8 +212,17 @@
     <EmbeddedResource Include="components\Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="components\TableDisplay.resx">
+      <DependentUpon>components\TableDisplay.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="components\TableHeader.resx">
+      <DependentUpon>components\TableHeader.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\EmployeesTableView.resx">
+      <DependentUpon>views\EmployeesTableView.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
