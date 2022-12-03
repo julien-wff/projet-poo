@@ -79,7 +79,10 @@ namespace Components
                                             System::Windows::Forms::DataGridViewCellEventArgs^ e)
         {
             // Get corresponding DataRow based on the DataSouce of the DataGridView
-            DataRowView^ drv = (DataRowView^)DataGridView->Rows[e->RowIndex]->DataBoundItem;
+            auto index = e->RowIndex;
+            if (index < 0)
+                return;
+            DataRowView^ drv = (DataRowView^)DataGridView->Rows[index]->DataBoundItem;
             RowSelect(this, drv->Row);
         }
 
