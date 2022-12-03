@@ -39,7 +39,7 @@ bool Services::StaffService::UpdateStaff(Entities::StaffEntity^ staff)
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", staff->GetStaffId()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@person_id", staff->GetPersonId()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@hire_date", staff->GetHireDate()));
-    if (staff->GetSupervisedBy() > 1)
+    if (staff->GetSupervisedBy() > 0)
         command->Parameters->Add(gcnew SqlClient::SqlParameter("@supervisor_id", staff->GetSupervisedBy()));
     else
         command->Parameters->Add(gcnew SqlClient::SqlParameter("@supervisor_id", DBNull::Value));
