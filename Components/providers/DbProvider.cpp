@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "DbProvider.h"
 
+void Providers::DbProvider::BeforeQuery()
+{
+    LastException = nullptr;
+}
+
+
 Providers::DbProvider::DbProvider(String^ _connectionString) : connectionString(_connectionString)
 {
     connection = gcnew SqlClient::SqlConnection();
@@ -24,6 +30,7 @@ Exception^ Providers::DbProvider::Connect()
     }
     catch (Exception^ e)
     {
+        LastException = e;
         return e;
     }
 }
@@ -36,8 +43,9 @@ bool Providers::DbProvider::Disconnect()
         connection->Close();
         return true;
     }
-    catch (...)
+    catch (Exception^ e)
     {
+        LastException = e;
         return false;
     }
 }
@@ -49,8 +57,15 @@ bool Providers::DbProvider::IsConnected()
 }
 
 
+Exception^ Providers::DbProvider::GetLastException()
+{
+    return LastException;
+}
+
+
 DataTable^ Providers::DbProvider::ExecuteDataTable(SqlClient::SqlCommand^ command)
 {
+    BeforeQuery();
     command->Connection = connection;
     auto table = gcnew DataTable();
     try
@@ -59,8 +74,9 @@ DataTable^ Providers::DbProvider::ExecuteDataTable(SqlClient::SqlCommand^ comman
         adapter->Fill(table);
         return table;
     }
-    catch (...)
+    catch (Exception^ e)
     {
+        LastException = e;
         return nullptr;
     }
 }
@@ -91,13 +107,15 @@ DataRow^ Providers::DbProvider::ExecuteDataRow(String^ query)
 
 int Providers::DbProvider::ExecuteNonQuery(SqlClient::SqlCommand^ command)
 {
+    BeforeQuery();
     command->Connection = connection;
     try
     {
         return command->ExecuteNonQuery();
     }
-    catch (...)
+    catch (Exception^ e)
     {
+        LastException = e;
         return -1;
     }
 }
@@ -112,14 +130,16 @@ int Providers::DbProvider::ExecuteNonQuery(String^ query)
 
 Object^ Providers::DbProvider::ExecuteScalar(SqlClient::SqlCommand^ command)
 {
+    BeforeQuery();
     command->Connection = connection;
     try
     {
         return command->ExecuteScalar();
     }
-    catch (...)
+    catch (Exception^ e)
     {
-        return -1;
+        LastException = e;
+        return nullptr;
     }
 }
 

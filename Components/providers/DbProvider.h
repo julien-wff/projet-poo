@@ -10,6 +10,8 @@ namespace Providers
     private:
         String^ connectionString;
         SqlClient::SqlConnection^ connection;
+        static Exception^ LastException;
+        static void BeforeQuery();
     public:
         /**
          * \brief The constructor that initializes the connection string. It does not open the connection,
@@ -33,6 +35,10 @@ namespace Providers
          * \return A boolean that indicates if the connection is open.
          */
         bool IsConnected();
+        /**
+         * \brief Returns the last exception that occurred.
+         */
+        static Exception^ GetLastException();
         /**
          * \brief Executes a query that returns a whole table.
          * \param command An instance of SqlCommand that contains the query. It does not need to be contain the connection.
