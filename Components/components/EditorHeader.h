@@ -33,6 +33,8 @@ namespace Components
 
     public:
         event EventHandler^ CancelClick;
+        event EventHandler^ CreateClick;
+        event EventHandler^ DeleteClick;
 
         property String^ Label
         {
@@ -135,6 +137,7 @@ namespace Components
             this->CreateBtn->TabIndex = 0;
             this->CreateBtn->Text = L"Créer";
             this->CreateBtn->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+            this->CreateBtn->Click += gcnew System::EventHandler(this, &EditorHeader::CreateBtn_Click);
             // 
             // CancelBtn
             // 
@@ -180,6 +183,7 @@ namespace Components
             this->DeleteBtn->TabIndex = 1;
             this->DeleteBtn->Text = L"Supprimer";
             this->DeleteBtn->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+            this->DeleteBtn->Click += gcnew System::EventHandler(this, &EditorHeader::DeleteBtn_Click);
             // 
             // Title
             // 
@@ -215,9 +219,19 @@ namespace Components
             this->ResumeLayout(false);
         }
 
+        System::Void CreateBtn_Click(System::Object^ sender, System::EventArgs^ e)
+        {
+            this->CreateClick(this, e);
+        }
+
         System::Void CancelBtn_Click(System::Object^ sender, System::EventArgs^ e)
         {
             this->CancelClick(this, e);
+        }
+
+        System::Void DeleteBtn_Click(System::Object^ sender, System::EventArgs^ e)
+        {
+            this->DeleteClick(this, e);
         }
 #pragma endregion
     };
