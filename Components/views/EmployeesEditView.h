@@ -273,7 +273,7 @@ namespace Components
                 );
             this->SupervisorField->Items = possibleSupervisorsItems;
 
-            // FInd the index of supervisor in the list and select it
+            // Find the index of supervisor in the list and select it
             if (supervisor != nullptr)
             {
                 for (int i = 0; i < possibleSupervisors->Length; i++)
@@ -301,6 +301,16 @@ namespace Components
 
         System::Void EditorHeader_CreateClick(System::Object^ sender, System::EventArgs^ e)
         {
+            if (staff->GetLastname() == nullptr || staff->GetLastname()->Trim() == ""
+                || staff->GetFirstname() == nullptr || staff->GetFirstname()->Trim() == "")
+            {
+                MessageBox::Show("Veuillez entrer un nom et un prénom.",
+                                 "Erreur",
+                                 MessageBoxButtons::OK,
+                                 MessageBoxIcon::Error);
+                return;
+            }
+
             if (currentEditorMode == EditorMode::Create)
             {
                 auto personId = staffService->AddPerson(staff);
