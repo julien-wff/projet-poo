@@ -22,7 +22,7 @@ Entities::PersonEntity::PersonEntity(PersonEntity^ person) : PersonId(person->Ge
 
 Entities::PersonEntity::PersonEntity(DataRow^ row)
 {
-    this->PersonId = Convert::ToInt32(row["id"]);
+    this->PersonId = Convert::ToInt32(row["person_id"]);
     this->Firstname = row["Firstname"]->ToString();
     this->Lastname = row["Lastname"]->ToString();
 }

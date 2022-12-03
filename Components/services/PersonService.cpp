@@ -4,14 +4,14 @@
 DataTable^ Services::PersonService::GetPersons()
 {
     return dbProvider->ExecuteDataTable(
-        "SELECT * FROM [management].[persons]");
+        "SELECT *, id AS person_id FROM [management].[persons]");
 }
 
 
 Entities::PersonEntity^ Services::PersonService::GetPerson(int id)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT * FROM [management].[persons] WHERE [id] = @id");
+        "SELECT *, id AS person_id FROM [management].[persons] WHERE [id] = @id");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", id));
     auto person = dbProvider->ExecuteDataRow(command);
     return gcnew Entities::PersonEntity(person);
