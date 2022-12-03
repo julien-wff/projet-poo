@@ -67,3 +67,19 @@ Entities::StaffEntity^ Services::StaffService::GetSupervisor(Entities::StaffEnti
         return nullptr;
     return GetStaff(staff->GetSupervisedBy());
 }
+
+
+array<Entities::StaffEntity^>^ Services::StaffService::GetPossibleSupervisors(Entities::StaffEntity^ staff)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT * FROM [management].[staffs] \
+        LEFT JOIN [management].[persons] \
+        ON persons.id = staffs.person_id \
+        WHERE (staffs.supervisor_id != @id OR staffs.supervisor_id IS NULL) AND staffs.id != @id");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", staff->GetStaffId()));
+    auto staffs = dbProvider->ExecuteDataTable(command);
+    auto result = gcnew array<Entities::StaffEntity^>(staffs->Rows->Count);
+    for (int i = 0; i < staffs->Rows->Count; i++)
+        result[i] = gcnew Entities::StaffEntity(staffs->Rows[i]);
+    return result;
+}

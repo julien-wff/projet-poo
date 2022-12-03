@@ -129,6 +129,9 @@
     <ClInclude Include="components\FormSeparator.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="components\SelectField.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="components\Sidebar.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -184,6 +187,7 @@
     <ClCompile Include="components\DateField.cpp" />
     <ClCompile Include="components\EditorHeader.cpp" />
     <ClCompile Include="components\FormSeparator.cpp" />
+    <ClCompile Include="components\SelectField.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="components\TableDisplay.cpp" />
@@ -317,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="components\FormSeparator.resx">
       <DependentUpon>components\FormSeparator.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="components\SelectField.resx">
+      <DependentUpon>components\SelectField.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="components\Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>

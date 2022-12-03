@@ -3,6 +3,7 @@
 #include "../components/TextField.h"
 #include "../components/FormSeparator.h"
 #include "../components/DateField.h"
+#include "../components/SelectField.h"
 #include "../services/StaffService.h"
 
 using namespace System;
@@ -44,11 +45,14 @@ namespace Components
         System::Windows::Forms::TableLayoutPanel^ FormLayoutPanel;
         Components::FormSeparator^ IdentitySeparator;
         Components::FormSeparator^ StaffSeparator;
+        Components::DateField^ HireDateField;
+        Components::SelectField^ SupervisorField;
 
         Services::StaffService^ staffService = gcnew Services::StaffService();
         Entities::StaffEntity^ staff;
-    private:
-        Components::DateField^ HireDateField;
+        Entities::StaffEntity^ supervisor;
+        array<Entities::StaffEntity^>^ possibleSupervisors;
+
 
         EditorMode currentEditorMode;
 
@@ -63,6 +67,7 @@ namespace Components
             this->IdentitySeparator = (gcnew Components::FormSeparator());
             this->StaffSeparator = (gcnew Components::FormSeparator());
             this->HireDateField = (gcnew Components::DateField());
+            this->SupervisorField = (gcnew Components::SelectField());
             this->TableLayoutPanel->SuspendLayout();
             this->FormLayoutPanel->SuspendLayout();
             this->SuspendLayout();
@@ -113,6 +118,7 @@ namespace Components
             this->FormLayoutPanel->Controls->Add(this->IdentitySeparator, 1, 0);
             this->FormLayoutPanel->Controls->Add(this->StaffSeparator, 1, 2);
             this->FormLayoutPanel->Controls->Add(this->HireDateField, 1, 3);
+            this->FormLayoutPanel->Controls->Add(this->SupervisorField, 3, 3);
             this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
             this->FormLayoutPanel->Location = System::Drawing::Point(20, 60);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(20);
@@ -191,14 +197,28 @@ namespace Components
             // 
             // HireDateField
             // 
-            this->HireDateField->LabelText = L"Date d'embauche";
-            this->HireDateField->Location = System::Drawing::Point(123, 153);
+            this->HireDateField->Dock = System::Windows::Forms::DockStyle::Top;
+            this->HireDateField->LabelText = L"Date d\'embauche";
+            this->HireDateField->Location = System::Drawing::Point(120, 150);
+            this->HireDateField->Margin = System::Windows::Forms::Padding(0);
             this->HireDateField->Name = L"HireDateField";
-            this->HireDateField->Size = System::Drawing::Size(244, 60);
+            this->HireDateField->Size = System::Drawing::Size(250, 60);
             this->HireDateField->TabIndex = 3;
             this->HireDateField->Value = System::DateTime::Now;
             this->HireDateField->DateChanged += gcnew System::EventHandler(
                 this, &EmployeesEditView::HideDateField_DateChanged);
+            // 
+            // SupervisorField
+            // 
+            this->SupervisorField->Dock = System::Windows::Forms::DockStyle::Top;
+            this->SupervisorField->LabelText = L"Superieur hiérarchique";
+            this->SupervisorField->Location = System::Drawing::Point(390, 150);
+            this->SupervisorField->Margin = System::Windows::Forms::Padding(0);
+            this->SupervisorField->Name = L"SupervisorField";
+            this->SupervisorField->Size = System::Drawing::Size(250, 60);
+            this->SupervisorField->TabIndex = 4;
+            this->SupervisorField->SelectionChanged += gcnew System::EventHandler<Object^>(
+                this, &EmployeesEditView::SupervisorField_SelectionChanged);
             // 
             // EmployeesEditView
             // 
@@ -221,11 +241,19 @@ namespace Components
             if (employeeId > 0 && mode == EditorMode::Edit)
             {
                 staff = staffService->GetStaff(employeeId);
+                possibleSupervisors = staffService->GetPossibleSupervisors(staff);
+                supervisor = staffService->GetSupervisor(staff);
                 this->EditorHeader->Label = "Édition de " + staff->GetFirstname() + " " + staff->GetLastname();
             }
             else
             {
                 staff = gcnew Entities::StaffEntity();
+                auto staffs = staffService->GetStaffs();
+                possibleSupervisors = gcnew array<Entities::StaffEntity^>(staffs->Rows->Count);
+                for (int i = 0; i < staffs->Rows->Count; i++)
+                    possibleSupervisors[i] = gcnew Entities::StaffEntity(staffs->Rows[i]);
+                supervisor = nullptr;
+
                 this->EditorHeader->Label = "Création d'un employé";
             }
 
@@ -235,6 +263,30 @@ namespace Components
                 this->HireDateField->Value = staff->GetHireDate();
             else
                 this->HireDateField->Value = System::DateTime::Now;
+
+            auto possibleSupervisorsItems = gcnew array<Tuple<Object^, String^>^>(possibleSupervisors->Length + 1);
+            possibleSupervisorsItems[0] = gcnew Tuple<Object^, String^>(nullptr, "<Aucun>");
+            for (int i = 0; i < possibleSupervisors->Length; i++)
+                possibleSupervisorsItems[i + 1] = gcnew Tuple<Object^, String^>(
+                    possibleSupervisors[i],
+                    possibleSupervisors[i]->GetFirstname() + " " + possibleSupervisors[i]->GetLastname()
+                );
+            this->SupervisorField->Items = possibleSupervisorsItems;
+
+            // FInd the index of supervisor in the list and select it
+            if (supervisor != nullptr)
+            {
+                for (int i = 0; i < possibleSupervisors->Length; i++)
+                    if (possibleSupervisors[i]->GetStaffId() == supervisor->GetStaffId())
+                    {
+                        this->SupervisorField->SelectedIndex = i + 1;
+                        break;
+                    }
+            }
+            else
+            {
+                this->SupervisorField->SelectedIndex = 0;
+            }
         }
 
         void LoadForm(EditorMode mode)
@@ -313,6 +365,13 @@ namespace Components
         System::Void HideDateField_DateChanged(System::Object^ sender, System::EventArgs^ e)
         {
             staff->SetHireDate(HireDateField->Value);
+        }
+
+        System::Void SupervisorField_SelectionChanged(System::Object^ sender, System::Object^ e)
+        {
+            auto _sup = safe_cast<Entities::StaffEntity^>(e);
+            staff->SetSupervisedBy(_sup == nullptr ? 0 : _sup->GetStaffId());
+            supervisor = _sup;
         }
 #pragma endregion
     };
