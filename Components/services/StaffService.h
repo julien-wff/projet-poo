@@ -13,6 +13,6 @@ namespace Services
         bool UpdateStaff(Entities::StaffEntity^ staff);
         bool DeleteStaff(int id);
         bool DeleteStaff(Entities::StaffEntity^ staff);
-        Entities::StaffEntity^ GetSupervisior(Entities::StaffEntity^ staff);
+        Entities::StaffEntity^ GetSupervisor(Entities::StaffEntity^ staff);
     };
 }

@@ -61,7 +61,7 @@ bool Services::StaffService::DeleteStaff(Entities::StaffEntity^ staff)
 }
 
 
-Entities::StaffEntity^ Services::StaffService::GetSupervisior(Entities::StaffEntity^ staff)
+Entities::StaffEntity^ Services::StaffService::GetSupervisor(Entities::StaffEntity^ staff)
 {
     if (!staff->GetSupervisedBy())
         return nullptr;
