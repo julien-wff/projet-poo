@@ -270,13 +270,26 @@ namespace Components
                 "Êtes-vous sûr de vouloir supprimer cet employé ? Cette action est irréversible.",
                 "Confirmation",
                 MessageBoxButtons::YesNo,
-                MessageBoxIcon::Warning);
+                MessageBoxIcon::Warning,
+                MessageBoxDefaultButton::Button2);
 
             if (result == DialogResult::No)
                 return;
 
-            staffService->DeleteStaff(staff);
-            staffService->DeletePerson(staff);
+            bool success = staffService->DeleteStaff(staff);
+            if (success)
+                success = staffService->DeletePerson(staff);
+
+            if (!success)
+            {
+                MessageBox::Show(
+                    "Une erreur est survenue lors de la suppression de l'employé :\n" + Providers::DbProvider::GetLastException()->Message,
+                    "Erreur",
+                    MessageBoxButtons::OK,
+                    MessageBoxIcon::Error);
+                return;
+            }
+            
             Back(this, e);
         }
 
