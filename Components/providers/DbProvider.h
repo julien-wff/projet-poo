@@ -10,7 +10,7 @@ namespace Providers
     private:
         String^ connectionString;
         SqlClient::SqlConnection^ connection;
-        static Exception^ LastException;
+        static SqlClient::SqlException^ LastException;
         static void BeforeQuery();
     public:
         /**
@@ -38,7 +38,7 @@ namespace Providers
         /**
          * \brief Returns the last exception that occurred.
          */
-        static Exception^ GetLastException();
+        static SqlClient::SqlException^ GetLastException();
         /**
          * \brief Executes a query that returns a whole table.
          * \param command An instance of SqlCommand that contains the query. It does not need to be contain the connection.

@@ -28,7 +28,7 @@ Exception^ Providers::DbProvider::Connect()
         connection->Open();
         return nullptr;
     }
-    catch (Exception^ e)
+    catch (SqlClient::SqlException^ e)
     {
         LastException = e;
         return e;
@@ -43,7 +43,7 @@ bool Providers::DbProvider::Disconnect()
         connection->Close();
         return true;
     }
-    catch (Exception^ e)
+    catch (SqlClient::SqlException^ e)
     {
         LastException = e;
         return false;
@@ -57,7 +57,7 @@ bool Providers::DbProvider::IsConnected()
 }
 
 
-Exception^ Providers::DbProvider::GetLastException()
+SqlClient::SqlException^ Providers::DbProvider::GetLastException()
 {
     return LastException;
 }
@@ -74,7 +74,7 @@ DataTable^ Providers::DbProvider::ExecuteDataTable(SqlClient::SqlCommand^ comman
         adapter->Fill(table);
         return table;
     }
-    catch (Exception^ e)
+    catch (SqlClient::SqlException^ e)
     {
         LastException = e;
         return nullptr;
@@ -113,7 +113,7 @@ int Providers::DbProvider::ExecuteNonQuery(SqlClient::SqlCommand^ command)
     {
         return command->ExecuteNonQuery();
     }
-    catch (Exception^ e)
+    catch (SqlClient::SqlException^ e)
     {
         LastException = e;
         return -1;
@@ -136,7 +136,7 @@ Object^ Providers::DbProvider::ExecuteScalar(SqlClient::SqlCommand^ command)
     {
         return command->ExecuteScalar();
     }
-    catch (Exception^ e)
+    catch (SqlClient::SqlException^ e)
     {
         LastException = e;
         return nullptr;
