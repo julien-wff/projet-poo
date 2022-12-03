@@ -120,7 +120,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="components\DateField.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="components\EditorHeader.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="components\FormSeparator.h">
       <FileType>CppControl</FileType>
     </ClInclude>
     <ClInclude Include="components\Sidebar.h">
@@ -133,6 +139,9 @@
       <FileType>CppControl</FileType>
     </ClInclude>
     <ClInclude Include="components\TableHeader.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="components\TextField.h">
       <FileType>CppControl</FileType>
     </ClInclude>
     <ClInclude Include="entities\AddressEntity.h" />
@@ -172,11 +181,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="components\DateField.cpp" />
     <ClCompile Include="components\EditorHeader.cpp" />
+    <ClCompile Include="components\FormSeparator.cpp" />
     <ClCompile Include="components\Sidebar.cpp" />
     <ClCompile Include="components\SidebarBtn.cpp" />
     <ClCompile Include="components\TableDisplay.cpp" />
     <ClCompile Include="components\TableHeader.cpp" />
+    <ClCompile Include="components\TextField.cpp" />
     <ClCompile Include="entities\AddressEntity.cpp" />
     <ClCompile Include="entities\AddressTypeEntity.cpp" />
     <ClCompile Include="entities\ArticleEntity.cpp" />
@@ -300,6 +312,12 @@
     <Content Include="icons\round_shopping_basket_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="components\DateField.resx">
+      <DependentUpon>components\DateField.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="components\FormSeparator.resx">
+      <DependentUpon>components\FormSeparator.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="components\Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
     </EmbeddedResource>
@@ -308,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="components\TableHeader.resx">
       <DependentUpon>components\TableHeader.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="components\TextField.resx">
+      <DependentUpon>components\TextField.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
