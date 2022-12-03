@@ -282,14 +282,21 @@ namespace Components
 
             if (!success)
             {
+                String^ message;
+                if (Providers::DbProvider::GetLastException()->Number == 547)
+                    message =
+                        "Impossible de supprimer cet employé car il est lié à d'autres données. Veuillez d'abord supprimer ces données.";
+                else
+                    message = "Une erreur est survenue lors de la suppression de l'employé :\n" +
+                        Providers::DbProvider::GetLastException()->Message;
                 MessageBox::Show(
-                    "Une erreur est survenue lors de la suppression de l'employé :\n" + Providers::DbProvider::GetLastException()->Message,
+                    message,
                     "Erreur",
                     MessageBoxButtons::OK,
                     MessageBoxIcon::Error);
                 return;
             }
-            
+
             Back(this, e);
         }
 
