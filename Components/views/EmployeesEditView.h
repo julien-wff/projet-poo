@@ -140,6 +140,8 @@ namespace Components
                 this, &EmployeesEditView::EditorHeader_CreateClick);
             this->EditorHeader->CancelClick += gcnew System::EventHandler(
                 this, &EmployeesEditView::EditorHeader_CancelClick);
+            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
+                this, &EmployeesEditView::EditorHeader_DeleteClick);
             // 
             // LastNameField
             // 
@@ -258,6 +260,23 @@ namespace Components
                 staffService->UpdatePerson(staff);
                 staffService->UpdateStaff(staff);
             }
+            Back(this, e);
+        }
+
+        System::Void EditorHeader_DeleteClick(System::Object^ sender, System::EventArgs^ e)
+        {
+            // Confirm delete
+            auto result = MessageBox::Show(
+                "Êtes-vous sûr de vouloir supprimer cet employé ? Cette action est irréversible.",
+                "Confirmation",
+                MessageBoxButtons::YesNo,
+                MessageBoxIcon::Warning);
+
+            if (result == DialogResult::No)
+                return;
+
+            staffService->DeleteStaff(staff);
+            staffService->DeletePerson(staff);
             Back(this, e);
         }
 
