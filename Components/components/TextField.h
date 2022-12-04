@@ -55,6 +55,7 @@ namespace Components
         }
 
         event EventHandler^ TextChanged;
+        event EventHandler^ Leave;
 
     private:
         System::Windows::Forms::TableLayoutPanel^ TableLayoutPanel;
@@ -137,6 +138,7 @@ namespace Components
             this->TextBox->Size = System::Drawing::Size(218, 13);
             this->TextBox->TabIndex = 0;
             this->TextBox->TextChanged += gcnew System::EventHandler(this, &TextField::TextBox_TextChanged);
+            this->TextBox->Leave += gcnew System::EventHandler(this, &TextField::TextBox_Leave);
             // 
             // TextField
             // 
@@ -169,6 +171,11 @@ namespace Components
         Void TextBox_TextChanged(Object^ sender, EventArgs^ e)
         {
             TextChanged(this, e);
+        }
+
+        Void TextBox_Leave(Object^ sender, EventArgs^ e)
+        {
+            Leave(this, e);
         }
     };
 }
