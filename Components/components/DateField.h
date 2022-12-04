@@ -119,7 +119,7 @@ namespace Components
             this->DateBoxContainer->Location = System::Drawing::Point(3, 20);
             this->DateBoxContainer->Margin = System::Windows::Forms::Padding(3, 0, 3, 0);
             this->DateBoxContainer->Name = L"DateBoxContainer";
-            this->DateBoxContainer->Padding = System::Windows::Forms::Padding(8, 11, 8, 11);
+            this->DateBoxContainer->Padding = System::Windows::Forms::Padding(6);
             this->DateBoxContainer->Size = System::Drawing::Size(244, 40);
             this->DateBoxContainer->TabIndex = 1;
             this->DateBoxContainer->Paint += gcnew System::Windows::Forms::PaintEventHandler(
@@ -151,7 +151,7 @@ namespace Components
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->Controls->Add(this->TableLayoutPanel);
             this->Name = L"DateField";
-            this->Size = System::Drawing::Size(250, 60);
+            this->Size = System::Drawing::Size(250, 50);
             this->TableLayoutPanel->ResumeLayout(false);
             this->TableLayoutPanel->PerformLayout();
             this->DateBoxContainer->ResumeLayout(false);

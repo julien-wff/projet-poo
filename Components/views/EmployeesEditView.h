@@ -202,7 +202,7 @@ namespace Components
             this->HireDateField->Location = System::Drawing::Point(120, 150);
             this->HireDateField->Margin = System::Windows::Forms::Padding(0);
             this->HireDateField->Name = L"HireDateField";
-            this->HireDateField->Size = System::Drawing::Size(250, 60);
+            this->HireDateField->Size = System::Drawing::Size(250, 50);
             this->HireDateField->TabIndex = 3;
             this->HireDateField->Value = System::DateTime::Now;
             this->HireDateField->DateChanged += gcnew System::EventHandler(
@@ -215,7 +215,8 @@ namespace Components
             this->SupervisorField->Location = System::Drawing::Point(390, 150);
             this->SupervisorField->Margin = System::Windows::Forms::Padding(0);
             this->SupervisorField->Name = L"SupervisorField";
-            this->SupervisorField->Size = System::Drawing::Size(250, 60);
+            this->SupervisorField->SelectedIndex = -1;
+            this->SupervisorField->Size = System::Drawing::Size(250, 50);
             this->SupervisorField->TabIndex = 4;
             this->SupervisorField->SelectionChanged += gcnew System::EventHandler<Object^>(
                 this, &EmployeesEditView::SupervisorField_SelectionChanged);

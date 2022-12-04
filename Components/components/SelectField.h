@@ -152,7 +152,7 @@ namespace Components
             this->SelectBoxContainer->Location = System::Drawing::Point(3, 20);
             this->SelectBoxContainer->Margin = System::Windows::Forms::Padding(3, 0, 3, 0);
             this->SelectBoxContainer->Name = L"SelectBoxContainer";
-            this->SelectBoxContainer->Padding = System::Windows::Forms::Padding(8, 11, 8, 11);
+            this->SelectBoxContainer->Padding = System::Windows::Forms::Padding(6);
             this->SelectBoxContainer->Size = System::Drawing::Size(244, 40);
             this->SelectBoxContainer->TabIndex = 1;
             this->SelectBoxContainer->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(
@@ -183,7 +183,7 @@ namespace Components
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->Controls->Add(this->TableLayoutPanel);
             this->Name = L"SelectField";
-            this->Size = System::Drawing::Size(250, 60);
+            this->Size = System::Drawing::Size(250, 50);
             this->TableLayoutPanel->ResumeLayout(false);
             this->TableLayoutPanel->PerformLayout();
             this->SelectBoxContainer->ResumeLayout(false);
