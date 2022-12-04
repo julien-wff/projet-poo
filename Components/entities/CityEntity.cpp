@@ -20,7 +20,7 @@ Entities::CityEntity::CityEntity(CityEntity^ city)
 
 Entities::CityEntity::CityEntity(DataRow^ row)
 {
-    this->CityId = Convert::ToInt32(row["id"]);
+    this->CityId = Convert::ToInt32(row["city_id"]);
     this->ZipCode = Convert::ToInt32(row["zipcode"]);
     this->City = row["name"]->ToString();
 }

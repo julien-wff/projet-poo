@@ -9,7 +9,7 @@ DataTable^ Services::CityService::GetCities()
 
 Entities::CityEntity^ Services::CityService::GetCity(int id)
 {
-    auto command = gcnew SqlClient::SqlCommand("SELECT * FROM [management].[cities] WHERE id = @id");
+    auto command = gcnew SqlClient::SqlCommand("SELECT id AS city_id, name, zipcode FROM [management].[cities] WHERE id = @id");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", id));
     auto cityRow = dbProvider->ExecuteDataRow(command);
     if (cityRow == nullptr)
