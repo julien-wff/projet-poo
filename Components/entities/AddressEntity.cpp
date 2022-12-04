@@ -18,7 +18,7 @@ Entities::AddressEntity::AddressEntity(int addressId, CityEntity^ city, AddressT
 {
 }
 
-Entities::AddressEntity::AddressEntity(DataRow^ row)
+Entities::AddressEntity::AddressEntity(DataRow^ row) : CityEntity(row)
 {
     this->CityId = Convert::ToInt32(row["city_id"]);
     this->AddressId = Convert::ToInt32(row["id"]);
@@ -29,7 +29,7 @@ Entities::AddressEntity::AddressEntity(DataRow^ row)
 
 int Entities::AddressEntity::GetAddressId()
 {
-    return AddressTypeId;
+    return AddressId;
 }
 
 String^ Entities::AddressEntity::GetStreet()
