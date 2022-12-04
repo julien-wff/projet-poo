@@ -51,7 +51,10 @@ namespace Components
 
             void set(array<Tuple<Object^, String^>^>^ value)
             {
-                _Items = value;
+                if (value == nullptr)
+                    _Items = gcnew array<Tuple<Object^, String^>^>(0);
+                else
+                    _Items = value;
                 Select->Items->Clear();
                 for each (Tuple<Object^, String^>^ item in _Items)
                 {
