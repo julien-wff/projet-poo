@@ -83,3 +83,17 @@ array<Entities::StaffEntity^>^ Services::StaffService::GetPossibleSupervisors(En
         result[i] = gcnew Entities::StaffEntity(staffs->Rows[i]);
     return result;
 }
+
+
+Entities::AddressEntity^ Services::StaffService::GetAddress(Entities::StaffEntity^ staff)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT addresses.id AS id, person_id, city_id, address_type_id, street, cities.name AS name, zipcode  \
+                FROM management.addresses \
+                LEFT JOIN management.cities ON cities.id = addresses.city_id \
+                LEFT JOIN management.address_types ON address_types.id = addresses.address_type_id \
+                WHERE address_types.name = 'staff' AND person_id = @person_id");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@person_id", staff->GetPersonId()));
+    auto address = dbProvider->ExecuteDataRow(command);
+    return gcnew Entities::AddressEntity(address);
+}

@@ -120,6 +120,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="components\AddressCityFields.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="components\DateField.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -184,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="components\AddressCityFields.cpp" />
     <ClCompile Include="components\DateField.cpp" />
     <ClCompile Include="components\EditorHeader.cpp" />
     <ClCompile Include="components\FormSeparator.cpp" />
@@ -316,6 +320,9 @@
     <Content Include="icons\round_shopping_basket_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="components\AddressCityFields.resx">
+      <DependentUpon>components\AddressCityFields.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="components\DateField.resx">
       <DependentUpon>components\DateField.h</DependentUpon>
     </EmbeddedResource>

@@ -1,5 +1,6 @@
 #pragma once
 #include "PersonService.h"
+#include "../entities/AddressEntity.h"
 #include "../entities/StaffEntity.h"
 
 namespace Services
@@ -15,5 +16,6 @@ namespace Services
         bool DeleteStaff(Entities::StaffEntity^ staff);
         Entities::StaffEntity^ GetSupervisor(Entities::StaffEntity^ staff);
         array<Entities::StaffEntity^>^ GetPossibleSupervisors(Entities::StaffEntity^ staff);
+        Entities::AddressEntity^ GetAddress(Entities::StaffEntity^ staff);
     };
 }

@@ -3,7 +3,9 @@
 #include "../components/TextField.h"
 #include "../components/FormSeparator.h"
 #include "../components/DateField.h"
+#include "../components/AddressCityFields.h"
 #include "../components/SelectField.h"
+#include "../services/AddressService.h"
 #include "../services/StaffService.h"
 
 using namespace System;
@@ -47,12 +49,17 @@ namespace Components
         Components::FormSeparator^ StaffSeparator;
         Components::DateField^ HireDateField;
         Components::SelectField^ SupervisorField;
+        Components::FormSeparator^ AddressSeparator;
+        Components::AddressCityFields^ AddressCityFields;
+        Components::TextField^ StreetField;
+
 
         Services::StaffService^ staffService = gcnew Services::StaffService();
+        Services::AddressService^ addressService = gcnew Services::AddressService();
         Entities::StaffEntity^ staff;
         Entities::StaffEntity^ supervisor;
         array<Entities::StaffEntity^>^ possibleSupervisors;
-
+        Entities::AddressEntity^ address;
 
         EditorMode currentEditorMode;
 
@@ -60,14 +67,17 @@ namespace Components
         void InitializeComponent(void)
         {
             this->TableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
-            this->FormLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->EditorHeader = (gcnew Components::EditorHeader());
+            this->FormLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->LastNameField = (gcnew Components::TextField());
             this->FirstNameField = (gcnew Components::TextField());
             this->IdentitySeparator = (gcnew Components::FormSeparator());
             this->StaffSeparator = (gcnew Components::FormSeparator());
             this->HireDateField = (gcnew Components::DateField());
             this->SupervisorField = (gcnew Components::SelectField());
+            this->AddressSeparator = (gcnew Components::FormSeparator());
+            this->AddressCityFields = (gcnew Components::AddressCityFields());
+            this->StreetField = (gcnew Components::TextField());
             this->TableLayoutPanel->SuspendLayout();
             this->FormLayoutPanel->SuspendLayout();
             this->SuspendLayout();
@@ -95,6 +105,23 @@ namespace Components
             this->TableLayoutPanel->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->TabIndex = 0;
             // 
+            // EditorHeader
+            // 
+            this->EditorHeader->CurrentEditorMode = EditorMode::Create;
+            this->EditorHeader->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->EditorHeader->Label = L"Table";
+            this->EditorHeader->Location = System::Drawing::Point(0, 0);
+            this->EditorHeader->Margin = System::Windows::Forms::Padding(0);
+            this->EditorHeader->Name = L"EditorHeader";
+            this->EditorHeader->Size = System::Drawing::Size(800, 40);
+            this->EditorHeader->TabIndex = 0;
+            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
+                this, &EmployeesEditView::EditorHeader_DeleteClick);
+            this->EditorHeader->CreateClick += gcnew System::EventHandler(
+                this, &EmployeesEditView::EditorHeader_CreateClick);
+            this->EditorHeader->CancelClick += gcnew System::EventHandler(
+                this, &EmployeesEditView::EditorHeader_CancelClick);
+            // 
             // FormLayoutPanel
             // 
             this->FormLayoutPanel->ColumnCount = 5;
@@ -119,35 +146,25 @@ namespace Components
             this->FormLayoutPanel->Controls->Add(this->StaffSeparator, 1, 2);
             this->FormLayoutPanel->Controls->Add(this->HireDateField, 1, 3);
             this->FormLayoutPanel->Controls->Add(this->SupervisorField, 3, 3);
+            this->FormLayoutPanel->Controls->Add(this->AddressSeparator, 1, 4);
+            this->FormLayoutPanel->Controls->Add(this->AddressCityFields, 1, 5);
+            this->FormLayoutPanel->Controls->Add(this->StreetField, 1, 6);
             this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
             this->FormLayoutPanel->Location = System::Drawing::Point(20, 60);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(20);
             this->FormLayoutPanel->Name = L"FormLayoutPanel";
-            this->FormLayoutPanel->RowCount = 4;
+            this->FormLayoutPanel->RowCount = 8;
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add(
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-            this->FormLayoutPanel->Size = System::Drawing::Size(760, 350);
+            this->FormLayoutPanel->Size = System::Drawing::Size(760, 476);
             this->FormLayoutPanel->TabIndex = 1;
-            // 
-            // EditorHeader
-            // 
-            this->EditorHeader->CurrentEditorMode = EditorMode::Create;
-            this->EditorHeader->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->EditorHeader->Label = L"Table";
-            this->EditorHeader->Location = System::Drawing::Point(0, 0);
-            this->EditorHeader->Margin = System::Windows::Forms::Padding(0);
-            this->EditorHeader->Name = L"EditorHeader";
-            this->EditorHeader->Size = System::Drawing::Size(800, 40);
-            this->EditorHeader->TabIndex = 0;
-            this->EditorHeader->CreateClick += gcnew System::EventHandler(
-                this, &EmployeesEditView::EditorHeader_CreateClick);
-            this->EditorHeader->CancelClick += gcnew System::EventHandler(
-                this, &EmployeesEditView::EditorHeader_CancelClick);
-            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
-                this, &EmployeesEditView::EditorHeader_DeleteClick);
             // 
             // LastNameField
             // 
@@ -218,8 +235,45 @@ namespace Components
             this->SupervisorField->SelectedIndex = -1;
             this->SupervisorField->Size = System::Drawing::Size(250, 50);
             this->SupervisorField->TabIndex = 4;
-            this->SupervisorField->SelectionChanged += gcnew System::EventHandler<Object^>(
+            this->SupervisorField->SelectionChanged += gcnew System::EventHandler<System::Object^>(
                 this, &EmployeesEditView::SupervisorField_SelectionChanged);
+            // 
+            // AddressSeparator
+            // 
+            this->FormLayoutPanel->SetColumnSpan(this->AddressSeparator, 3);
+            this->AddressSeparator->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->AddressSeparator->LabelText = L"Adresse";
+            this->AddressSeparator->Location = System::Drawing::Point(120, 200);
+            this->AddressSeparator->Margin = System::Windows::Forms::Padding(0);
+            this->AddressSeparator->Name = L"AddressSeparator";
+            this->AddressSeparator->Size = System::Drawing::Size(520, 50);
+            this->AddressSeparator->TabIndex = 5;
+            // 
+            // AddressCityFields
+            // 
+            this->FormLayoutPanel->SetColumnSpan(this->AddressCityFields, 3);
+            this->AddressCityFields->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->AddressCityFields->Location = System::Drawing::Point(120, 250);
+            this->AddressCityFields->Margin = System::Windows::Forms::Padding(0);
+            this->AddressCityFields->Name = L"AddressCityFields";
+            this->AddressCityFields->Size = System::Drawing::Size(520, 50);
+            this->AddressCityFields->TabIndex = 6;
+            this->AddressCityFields->CityChanged += gcnew System::EventHandler<Entities::CityEntity^>(
+                this, &EmployeesEditView::AddressCityFields_CityChanged);
+            // 
+            // StreetField
+            // 
+            this->FormLayoutPanel->SetColumnSpan(this->StreetField, 3);
+            this->StreetField->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->StreetField->LabelText = L"Adresse";
+            this->StreetField->Location = System::Drawing::Point(123, 303);
+            this->StreetField->Name = L"StreetField";
+            this->StreetField->Size = System::Drawing::Size(514, 50);
+            this->StreetField->Margin = System::Windows::Forms::Padding(0, 5, 0, 0);
+            this->StreetField->TabIndex = 7;
+            this->StreetField->Value = L"";
+            this->StreetField->TextChanged += gcnew System::EventHandler(
+                this, &EmployeesEditView::StreetField_TextChanged);
             // 
             // EmployeesEditView
             // 
@@ -288,6 +342,21 @@ namespace Components
             {
                 this->SupervisorField->SelectedIndex = 0;
             }
+
+            if (mode == EditorMode::Edit)
+            {
+                address = staffService->GetAddress(staff);
+                AddressCityFields->ZipCode = address->GetZipCode();
+                AddressCityFields->SetSelectedCity(address);
+                StreetField->Value = address->GetStreet();
+            }
+            else
+            {
+                address = gcnew Entities::AddressEntity();
+                address->SetAddressTypeId(3);
+                AddressCityFields->ClearFields();
+                StreetField->Value = "";
+            }
         }
 
         void LoadForm(EditorMode mode)
@@ -312,16 +381,28 @@ namespace Components
                 return;
             }
 
+            if (address->GetCityId() == 0 || address->GetStreet() == nullptr || address->GetStreet()->Trim() == "")
+            {
+                MessageBox::Show("Veuillez entrer une adresse valide.",
+                                 "Erreur",
+                                 MessageBoxButtons::OK,
+                                 MessageBoxIcon::Error);
+                return;
+            }
+
             if (currentEditorMode == EditorMode::Create)
             {
                 auto personId = staffService->AddPerson(staff);
                 staff->SetPersonId(personId);
                 staffService->AddStaff(staff);
+                address->SetPersonId(personId);
+                addressService->AddAddress(address);
             }
             else if (currentEditorMode == EditorMode::Edit)
             {
                 staffService->UpdatePerson(staff);
                 staffService->UpdateStaff(staff);
+                addressService->UpdateAddress(address);
             }
             Back(this, e);
         }
@@ -339,7 +420,9 @@ namespace Components
             if (result == DialogResult::No)
                 return;
 
-            bool success = staffService->DeleteStaff(staff);
+            bool success = addressService->DeleteAddress(address);
+            if (success)
+                success = staffService->DeleteStaff(staff);
             if (success)
                 success = staffService->DeletePerson(staff);
 
@@ -362,6 +445,7 @@ namespace Components
 
             Back(this, e);
         }
+#pragma endregion
 
         System::Void LastNameField_TextChanged(System::Object^ sender, System::EventArgs^ e)
         {
@@ -384,6 +468,22 @@ namespace Components
             staff->SetSupervisedBy(_sup == nullptr ? 0 : _sup->GetStaffId());
             supervisor = _sup;
         }
-#pragma endregion
+
+        System::Void AddressCityFields_CityChanged(System::Object^ sender, Entities::CityEntity^ city)
+        {
+            if (city == nullptr)
+            {
+                address->SetCityId(0);
+                return;
+            }
+            address->SetZipCode(city->GetZipCode());
+            address->SetCity(city->GetCity());
+            address->SetCityId(city->GetCityId());
+        }
+
+        System::Void StreetField_TextChanged(System::Object^ sender, System::EventArgs^ e)
+        {
+            address->SetStreet(StreetField->Value);
+        }
     };
 }

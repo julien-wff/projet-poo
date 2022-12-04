@@ -16,5 +16,6 @@ namespace Services
         bool UpdateCity(Entities::CityEntity^ city);
         bool DeleteCity(int id);
         bool DeleteCity(Entities::CityEntity^ city);
+        array<Entities::CityEntity^>^ GetCitiesByZipCode(int zipCode);
     };
 }

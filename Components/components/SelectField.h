@@ -207,6 +207,9 @@ namespace Components
 
         Void Select_SelectedIndexChanged(Object^ sender, EventArgs^ e)
         {
+            if (Select->SelectedIndex == -1)
+                // No item selected
+                return;
             this->SelectionChanged(this, _Items[Select->SelectedIndex]->Item1);
         }
     };
