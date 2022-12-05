@@ -175,6 +175,7 @@
     <ClInclude Include="services\CityService.h" />
     <ClInclude Include="services\ClientService.h" />
     <ClInclude Include="services\OrderItemService.h" />
+    <ClInclude Include="services\PaymentModeService.h" />
     <ClInclude Include="services\PaymentService.h" />
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="entities\StaffEntity.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="services\CityService.cpp" />
     <ClCompile Include="services\ClientService.cpp" />
     <ClCompile Include="services\OrderItemService.cpp" />
+    <ClCompile Include="services\PaymentModeService.cpp" />
     <ClCompile Include="services\PaymentService.cpp" />
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="entities\StaffEntity.cpp" />
