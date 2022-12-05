@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractService.h"
 #include "../entities/ArticleEntity.h"
+#include "../entities/ArticleVariantEntity.h"
 
 using namespace System;
 using namespace Data;
@@ -16,5 +17,6 @@ namespace Services
         bool UpdateArticle(Entities::ArticleEntity^ article);
         bool DeleteArticle(int articleReference);
         bool DeleteArticle(Entities::ArticleEntity^ article);
+        array<Entities::ArticleVariantEntity^>^ GetArticleVariants(Entities::ArticleEntity^ article);
     };
 }

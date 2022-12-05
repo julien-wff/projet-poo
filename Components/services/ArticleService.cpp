@@ -51,3 +51,15 @@ bool Services::ArticleService::DeleteArticle(Entities::ArticleEntity^ article)
 {
     return DeleteArticle(article->GetArticleReference());
 }
+
+array<Entities::ArticleVariantEntity^>^ Services::ArticleService::GetArticleVariants(Entities::ArticleEntity^ article)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT * FROM [managements].[articles] LEFT JOIN [managements].[article_variants] ON article_variants.id = articles_reference WHERE articles_reference = @articles_reference");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@articles_reference", article->GetArticleReference()));
+    auto articles = dbProvider->ExecuteDataTable(command);
+    auto result = gcnew array<Entities::ArticleVariantEntity^>(articles->Rows->Count);
+    for (int i = 0; i < articles->Rows->Count; i++)
+        result[i] = gcnew Entities::ArticleVariantEntity(articles->Rows[i]);
+    return result;
+}
