@@ -1,4 +1,5 @@
 #pragma once
+#include "../enums/TextFieldMode.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -27,6 +28,8 @@ namespace Components
             }
         }
 
+        TextFieldMode _mode;
+
     public:
         property String^ LabelText
         {
@@ -51,6 +54,19 @@ namespace Components
             void set(String^ value)
             {
                 TextBox->Text = value;
+            }
+        }
+
+        property TextFieldMode Mode
+        {
+            TextFieldMode get()
+            {
+                return _mode;
+            }
+
+            void set(TextFieldMode value)
+            {
+                _mode = value;
             }
         }
 
@@ -139,6 +155,8 @@ namespace Components
             this->TextBox->TabIndex = 0;
             this->TextBox->TextChanged += gcnew System::EventHandler(this, &TextField::TextBox_TextChanged);
             this->TextBox->Leave += gcnew System::EventHandler(this, &TextField::TextBox_Leave);
+            this->TextBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(
+                this, &TextField::TextBox_KeyPress);
             // 
             // TextField
             // 
@@ -176,6 +194,23 @@ namespace Components
         Void TextBox_Leave(Object^ sender, EventArgs^ e)
         {
             Leave(this, e);
+        }
+
+        Void TextBox_KeyPress(Object^ sender, KeyPressEventArgs^ e)
+        {
+            if (_mode == TextFieldMode::Text)
+                return;
+
+            // Allow numbers and backspace
+            if ((_mode == TextFieldMode::Integer || _mode == TextFieldMode::Decimal)
+                && (Char::IsDigit(e->KeyChar) || e->KeyChar == '\b'))
+                return;
+
+            // If it's decimal and there is already a comma, don't allow another one
+            if (_mode == TextFieldMode::Decimal && e->KeyChar == ',' && !TextBox->Text->Contains(","))
+                return;
+
+            e->Handled = true;
         }
     };
 }
