@@ -38,7 +38,7 @@ private:
     Components::ArticleTableView^ ArticleTableView;
     System::Windows::Forms::Label^ ClientsTableLabel;
     System::Windows::Forms::Label^ ClientEditLabel;
-    System::Windows::Forms::Label^ ArticleEditLabel;
+    Components::ArticleEditView^ ArticleEditView;
     System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -52,7 +52,7 @@ private:
         this->ArticleTableView = (gcnew Components::ArticleTableView());
         this->ClientsTableLabel = (gcnew System::Windows::Forms::Label());
         this->ClientEditLabel = (gcnew System::Windows::Forms::Label());
-        this->ArticleEditLabel = (gcnew System::Windows::Forms::Label());
+        this->ArticleEditView = (gcnew Components::ArticleEditView());
         this->MainLayoutPanel->SuspendLayout();
         this->SuspendLayout();
         // 
@@ -90,7 +90,7 @@ private:
         this->MainLayoutPanel->Controls->Add(this->ArticleTableView, 6, 0);
         this->MainLayoutPanel->Controls->Add(this->ClientsTableLabel, 4, 0);
         this->MainLayoutPanel->Controls->Add(this->ClientEditLabel, 5, 0);
-        this->MainLayoutPanel->Controls->Add(this->ArticleEditLabel, 7, 0);
+        this->MainLayoutPanel->Controls->Add(this->ArticleEditView, 7, 0);
         this->MainLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
         this->MainLayoutPanel->Location = System::Drawing::Point(0, 0);
         this->MainLayoutPanel->Margin = System::Windows::Forms::Padding(0);
@@ -161,9 +161,9 @@ private:
         this->ArticleTableView->Size = System::Drawing::Size(111, 561);
         this->ArticleTableView->TabIndex = 4;
         this->ArticleTableView->CreateClick += gcnew System::EventHandler(
-            this, &WindowForm::ArticlesTableView_CreateClick);
+            this, &WindowForm::ArticleTableView_CreateClick);
         this->ArticleTableView->ArticleClick += gcnew System::EventHandler<int>(
-            this, &WindowForm::ArticlesTableView_ArticleClick);
+            this, &WindowForm::ArticleTableView_ArticleClick);
         // 
         // ClientsTableLabel
         // 
@@ -183,14 +183,15 @@ private:
         this->ClientEditLabel->TabIndex = 6;
         this->ClientEditLabel->Text = L"Client Edit";
         // 
-        // ArticleEditLabel
+        // ArticleEditView
         // 
-        this->ArticleEditLabel->AutoSize = true;
-        this->ArticleEditLabel->Location = System::Drawing::Point(869, 0);
-        this->ArticleEditLabel->Name = L"ArticleEditLabel";
-        this->ArticleEditLabel->Size = System::Drawing::Size(78, 16);
-        this->ArticleEditLabel->TabIndex = 7;
-        this->ArticleEditLabel->Text = L"Articles Edit";
+        this->ArticleEditView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->ArticleEditView->Location = System::Drawing::Point(866, 0);
+        this->ArticleEditView->Margin = System::Windows::Forms::Padding(0);
+        this->ArticleEditView->Name = L"ArticleEditView";
+        this->ArticleEditView->Size = System::Drawing::Size(118, 561);
+        this->ArticleEditView->TabIndex = 7;
+        this->ArticleEditView->Back += gcnew System::EventHandler(this, &WindowForm::ArticleEditView_BackClick);
         // 
         // WindowForm
         // 
@@ -345,20 +346,23 @@ private:
         SetCurrentView(ApplicationViews::EmployeeEdit);
     }
 
-    System::Void ArticlesTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
+    System::Void ArticleTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
     {
+        this->ArticleEditView->LoadForm(EditorMode::Create);
         SetCurrentView(ApplicationViews::ArticlesEdit);
     }
 
-    System::Void ArticlesTableView_ArticleClick(System::Object^ sender, int articlesReference)
-    {
-        SetCurrentView(ApplicationViews::ArticlesEdit);
-    }
-
-    System::Void ArticlesEditView_BackClick(System::Object^ sender, System::EventArgs^ e)
+    System::Void ArticleTableView_ArticleClick(System::Object^ sender, int articlesReference)
     {
         SetCurrentView(ApplicationViews::Loading);
-        EmployeesTableView->LoadData();
-        SetCurrentView(ApplicationViews::EmployeesTable);
+        this->ArticleEditView->LoadForm(EditorMode::Edit, articlesReference);
+        SetCurrentView(ApplicationViews::ArticlesEdit);
+    }
+
+    System::Void ArticleEditView_BackClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+        ArticleTableView->LoadData();
+        SetCurrentView(ApplicationViews::ArticlesTable);
     }
 };

@@ -180,6 +180,9 @@
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="entities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
+    <ClInclude Include="views\ArticleEditView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="views\ArticleTableView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -307,6 +310,7 @@
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
+    <ClCompile Include="views\ArticleEditView.cpp" />
     <ClCompile Include="views\ArticleTableView.cpp" />
     <ClCompile Include="views\EmployeesEditView.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
@@ -326,6 +330,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="enums\TextFieldMode.h" />
     <Content Include="icons\round_article_black_24dp.png" />
     <Content Include="icons\round_engineering_black_24dp.png" />
     <Content Include="icons\round_group_black_24dp.png" />
@@ -360,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\ArticleEditView.resx">
+      <DependentUpon>views\ArticleEditView.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\ArticleTableView.resx">
       <DependentUpon>views\ArticleTableView.h</DependentUpon>
