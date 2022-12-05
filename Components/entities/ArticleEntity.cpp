@@ -5,14 +5,17 @@ Entities::ArticleEntity::ArticleEntity()
 {
 }
 
-Entities::ArticleEntity::ArticleEntity(int stock, String^ name, int maxStock, float vat, float price) : Stock(stock),
-    Name(name), MaxStock(maxStock), Vat(vat), Price(price)
+Entities::ArticleEntity::ArticleEntity(int stock, String^ name, int maxStock, float vat, float price, float buyPrice) :
+    Stock(stock),
+    Name(name), MaxStock(maxStock), Vat(vat), Price(price), BuyPrice(buyPrice)
 {
 }
 
 Entities::ArticleEntity::ArticleEntity(int articleReference, int stock, String^ name, int maxStock, float vat,
-                                       float price) : ArticleReference(articleReference), Stock(stock), Name(name),
-                                                      MaxStock(maxStock), Vat(vat), Price(price)
+                                       float price, float buyPrice) : ArticleReference(articleReference), Stock(stock),
+                                                                      Name(name),
+                                                                      MaxStock(maxStock), Vat(vat), Price(price),
+                                                                      BuyPrice(buyPrice)
 {
 }
 
@@ -23,12 +26,18 @@ Entities::ArticleEntity::ArticleEntity(DataRow^ row)
     this->MaxStock = Convert::ToInt32(row["max_stock"]);
     this->Vat = Convert::ToSingle(row["vat"]);
     this->Stock = Convert::ToInt32(row["stock"]);
-    this->Price = Convert::ToSingle(row["price"]); 
+    this->Price = Convert::ToSingle(row["price"]);
+    this->BuyPrice = Convert::ToSingle(row["buy_price"]);
 }
 
 float Entities::ArticleEntity::GetPrice()
 {
     return Price;
+}
+
+float Entities::ArticleEntity::GetBuyPrice()
+{
+    return BuyPrice;
 }
 
 int Entities::ArticleEntity::GetArticleReference()
@@ -78,10 +87,15 @@ void Entities::ArticleEntity::SetVat(float vat)
 
 void Entities::ArticleEntity::SetPrice(float price)
 {
-     Price = price;
+    Price = price;
 }
+
+void Entities::ArticleEntity::SetBuyPrice(float buyPrice)
+{
+    BuyPrice = buyPrice;
+}
+
 void Entities::ArticleEntity::SetStock(int stock)
 {
     Stock = stock;
 }
-

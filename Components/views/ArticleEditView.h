@@ -54,6 +54,7 @@ namespace Components
         System::Windows::Forms::Panel^ FormScrollPanel;
         System::Windows::Forms::TableLayoutPanel^ VariantAddLayoutPanel;
         System::Windows::Forms::Label^ VariantAddBtn;
+        Components::TextField^ BuyPriceField;
         System::ComponentModel::Container^ components;
 
         Services::ArticleService^ articleService = gcnew Services::ArticleService();
@@ -72,22 +73,23 @@ namespace Components
         {
             this->TableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->EditorHeader = (gcnew Components::EditorHeader());
+            this->FormScrollPanel = (gcnew System::Windows::Forms::Panel());
             this->FormLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->ArticleSeparator = (gcnew Components::FormSeparator());
             this->NameField = (gcnew Components::TextField());
+            this->VatField = (gcnew Components::TextField());
             this->PriceField = (gcnew Components::TextField());
+            this->BuyPriceField = (gcnew Components::TextField());
             this->StockField = (gcnew Components::TextField());
             this->MaxStockField = (gcnew Components::TextField());
-            this->VatField = (gcnew Components::TextField());
             this->VariantsLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->VariantsSeparator = (gcnew Components::FormSeparator());
             this->VariantAddLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->VariantAddBtn = (gcnew System::Windows::Forms::Label());
-            this->FormScrollPanel = (gcnew System::Windows::Forms::Panel());
             this->TableLayoutPanel->SuspendLayout();
+            this->FormScrollPanel->SuspendLayout();
             this->FormLayoutPanel->SuspendLayout();
             this->VariantAddLayoutPanel->SuspendLayout();
-            this->FormScrollPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // TableLayoutPanel
@@ -129,6 +131,18 @@ namespace Components
             this->EditorHeader->CancelClick += gcnew System::EventHandler(
                 this, &ArticleEditView::EditorHeader_CancelClick);
             // 
+            // FormScrollPanel
+            // 
+            this->FormScrollPanel->AutoScroll = true;
+            this->FormScrollPanel->Controls->Add(this->FormLayoutPanel);
+            this->FormScrollPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->FormScrollPanel->Location = System::Drawing::Point(0, 40);
+            this->FormScrollPanel->Margin = System::Windows::Forms::Padding(0);
+            this->FormScrollPanel->Name = L"FormScrollPanel";
+            this->FormScrollPanel->Padding = System::Windows::Forms::Padding(20);
+            this->FormScrollPanel->Size = System::Drawing::Size(800, 560);
+            this->FormScrollPanel->TabIndex = 2;
+            // 
             // FormLayoutPanel
             // 
             this->FormLayoutPanel->AutoSize = true;
@@ -150,10 +164,11 @@ namespace Components
                 50)));
             this->FormLayoutPanel->Controls->Add(this->ArticleSeparator, 1, 0);
             this->FormLayoutPanel->Controls->Add(this->NameField, 1, 1);
-            this->FormLayoutPanel->Controls->Add(this->PriceField, 3, 1);
-            this->FormLayoutPanel->Controls->Add(this->StockField, 1, 2);
-            this->FormLayoutPanel->Controls->Add(this->MaxStockField, 3, 2);
-            this->FormLayoutPanel->Controls->Add(this->VatField, 1, 3);
+            this->FormLayoutPanel->Controls->Add(this->VatField, 3, 1);
+            this->FormLayoutPanel->Controls->Add(this->BuyPriceField, 1, 2);
+            this->FormLayoutPanel->Controls->Add(this->PriceField, 3, 2);
+            this->FormLayoutPanel->Controls->Add(this->StockField, 1, 3);
+            this->FormLayoutPanel->Controls->Add(this->MaxStockField, 3, 3);
             this->FormLayoutPanel->Controls->Add(this->VariantsLayoutPanel, 1, 5);
             this->FormLayoutPanel->Controls->Add(this->VariantsSeparator, 1, 4);
             this->FormLayoutPanel->Controls->Add(this->VariantAddLayoutPanel, 1, 6);
@@ -172,7 +187,7 @@ namespace Components
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
             this->FormLayoutPanel->RowStyles->Add(
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-            this->FormLayoutPanel->Size = System::Drawing::Size(760, 320);
+            this->FormLayoutPanel->Size = System::Drawing::Size(760, 325);
             this->FormLayoutPanel->TabIndex = 1;
             // 
             // ArticleSeparator
@@ -194,34 +209,60 @@ namespace Components
             this->NameField->Margin = System::Windows::Forms::Padding(0);
             this->NameField->Mode = TextFieldMode::Text;
             this->NameField->Name = L"NameField";
-            this->NameField->Size = System::Drawing::Size(250, 50);
+            this->NameField->Size = System::Drawing::Size(250, 55);
             this->NameField->TabIndex = 1;
             this->NameField->Value = L"";
             this->NameField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::NameField_TextChanged);
             // 
+            // VatField
+            // 
+            this->VatField->LabelText = L"TVA (en pourcentage)";
+            this->VatField->Location = System::Drawing::Point(390, 55);
+            this->VatField->Margin = System::Windows::Forms::Padding(0, 5, 0, 0);
+            this->VatField->Mode = TextFieldMode::Decimal;
+            this->VatField->Name = L"VatField";
+            this->VatField->Size = System::Drawing::Size(250, 50);
+            this->VatField->TabIndex = 2;
+            this->VatField->Value = L"";
+            this->VatField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::VatField_TextChanged);
+            // 
             // PriceField
             // 
             this->PriceField->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->PriceField->LabelText = L"Prix";
-            this->PriceField->Location = System::Drawing::Point(390, 50);
+            this->PriceField->LabelText = L"Prix de vente";
+            this->PriceField->Location = System::Drawing::Point(120, 105);
             this->PriceField->Margin = System::Windows::Forms::Padding(0);
             this->PriceField->Mode = TextFieldMode::Decimal;
             this->PriceField->Name = L"PriceField";
-            this->PriceField->Size = System::Drawing::Size(250, 50);
-            this->PriceField->TabIndex = 2;
+            this->PriceField->Size = System::Drawing::Size(250, 55);
+            this->PriceField->TabIndex = 4;
             this->PriceField->Value = L"";
             this->PriceField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::PriceField_TextChanged);
+            // 
+            // BuyPriceField
+            // 
+            this->BuyPriceField->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->BuyPriceField->LabelText = L"Prix d\'achat";
+            this->BuyPriceField->Location = System::Drawing::Point(390, 105);
+            this->BuyPriceField->Margin = System::Windows::Forms::Padding(0);
+            this->BuyPriceField->Mode = TextFieldMode::Decimal;
+            this->BuyPriceField->Name = L"BuyPriceField";
+            this->BuyPriceField->Size = System::Drawing::Size(250, 55);
+            this->BuyPriceField->TabIndex = 3;
+            this->BuyPriceField->Value = L"";
+            this->BuyPriceField->TextChanged += gcnew System::EventHandler(
+                this, &ArticleEditView::BuyPriceField_TextChanged);
             // 
             // StockField
             // 
             this->StockField->Dock = System::Windows::Forms::DockStyle::Fill;
             this->StockField->LabelText = L"Stock";
-            this->StockField->Location = System::Drawing::Point(120, 105);
+            this->StockField->Location = System::Drawing::Point(120, 165);
             this->StockField->Margin = System::Windows::Forms::Padding(0, 5, 0, 0);
             this->StockField->Mode = TextFieldMode::Integer;
             this->StockField->Name = L"StockField";
             this->StockField->Size = System::Drawing::Size(250, 50);
-            this->StockField->TabIndex = 3;
+            this->StockField->TabIndex = 5;
             this->StockField->Value = L"";
             this->StockField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::StockField_TextChanged);
             // 
@@ -229,27 +270,15 @@ namespace Components
             // 
             this->MaxStockField->Dock = System::Windows::Forms::DockStyle::Fill;
             this->MaxStockField->LabelText = L"Stock maximum";
-            this->MaxStockField->Location = System::Drawing::Point(390, 105);
+            this->MaxStockField->Location = System::Drawing::Point(390, 165);
             this->MaxStockField->Margin = System::Windows::Forms::Padding(0, 5, 0, 0);
             this->MaxStockField->Mode = TextFieldMode::Text;
             this->MaxStockField->Name = L"MaxStockField";
             this->MaxStockField->Size = System::Drawing::Size(250, 50);
-            this->MaxStockField->TabIndex = 4;
+            this->MaxStockField->TabIndex = 6;
             this->MaxStockField->Value = L"";
             this->MaxStockField->TextChanged += gcnew System::EventHandler(
                 this, &ArticleEditView::MaxStockField_TextChanged);
-            // 
-            // VatField
-            // 
-            this->VatField->LabelText = L"TVA (en pourcentage)";
-            this->VatField->Location = System::Drawing::Point(120, 160);
-            this->VatField->Margin = System::Windows::Forms::Padding(0, 5, 0, 0);
-            this->VatField->Mode = TextFieldMode::Decimal;
-            this->VatField->Name = L"VatField";
-            this->VatField->Size = System::Drawing::Size(250, 50);
-            this->VatField->TabIndex = 5;
-            this->VatField->Value = L"";
-            this->VatField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::VatField_TextChanged);
             // 
             // VariantsLayoutPanel
             // 
@@ -258,7 +287,7 @@ namespace Components
             this->FormLayoutPanel->SetColumnSpan(this->VariantsLayoutPanel, 3);
             this->VariantsLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
             this->VariantsLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
-            this->VariantsLayoutPanel->Location = System::Drawing::Point(120, 260);
+            this->VariantsLayoutPanel->Location = System::Drawing::Point(120, 265);
             this->VariantsLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->VariantsLayoutPanel->Name = L"VariantsLayoutPanel";
             this->VariantsLayoutPanel->RowCount = 1;
@@ -266,18 +295,17 @@ namespace Components
                 System::Windows::Forms::SizeType::Percent,
                 100)));
             this->VariantsLayoutPanel->Size = System::Drawing::Size(520, 0);
-            this->VariantsLayoutPanel->TabIndex = 6;
+            this->VariantsLayoutPanel->TabIndex = 7;
             // 
             // VariantsSeparator
             // 
             this->FormLayoutPanel->SetColumnSpan(this->VariantsSeparator, 3);
             this->VariantsSeparator->Dock = System::Windows::Forms::DockStyle::Fill;
             this->VariantsSeparator->LabelText = L"Variantes";
-            this->VariantsSeparator->Location = System::Drawing::Point(120, 210);
+            this->VariantsSeparator->Location = System::Drawing::Point(120, 215);
             this->VariantsSeparator->Margin = System::Windows::Forms::Padding(0);
             this->VariantsSeparator->Name = L"VariantsSeparator";
             this->VariantsSeparator->Size = System::Drawing::Size(520, 50);
-            this->VariantsSeparator->TabIndex = 7;
             // 
             // VariantAddLayoutPanel
             // 
@@ -292,7 +320,7 @@ namespace Components
                 50)));
             this->VariantAddLayoutPanel->Controls->Add(this->VariantAddBtn, 1, 0);
             this->VariantAddLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->VariantAddLayoutPanel->Location = System::Drawing::Point(120, 260);
+            this->VariantAddLayoutPanel->Location = System::Drawing::Point(120, 265);
             this->VariantAddLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->VariantAddLayoutPanel->Name = L"VariantAddLayoutPanel";
             this->VariantAddLayoutPanel->RowCount = 1;
@@ -300,7 +328,6 @@ namespace Components
                 System::Windows::Forms::SizeType::Percent,
                 100)));
             this->VariantAddLayoutPanel->Size = System::Drawing::Size(520, 40);
-            this->VariantAddLayoutPanel->TabIndex = 8;
             // 
             // VariantAddBtn
             // 
@@ -320,22 +347,10 @@ namespace Components
             this->VariantAddBtn->Name = L"VariantAddBtn";
             this->VariantAddBtn->Padding = System::Windows::Forms::Padding(20, 2, 20, 2);
             this->VariantAddBtn->Size = System::Drawing::Size(185, 40);
-            this->VariantAddBtn->TabIndex = 0;
+            this->VariantAddBtn->TabIndex = 8;
             this->VariantAddBtn->Text = L"Ajouter une variante";
             this->VariantAddBtn->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
             this->VariantAddBtn->Click += gcnew System::EventHandler(this, &ArticleEditView::VariantAddBtn_Click);
-            // 
-            // FormScrollPanel
-            // 
-            this->FormScrollPanel->AutoScroll = true;
-            this->FormScrollPanel->Controls->Add(this->FormLayoutPanel);
-            this->FormScrollPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->FormScrollPanel->Location = System::Drawing::Point(0, 40);
-            this->FormScrollPanel->Margin = System::Windows::Forms::Padding(0);
-            this->FormScrollPanel->Name = L"FormScrollPanel";
-            this->FormScrollPanel->Padding = System::Windows::Forms::Padding(20);
-            this->FormScrollPanel->Size = System::Drawing::Size(800, 560);
-            this->FormScrollPanel->TabIndex = 2;
             // 
             // ArticleEditView
             // 
@@ -345,12 +360,12 @@ namespace Components
             this->Name = L"ArticleEditView";
             this->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->ResumeLayout(false);
+            this->FormScrollPanel->ResumeLayout(false);
+            this->FormScrollPanel->PerformLayout();
             this->FormLayoutPanel->ResumeLayout(false);
             this->FormLayoutPanel->PerformLayout();
             this->VariantAddLayoutPanel->ResumeLayout(false);
             this->VariantAddLayoutPanel->PerformLayout();
-            this->FormScrollPanel->ResumeLayout(false);
-            this->FormScrollPanel->PerformLayout();
             this->ResumeLayout(false);
         }
 #pragma endregion
@@ -436,6 +451,18 @@ namespace Components
             catch (...)
             {
                 article->SetPrice(0);
+            }
+        }
+
+        System::Void BuyPriceField_TextChanged(System::Object^ sender, System::EventArgs^ e)
+        {
+            try
+            {
+                article->SetBuyPrice(Convert::ToSingle(BuyPriceField->Value));
+            }
+            catch (...)
+            {
+                article->SetBuyPrice(0);
             }
         }
 
@@ -584,6 +611,7 @@ namespace Components
 
             this->NameField->Value = article->GetName();
             this->PriceField->Value = article->GetPrice().ToString();
+            this->BuyPriceField->Value = article->GetBuyPrice().ToString();
             this->StockField->Value = article->GetStock().ToString();
             this->MaxStockField->Value = article->GetMaxStock().ToString();
             this->VatField->Value = article->GetVat().ToString();

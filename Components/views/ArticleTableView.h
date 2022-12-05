@@ -116,7 +116,8 @@ namespace Components
             this->TableDisplay->AddColumn("Référence", "reference");
             this->TableDisplay->AddColumn("Nom", "name");
             this->TableDisplay->AddColumn("Stock restant", "stock");
-            this->TableDisplay->AddColumn("Prix", "price");
+            this->TableDisplay->AddColumn("Prix d'achat", "buy_price");
+            this->TableDisplay->AddColumn("Prix de vente", "price");
         }
 
         System::Void TableHeader_RefreshClick(System::Object^ sender, System::EventArgs^ e)

@@ -10,7 +10,8 @@ DataTable^ Services::ArticleService::GetArticles()
 Entities::ArticleEntity^ Services::ArticleService::GetArticle(int articleReference)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT *, reference as article_reference FROM [management].[articles] WHERE [reference] = @articleReference");
+        "SELECT *, reference as article_reference FROM [management].[articles] \
+        WHERE [reference] = @articleReference");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@articleReference", articleReference));
     auto article = dbProvider->ExecuteDataRow(command);
     return gcnew Entities::ArticleEntity(article);
@@ -19,25 +20,30 @@ Entities::ArticleEntity^ Services::ArticleService::GetArticle(int articleReferen
 int Services::ArticleService::AddArticle(Entities::ArticleEntity^ article)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "INSERT INTO [management].[articles] (name, stock, max_stock, vat, price) OUTPUT inserted.reference VALUES (@name, @stock, @max_stock, @vat, @price)");
+        "INSERT INTO [management].[articles] (name, stock, max_stock, vat, price, buy_price) \
+        OUTPUT inserted.reference \
+        VALUES (@name, @stock, @max_stock, @vat, @price, @buy_price)");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@name", article->GetName()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@stock", article->GetStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@max_stock", article->GetMaxStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", Math::Round(article->GetVat(), 2)));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", Math::Round(article->GetPrice(), 2)));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@buy_price", Math::Round(article->GetBuyPrice(), 2)));
     return safe_cast<int>(dbProvider->ExecuteScalar(command));
 }
 
 bool Services::ArticleService::UpdateArticle(Entities::ArticleEntity^ article)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "UPDATE [management].[articles] SET name = @name,  stock = @stock, max_stock = @max_stock, vat = @vat, price = @price WHERE reference = @reference");
+        "UPDATE [management].[articles] \
+        SET name = @name,  stock = @stock, max_stock = @max_stock, vat = @vat, price = @price, buy_price = @buy_price WHERE reference = @reference");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@name", article->GetName()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@stock", article->GetStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@max_stock", article->GetMaxStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", Math::Round(article->GetVat(), 2)));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", Math::Round(article->GetPrice(), 2)));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", article->GetArticleReference()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@buy_price", Math::Round(article->GetBuyPrice(), 2)));
     return dbProvider->ExecuteNonQuery(command) == 1;
 }
 

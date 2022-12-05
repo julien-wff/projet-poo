@@ -115,6 +115,7 @@ CREATE TABLE [management].[articles]
     max_stock INT,
     vat       FLOAT,
     price     FLOAT,
+    buy_price FLOAT,
 )
 
 CREATE TABLE [management].[article_variants]
