@@ -50,11 +50,11 @@ String^ Entities::ArticleEntity::GetName()
 {
     return Name;
 }
+
 int Entities::ArticleEntity::GetStock()
 {
     return Stock;
 }
-
 
 void Entities::ArticleEntity::SetArticleReference(int articleReference)
 {
@@ -80,8 +80,8 @@ void Entities::ArticleEntity::SetPrice(float price)
 {
      Price = price;
 }
-void Entities::ArticleEntity::SetStock(int maxStock)
+void Entities::ArticleEntity::SetStock(int stock)
 {
-    MaxStock = maxStock;
+    Stock = stock;
 }
 
