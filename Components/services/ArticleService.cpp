@@ -19,12 +19,12 @@ Entities::ArticleEntity^ Services::ArticleService::GetArticle(int articleReferen
 int Services::ArticleService::AddArticle(Entities::ArticleEntity^ article)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "INSERT INTO [management].[articles] (name, stock, max_stock, vat, price) OUTPUT inserted.id VALUES (@name, @stock, @max_stock, @vat, @price)");
+        "INSERT INTO [management].[articles] (name, stock, max_stock, vat, price) OUTPUT inserted.reference VALUES (@name, @stock, @max_stock, @vat, @price)");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@name", article->GetName()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@stock", article->GetStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@max_stock", article->GetMaxStock()));
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", article->GetVat()));
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", article->GetPrice()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", Math::Round(article->GetVat(), 2)));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", Math::Round(article->GetPrice(), 2)));
     return safe_cast<int>(dbProvider->ExecuteScalar(command));
 }
 
@@ -35,8 +35,9 @@ bool Services::ArticleService::UpdateArticle(Entities::ArticleEntity^ article)
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@name", article->GetName()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@stock", article->GetStock()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@max_stock", article->GetMaxStock()));
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", article->GetVat()));
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", article->GetPrice()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@vat", Math::Round(article->GetVat(), 2)));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@price", Math::Round(article->GetPrice(), 2)));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", article->GetArticleReference()));
     return dbProvider->ExecuteNonQuery(command) == 1;
 }
 
