@@ -8,19 +8,13 @@ void Services::ArticleVariantService::FillCommand(SqlClient::SqlCommand^ command
     command->Parameters->Add(
         gcnew SqlClient::SqlParameter("@articles_reference", articleVariant->GetArticleReference()));
 
-    if (articleVariant->GetReductionValue() == 0)
-        command->Parameters->Add(gcnew SqlClient::SqlParameter("@reduction_value", DBNull::Value));
-    else
-        command->Parameters->
-                 Add(gcnew SqlClient::SqlParameter("@reduction_value", articleVariant->GetReductionValue()));
+    command->Parameters->
+             Add(gcnew SqlClient::SqlParameter("@reduction_value", articleVariant->GetReductionValue()));
 
-    if (articleVariant->GetReductionProductCount() == 0)
-        command->Parameters->Add(gcnew SqlClient::SqlParameter("@reduction_product_count", DBNull::Value));
-    else
-        command->Parameters->Add(
-            gcnew SqlClient::SqlParameter("@reduction_product_count", articleVariant->GetReductionProductCount()));
+    command->Parameters->Add(
+        gcnew SqlClient::SqlParameter("@reduction_product_count", articleVariant->GetReductionProductCount()));
 
-    if (articleVariant->GetColor() == nullptr)
+    if (articleVariant->GetColor() == nullptr || articleVariant->GetColor()->Trim()->Length == 0)
         command->Parameters->Add(gcnew SqlClient::SqlParameter("@color", DBNull::Value));
     else
         command->Parameters->Add(gcnew SqlClient::SqlParameter("@color", articleVariant->GetColor()));

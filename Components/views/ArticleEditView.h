@@ -3,8 +3,10 @@
 #include "../components/EditorHeader.h"
 #include "../components/FormSeparator.h"
 #include "../components/TextField.h"
+#include "../components/ArticleVariantFields.h"
 #include "../entities/ArticleEntity.h"
 #include "../services/ArticleService.h"
+#include "../services/ArticleVariantService.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -12,6 +14,7 @@ using namespace System::Collections;
 using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
+using namespace Generic;
 
 
 namespace Components
@@ -46,10 +49,20 @@ namespace Components
         Components::TextField^ StockField;
         Components::TextField^ MaxStockField;
         Components::TextField^ VatField;
+        Components::FormSeparator^ VariantsSeparator;
+        System::Windows::Forms::TableLayoutPanel^ VariantsLayoutPanel;
+        System::Windows::Forms::Panel^ FormScrollPanel;
+        System::Windows::Forms::TableLayoutPanel^ VariantAddLayoutPanel;
+        System::Windows::Forms::Label^ VariantAddBtn;
         System::ComponentModel::Container^ components;
 
         Services::ArticleService^ articleService = gcnew Services::ArticleService();
         Entities::ArticleEntity^ article;
+        Services::ArticleVariantService^ articleVariantService = gcnew Services::ArticleVariantService();
+        List<Entities::ArticleVariantEntity^>^ articleVariants = gcnew List<Entities::ArticleVariantEntity^>();
+        List<Entities::ArticleVariantEntity^>^ addedArticleVariants = gcnew List<Entities::ArticleVariantEntity^>();
+        List<Entities::ArticleVariantEntity^>^ deletedArticleVariants = gcnew List<Entities::ArticleVariantEntity^>();
+        List<Entities::ArticleVariantEntity^>^ updatedArticleVariants = gcnew List<Entities::ArticleVariantEntity^>();
 
         EditorMode CurrentEditorMode;
 
@@ -66,25 +79,34 @@ namespace Components
             this->StockField = (gcnew Components::TextField());
             this->MaxStockField = (gcnew Components::TextField());
             this->VatField = (gcnew Components::TextField());
+            this->VariantsLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->VariantsSeparator = (gcnew Components::FormSeparator());
+            this->VariantAddLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->VariantAddBtn = (gcnew System::Windows::Forms::Label());
+            this->FormScrollPanel = (gcnew System::Windows::Forms::Panel());
             this->TableLayoutPanel->SuspendLayout();
             this->FormLayoutPanel->SuspendLayout();
+            this->VariantAddLayoutPanel->SuspendLayout();
+            this->FormScrollPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // TableLayoutPanel
             // 
+            this->TableLayoutPanel->AutoScroll = true;
             this->TableLayoutPanel->ColumnCount = 1;
             this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
                 System::Windows::Forms::SizeType::Percent,
                 100)));
             this->TableLayoutPanel->Controls->Add(this->EditorHeader, 0, 0);
-            this->TableLayoutPanel->Controls->Add(this->FormLayoutPanel, 0, 1);
+            this->TableLayoutPanel->Controls->Add(this->FormScrollPanel, 0, 2);
             this->TableLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
             this->TableLayoutPanel->Location = System::Drawing::Point(0, 0);
             this->TableLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->TableLayoutPanel->Name = L"TableLayoutPanel";
-            this->TableLayoutPanel->RowCount = 2;
+            this->TableLayoutPanel->RowCount = 3;
             this->TableLayoutPanel->RowStyles->Add(
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->TableLayoutPanel->RowStyles->Add(
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayoutPanel->Size = System::Drawing::Size(800, 600);
@@ -100,15 +122,16 @@ namespace Components
             this->EditorHeader->Name = L"EditorHeader";
             this->EditorHeader->Size = System::Drawing::Size(800, 40);
             this->EditorHeader->TabIndex = 0;
+            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
+                this, &ArticleEditView::EditorHeader_DeleteClick);
             this->EditorHeader->CreateClick += gcnew System::EventHandler(
                 this, &ArticleEditView::EditorHeader_CreateClick);
             this->EditorHeader->CancelClick += gcnew System::EventHandler(
                 this, &ArticleEditView::EditorHeader_CancelClick);
-            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
-                this, &ArticleEditView::EditorHeader_DeleteClick);
             // 
             // FormLayoutPanel
             // 
+            this->FormLayoutPanel->AutoSize = true;
             this->FormLayoutPanel->ColumnCount = 5;
             this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
                 System::Windows::Forms::SizeType::Percent,
@@ -131,18 +154,25 @@ namespace Components
             this->FormLayoutPanel->Controls->Add(this->StockField, 1, 2);
             this->FormLayoutPanel->Controls->Add(this->MaxStockField, 3, 2);
             this->FormLayoutPanel->Controls->Add(this->VatField, 1, 3);
+            this->FormLayoutPanel->Controls->Add(this->VariantsLayoutPanel, 1, 5);
+            this->FormLayoutPanel->Controls->Add(this->VariantsSeparator, 1, 4);
+            this->FormLayoutPanel->Controls->Add(this->VariantAddLayoutPanel, 1, 6);
             this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
-            this->FormLayoutPanel->Location = System::Drawing::Point(20, 60);
+            this->FormLayoutPanel->Location = System::Drawing::Point(20, 20);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(20);
             this->FormLayoutPanel->Name = L"FormLayoutPanel";
-            this->FormLayoutPanel->RowCount = 5;
+            this->FormLayoutPanel->RowCount = 8;
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->FormLayoutPanel->RowStyles->Add(
                 (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-            this->FormLayoutPanel->Size = System::Drawing::Size(760, 253);
+            this->FormLayoutPanel->Size = System::Drawing::Size(760, 320);
             this->FormLayoutPanel->TabIndex = 1;
             // 
             // ArticleSeparator
@@ -167,8 +197,7 @@ namespace Components
             this->NameField->Size = System::Drawing::Size(250, 50);
             this->NameField->TabIndex = 1;
             this->NameField->Value = L"";
-            this->NameField->TextChanged += gcnew System::EventHandler(
-                this, &ArticleEditView::NameField_TextChanged);
+            this->NameField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::NameField_TextChanged);
             // 
             // PriceField
             // 
@@ -181,8 +210,7 @@ namespace Components
             this->PriceField->Size = System::Drawing::Size(250, 50);
             this->PriceField->TabIndex = 2;
             this->PriceField->Value = L"";
-            this->PriceField->TextChanged += gcnew System::EventHandler(
-                this, &ArticleEditView::PriceField_TextChanged);
+            this->PriceField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::PriceField_TextChanged);
             // 
             // StockField
             // 
@@ -195,8 +223,7 @@ namespace Components
             this->StockField->Size = System::Drawing::Size(250, 50);
             this->StockField->TabIndex = 3;
             this->StockField->Value = L"";
-            this->StockField->TextChanged += gcnew System::EventHandler(
-                this, &ArticleEditView::StockField_TextChanged);
+            this->StockField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::StockField_TextChanged);
             // 
             // MaxStockField
             // 
@@ -222,8 +249,93 @@ namespace Components
             this->VatField->Size = System::Drawing::Size(250, 50);
             this->VatField->TabIndex = 5;
             this->VatField->Value = L"";
-            this->VatField->TextChanged += gcnew System::EventHandler(
-                this, &ArticleEditView::VatField_TextChanged);
+            this->VatField->TextChanged += gcnew System::EventHandler(this, &ArticleEditView::VatField_TextChanged);
+            // 
+            // VariantsLayoutPanel
+            // 
+            this->VariantsLayoutPanel->AutoSize = true;
+            this->VariantsLayoutPanel->ColumnCount = 1;
+            this->FormLayoutPanel->SetColumnSpan(this->VariantsLayoutPanel, 3);
+            this->VariantsLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+            this->VariantsLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->VariantsLayoutPanel->Location = System::Drawing::Point(120, 260);
+            this->VariantsLayoutPanel->Margin = System::Windows::Forms::Padding(0);
+            this->VariantsLayoutPanel->Name = L"VariantsLayoutPanel";
+            this->VariantsLayoutPanel->RowCount = 1;
+            this->VariantsLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
+                100)));
+            this->VariantsLayoutPanel->Size = System::Drawing::Size(520, 0);
+            this->VariantsLayoutPanel->TabIndex = 6;
+            // 
+            // VariantsSeparator
+            // 
+            this->FormLayoutPanel->SetColumnSpan(this->VariantsSeparator, 3);
+            this->VariantsSeparator->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->VariantsSeparator->LabelText = L"Variantes";
+            this->VariantsSeparator->Location = System::Drawing::Point(120, 210);
+            this->VariantsSeparator->Margin = System::Windows::Forms::Padding(0);
+            this->VariantsSeparator->Name = L"VariantsSeparator";
+            this->VariantsSeparator->Size = System::Drawing::Size(520, 50);
+            this->VariantsSeparator->TabIndex = 7;
+            // 
+            // VariantAddLayoutPanel
+            // 
+            this->VariantAddLayoutPanel->ColumnCount = 3;
+            this->FormLayoutPanel->SetColumnSpan(this->VariantAddLayoutPanel, 3);
+            this->VariantAddLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->VariantAddLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
+            this->VariantAddLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->VariantAddLayoutPanel->Controls->Add(this->VariantAddBtn, 1, 0);
+            this->VariantAddLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->VariantAddLayoutPanel->Location = System::Drawing::Point(120, 260);
+            this->VariantAddLayoutPanel->Margin = System::Windows::Forms::Padding(0);
+            this->VariantAddLayoutPanel->Name = L"VariantAddLayoutPanel";
+            this->VariantAddLayoutPanel->RowCount = 1;
+            this->VariantAddLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
+                100)));
+            this->VariantAddLayoutPanel->Size = System::Drawing::Size(520, 40);
+            this->VariantAddLayoutPanel->TabIndex = 8;
+            // 
+            // VariantAddBtn
+            // 
+            this->VariantAddBtn->AutoSize = true;
+            this->VariantAddBtn->BackColor = System::Drawing::Color::FromArgb(
+                static_cast<System::Int32>(static_cast<System::Byte>(57)),
+                static_cast<System::Int32>(static_cast<System::Byte>(99)),
+                static_cast<System::Int32>(static_cast<System::Byte>(173)));
+            this->VariantAddBtn->Cursor = System::Windows::Forms::Cursors::Hand;
+            this->VariantAddBtn->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->VariantAddBtn->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular,
+                                                                     System::Drawing::GraphicsUnit::Point,
+                                                                     static_cast<System::Byte>(0)));
+            this->VariantAddBtn->ForeColor = System::Drawing::Color::White;
+            this->VariantAddBtn->Location = System::Drawing::Point(167, 0);
+            this->VariantAddBtn->Margin = System::Windows::Forms::Padding(0);
+            this->VariantAddBtn->Name = L"VariantAddBtn";
+            this->VariantAddBtn->Padding = System::Windows::Forms::Padding(20, 2, 20, 2);
+            this->VariantAddBtn->Size = System::Drawing::Size(185, 40);
+            this->VariantAddBtn->TabIndex = 0;
+            this->VariantAddBtn->Text = L"Ajouter une variante";
+            this->VariantAddBtn->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+            this->VariantAddBtn->Click += gcnew System::EventHandler(this, &ArticleEditView::VariantAddBtn_Click);
+            // 
+            // FormScrollPanel
+            // 
+            this->FormScrollPanel->AutoScroll = true;
+            this->FormScrollPanel->Controls->Add(this->FormLayoutPanel);
+            this->FormScrollPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->FormScrollPanel->Location = System::Drawing::Point(0, 40);
+            this->FormScrollPanel->Margin = System::Windows::Forms::Padding(0);
+            this->FormScrollPanel->Name = L"FormScrollPanel";
+            this->FormScrollPanel->Padding = System::Windows::Forms::Padding(20);
+            this->FormScrollPanel->Size = System::Drawing::Size(800, 560);
+            this->FormScrollPanel->TabIndex = 2;
             // 
             // ArticleEditView
             // 
@@ -234,6 +346,11 @@ namespace Components
             this->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->ResumeLayout(false);
             this->FormLayoutPanel->ResumeLayout(false);
+            this->FormLayoutPanel->PerformLayout();
+            this->VariantAddLayoutPanel->ResumeLayout(false);
+            this->VariantAddLayoutPanel->PerformLayout();
+            this->FormScrollPanel->ResumeLayout(false);
+            this->FormScrollPanel->PerformLayout();
             this->ResumeLayout(false);
         }
 #pragma endregion
@@ -256,6 +373,19 @@ namespace Components
             else
             {
                 articleService->AddArticle(article);
+            }
+
+            for (int i = 0; i < addedArticleVariants->Count; i++)
+            {
+                articleVariantService->AddArticleVariant(addedArticleVariants[i]);
+            }
+            for (int i = 0; i < updatedArticleVariants->Count; i++)
+            {
+                articleVariantService->UpdateArticleVariant(updatedArticleVariants[i]);
+            }
+            for (int i = 0; i < deletedArticleVariants->Count; i++)
+            {
+                articleVariantService->DeleteArticleVariant(deletedArticleVariants[i]);
             }
 
             Back(this, e);
@@ -345,20 +475,110 @@ namespace Components
             }
         }
 
+        System::Void ArticleVariant_DeleteClick(System::Object^ sender, Entities::ArticleVariantEntity^ articleVariant)
+        {
+            for (int i = 0; i < articleVariants->Count; i++)
+            {
+                if (articleVariants[i]->GetArticleVariantId() == articleVariant->GetArticleVariantId())
+                {
+                    deletedArticleVariants->Add(articleVariants[i]);
+                    articleVariants->RemoveAt(i);
+                    break;
+                }
+            }
+            // Look for the article variant in the added article variants
+            for (int i = 0; i < addedArticleVariants->Count; i++)
+            {
+                if (addedArticleVariants[i]->GetArticleVariantId() == articleVariant->GetArticleVariantId())
+                {
+                    addedArticleVariants->RemoveAt(i);
+                    break;
+                }
+            }
+            // Look for the article variant in the updated article variants
+            for (int i = 0; i < updatedArticleVariants->Count; i++)
+            {
+                if (updatedArticleVariants[i]->GetArticleVariantId() == articleVariant->GetArticleVariantId())
+                {
+                    updatedArticleVariants->RemoveAt(i);
+                    break;
+                }
+            }
+            BuildVariantList();
+        }
+
+        System::Void VariantAddBtn_Click(System::Object^ sender, System::EventArgs^ e)
+        {
+            auto newArticleVariant = gcnew Entities::ArticleVariantEntity();
+            articleVariants->Add(newArticleVariant);
+            addedArticleVariants->Add(newArticleVariant);
+            newArticleVariant->SetArticleReference(article->GetArticleReference());
+            BuildVariantList();
+        }
+
+        void BuildVariantList()
+        {
+            this->VariantsLayoutPanel->SuspendLayout();
+            this->VariantAddLayoutPanel->SuspendLayout();
+            this->FormLayoutPanel->SuspendLayout();
+            this->TableLayoutPanel->SuspendLayout();
+            this->VariantsLayoutPanel->Controls->Clear();
+            this->VariantsLayoutPanel->RowCount = articleVariants->Count;
+
+            for (int i = 0; i < articleVariants->Count; i++)
+            {
+                auto variantField = gcnew Components::ArticleVariantFields();
+                variantField->ArticleVariant = articleVariants[i];
+                variantField->Dock = DockStyle::Fill;
+                variantField->AllowDelete = articleVariants->Count > 1;
+                variantField->Label = L"Variante #" + (i + 1);
+                variantField->Location = System::Drawing::Point(0, 0);
+                variantField->Margin = System::Windows::Forms::Padding(0);
+                variantField->Name = L"ArticleVariantFields" + (i + 1);
+                variantField->Size = System::Drawing::Size(520, 160);
+                variantField->TabIndex = 0;
+                variantField->Delete += gcnew System::EventHandler<Entities::ArticleVariantEntity^>(
+                    this, &ArticleEditView::ArticleVariant_DeleteClick);
+                this->VariantsLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+                this->VariantsLayoutPanel->Controls->Add(variantField, 0, i);
+            }
+
+            this->VariantsLayoutPanel->ResumeLayout(false);
+            this->VariantsLayoutPanel->PerformLayout();
+            this->VariantAddLayoutPanel->ResumeLayout(false);
+            this->VariantAddLayoutPanel->PerformLayout();
+            this->FormLayoutPanel->ResumeLayout(false);
+            this->FormLayoutPanel->PerformLayout();
+            this->TableLayoutPanel->ResumeLayout(false);
+            this->TableLayoutPanel->PerformLayout();
+        }
+
     public:
         void LoadForm(EditorMode mode, int articleReference)
         {
             this->CurrentEditorMode = mode;
             this->EditorHeader->CurrentEditorMode = mode;
 
+            articleVariants->Clear();
+            addedArticleVariants->Clear();
+            deletedArticleVariants->Clear();
+            updatedArticleVariants->Clear();
+
             if (CurrentEditorMode == EditorMode::Edit && articleReference > 0)
             {
                 article = articleService->GetArticle(articleReference);
+                auto variants = articleService->GetArticleVariants(article);
+                articleVariants = gcnew List<Entities::ArticleVariantEntity^>(variants);
+                updatedArticleVariants = gcnew List<Entities::ArticleVariantEntity^>(variants);
                 this->EditorHeader->Label = "Édition de " + article->GetName();
             }
             else
             {
                 article = gcnew Entities::ArticleEntity();
+                auto newArticleVariant = gcnew Entities::ArticleVariantEntity();
+                articleVariants->Add(newArticleVariant);
+                addedArticleVariants->Add(newArticleVariant);
+                newArticleVariant->SetArticleReference(article->GetArticleReference());
                 this->EditorHeader->Label = "Création d'un article";
             }
 
@@ -367,6 +587,8 @@ namespace Components
             this->StockField->Value = article->GetStock().ToString();
             this->MaxStockField->Value = article->GetMaxStock().ToString();
             this->VatField->Value = article->GetVat().ToString();
+            BuildVariantList();
+            this->FormScrollPanel->AutoScrollPosition = System::Drawing::Point(0, 0);
         }
 
         void LoadForm(EditorMode mode)

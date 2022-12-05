@@ -123,6 +123,9 @@
     <ClInclude Include="components\AddressCityFields.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="components\ArticleVariantFields.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="components\DateField.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -199,6 +202,7 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="components\AddressCityFields.cpp" />
+    <ClCompile Include="components\ArticleVariantFields.cpp" />
     <ClCompile Include="components\DateField.cpp" />
     <ClCompile Include="components\EditorHeader.cpp" />
     <ClCompile Include="components\FormSeparator.cpp" />
@@ -332,6 +336,7 @@
   <ItemGroup>
     <ClInclude Include="enums\TextFieldMode.h" />
     <Content Include="icons\round_article_black_24dp.png" />
+    <Content Include="icons\round_delete_black_24dp.png" />
     <Content Include="icons\round_engineering_black_24dp.png" />
     <Content Include="icons\round_group_black_24dp.png" />
     <Content Include="icons\round_insights_black_24dp.png" />
@@ -339,9 +344,11 @@
     <Content Include="icons\round_shopping_basket_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ArticleVariantFields.resx" />
     <EmbeddedResource Include="components\AddressCityFields.resx">
       <DependentUpon>components\AddressCityFields.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="components\ArticleVariantFields.resx" />
     <EmbeddedResource Include="components\DateField.resx">
       <DependentUpon>components\DateField.h</DependentUpon>
     </EmbeddedResource>
