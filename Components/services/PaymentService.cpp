@@ -20,7 +20,8 @@ int Services::PaymentService::AddPayment(Entities::PaymentEntity^ payment)
 {
     auto command = gcnew SqlClient::SqlCommand(
         "INSERT INTO [management].[payment_mode_id] (order_reference), (expected_date), (payment_date), (amount) OUTPUT inserted.id VALUES (@expected_date,@payment_date, @amount ,@payment_id");
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@firstname", payment->GetpaymentId()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@payment_id", payment->GetpaymentId()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@order_reference", payment->GetorderReference()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@expected_date", payment->GetexpectedDate()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@payment_date", payment->GetpaymentDate()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@amount", payment->Getamount()));
