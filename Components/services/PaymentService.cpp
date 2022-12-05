@@ -52,3 +52,26 @@ bool Services::PaymentService::DeletePayment(Entities::PaymentEntity^ payment)
 {
     return DeletePayment(payment->GetpaymentId());
 }
+
+array<Entities::OrderEntity^>^ Services::PaymentService::GetOrders(Entities::PaymentEntity^ order)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+"SELECT * FROM [managements].[payments] LEFT JOIN [managements].[orders] ON payments.order_reference = orders.reference WHERE payments.order_reference = @reference");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", order->GetorderReference()));
+    auto orders = dbProvider->ExecuteDataTable(command);
+    auto result = gcnew array<Entities::OrderEntity^>(orders->Rows->Count);
+    for (int i = 0; i < orders->Rows->Count; i++)
+        result[i] = gcnew Entities::OrderEntity(orders->Rows[i]);
+    return result;
+}
+
+Entities::PaymentModeEntity^ Services::PaymentService::GetPaymentMode(int paymentModeId)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+"SELECT * FROM [management].[payments] LEFT JOIN [management].[payment_modes] \
+        ON payments.id = payment_modes.id WHERE payment_modes.id = @id");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", paymentModeId));
+    auto payment = dbProvider->ExecuteDataRow(command);
+    return gcnew Entities::PaymentModeEntity(payment);
+}
+
