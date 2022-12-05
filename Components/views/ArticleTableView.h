@@ -113,7 +113,7 @@ namespace Components
     private:
         System::Void TableDisplay_Load(System::Object^ sender, System::EventArgs^ e)
         {
-            this->TableDisplay->AddColumn("Identifiant", "reference");
+            this->TableDisplay->AddColumn("Référence", "reference");
             this->TableDisplay->AddColumn("Nom", "name");
             this->TableDisplay->AddColumn("Stock restant", "stock");
             this->TableDisplay->AddColumn("Prix", "price");
