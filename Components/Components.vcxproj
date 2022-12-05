@@ -171,6 +171,7 @@
     <ClInclude Include="services\AddressService.h" />
     <ClInclude Include="services\AddressTypeService.h" />
     <ClInclude Include="services\ArticleService.h" />
+    <ClInclude Include="services\ArticleVariantService.h" />
     <ClInclude Include="services\CityService.h" />
     <ClInclude Include="services\ClientService.h" />
     <ClInclude Include="services\PersonService.h" />
@@ -291,6 +292,7 @@
     <ClCompile Include="services\AddressService.cpp" />
     <ClCompile Include="services\AddressTypeService.cpp" />
     <ClCompile Include="services\ArticleService.cpp" />
+    <ClCompile Include="services\ArticleVariantService.cpp" />
     <ClCompile Include="services\CityService.cpp" />
     <ClCompile Include="services\ClientService.cpp" />
     <ClCompile Include="services\PersonService.cpp" />
