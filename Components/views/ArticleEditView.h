@@ -381,21 +381,24 @@ namespace Components
                 return;
             }
 
+            auto articleReference = article->GetArticleReference();
             if (CurrentEditorMode == EditorMode::Edit)
             {
                 articleService->UpdateArticle(article);
             }
             else
             {
-                articleService->AddArticle(article);
+                articleReference = articleService->AddArticle(article);
             }
 
             for (int i = 0; i < addedArticleVariants->Count; i++)
             {
+                addedArticleVariants[i]->SetArticleReference(articleReference);
                 articleVariantService->AddArticleVariant(addedArticleVariants[i]);
             }
             for (int i = 0; i < updatedArticleVariants->Count; i++)
             {
+                updatedArticleVariants[i]->SetArticleReference(articleReference);
                 articleVariantService->UpdateArticleVariant(updatedArticleVariants[i]);
             }
             for (int i = 0; i < deletedArticleVariants->Count; i++)
@@ -423,7 +426,13 @@ namespace Components
             if (dialogResult == System::Windows::Forms::DialogResult::No)
                 return;
 
-            auto deleteResult = articleService->DeleteArticle(article);
+            auto deleteResult = true;
+            for (int i = 0; i < articleVariants->Count; i++)
+            {
+                deleteResult = deleteResult && articleVariantService->DeleteArticleVariant(articleVariants[i]);
+            }
+
+            deleteResult = articleService->DeleteArticle(article);
             if (!deleteResult)
             {
                 MessageBox::Show("Impossible de supprimer cet article. Erreur :\n"
