@@ -184,6 +184,7 @@
     <ClInclude Include="services\PersonService.h" />
     <ClInclude Include="entities\StaffEntity.h" />
     <ClInclude Include="services\StaffService.h" />
+    <ClInclude Include="services\StatisticService.h" />
     <ClInclude Include="views\ArticleEditView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -336,6 +337,7 @@
     <ClCompile Include="services\PersonService.cpp" />
     <ClCompile Include="entities\StaffEntity.cpp" />
     <ClCompile Include="services\StaffService.cpp" />
+    <ClCompile Include="services\StatisticService.cpp" />
     <ClCompile Include="views\ArticleEditView.cpp" />
     <ClCompile Include="views\ArticleTableView.cpp" />
     <ClCompile Include="views\ClientsEditView.cpp" />
