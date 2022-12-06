@@ -11,7 +11,7 @@ float Services::StatisticService::GetCommercialStockValue()
 array<Entities::ArticleEntity^>^ Services::StatisticService::GetWorstSellingArticles()
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT TOP 10 [reference], SUM(stock) Qte FROM [management].[articles] GROUP BY [reference] ORDER BY Qte ASC");
+        "SELECT TOP 10 [name], SUM(stock) Qte FROM [management].[articles] GROUP BY [name] ORDER BY Qte ASC");
     auto worstSellingsTable = dbProvider->ExecuteDataTable(command);
     auto worstSellings = gcnew array<Entities::ArticleEntity^>(worstSellingsTable->Rows->Count);
     for (int i = 0; i < worstSellingsTable->Rows->Count; i++)
@@ -22,7 +22,7 @@ array<Entities::ArticleEntity^>^ Services::StatisticService::GetWorstSellingArti
 array<Entities::ArticleEntity^>^ Services::StatisticService::GetBestSellingArticles()
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT TOP 10 [reference], SUM(stock) Qte FROM [management].[articles] GROUP BY [reference] ORDER BY Qte DESC");
+        "SELECT TOP 10 [name], SUM(stock) Qte FROM [management].[articles] GROUP BY [name] ORDER BY Qte DESC");
     auto bestSellingsTable = dbProvider->ExecuteDataTable(command);
     auto bestSellings = gcnew array<Entities::ArticleEntity^>(bestSellingsTable->Rows->Count);
     for (int i = 0; i < bestSellingsTable->Rows->Count; i++)
