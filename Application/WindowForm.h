@@ -254,7 +254,8 @@ private:
         this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)),
                                                            static_cast<System::Int32>(static_cast<System::Byte>(241)),
                                                            static_cast<System::Int32>(static_cast<System::Byte>(243)));
-        this->ClientSize = System::Drawing::Size(984, 561);
+        this->ClientSize = System::Drawing::Size(1044, 561);
+        this->MinimumSize = System::Drawing::Size(950, 500);
         this->Controls->Add(this->MainLayoutPanel);
         this->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular,
                                                   System::Drawing::GraphicsUnit::Point,
