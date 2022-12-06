@@ -37,7 +37,6 @@ namespace Components
     private:
         System::Windows::Forms::TableLayoutPanel^ TableLayoutPanel;
         Components::TableHeader^ TableHeader;
-        System::Windows::Forms::DataGridViewTextBoxColumn^ StaffHireDateColumn;
         Components::TableDisplay^ TableDisplay;
         System::ComponentModel::Container^ components;
 
