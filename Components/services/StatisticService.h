@@ -13,7 +13,6 @@ namespace Services
     {
     public:
         float GetCommercialStockValue();
-        float GetBuyStockValue();
         array<Entities::ArticleEntity^>^ GetWorstSellingArticles();
         array<Entities::ArticleEntity^>^ GetBestSellingArticles();
         float GetTotalSpentPerClient(Entities::ClientEntity^ client);

@@ -4,12 +4,8 @@
 
 float Services::StatisticService::GetCommercialStockValue()
 {
-    return 1;
-}
-
-float Services::StatisticService::GetBuyStockValue()
-{
-    return 1;
+    auto command = gcnew SqlClient::SqlCommand("SELECT SUM(stock * buy_price) from [management].[articles];");
+    return Convert::ToSingle((dbProvider->ExecuteScalar(command)));
 }
 
 array<Entities::ArticleEntity^>^ Services::StatisticService::GetWorstSellingArticles()
