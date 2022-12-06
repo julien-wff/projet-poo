@@ -237,6 +237,7 @@ namespace Components
             this->UserField->Size = System::Drawing::Size(310, 50);
             this->UserField->TabIndex = 0;
             this->UserField->Value = L"";
+            this->UserField->Submit += gcnew System::EventHandler(this, &LoginView::LoginBtn_Enter);
             // 
             // PasswordField
             // 
@@ -251,7 +252,7 @@ namespace Components
             this->PasswordField->TabIndex = 1;
             this->PasswordField->Value = L"";
             this->PasswordField->Hidden = true;
-            this->PasswordField->Submit += gcnew System::EventHandler(this, &LoginView::LoginBtn_Click);
+            this->PasswordField->Submit += gcnew System::EventHandler(this, &LoginView::LoginBtn_Enter);
             // 
             // LoginView
             // 
@@ -271,6 +272,20 @@ namespace Components
 #pragma endregion
 
         System::Void LoginBtn_Click(System::Object^ sender, System::EventArgs^ e)
+        {
+            if (this->Username->Trim()->Length == 0 || this->Password->Trim()->Length == 0)
+            {
+                MessageBox::Show(L"Veuillez entrer un nom d\'utilisateur et un mot de passe valide",
+                                 L"Erreur",
+                                 MessageBoxButtons::OK,
+                                 MessageBoxIcon::Error);
+                return;
+            }
+
+            Submit(this, e);
+        }
+        
+        System::Void LoginBtn_Enter(System::Object^ sender, System::EventArgs^ e)
         {
             if (this->Username->Trim()->Length == 0 || this->Password->Trim()->Length == 0)
             {
