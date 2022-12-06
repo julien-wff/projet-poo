@@ -36,6 +36,7 @@ private:
     Components::EmployeesTableView^ EmployeesTableView;
     Components::EmployeesEditView^ EmployeesEditView;
     Components::ArticleTableView^ ArticleTableView;
+    Components::ClientsTableView^ ClientsTableView;
     System::Windows::Forms::Label^ ClientsTableLabel;
     System::Windows::Forms::Label^ ClientEditLabel;
     Components::ArticleEditView^ ArticleEditView;
@@ -51,7 +52,7 @@ private:
         this->EmployeesTableView = (gcnew Components::EmployeesTableView());
         this->EmployeesEditView = (gcnew Components::EmployeesEditView());
         this->ArticleTableView = (gcnew Components::ArticleTableView());
-        this->ClientsTableLabel = (gcnew System::Windows::Forms::Label());
+        this->ClientsTableView = (gcnew Components::ClientsTableView());
         this->ClientEditLabel = (gcnew System::Windows::Forms::Label());
         this->ArticleEditView = (gcnew Components::ArticleEditView());
         this->OrderTableView = (gcnew Components::OrderTableView());
@@ -93,7 +94,7 @@ private:
         this->MainLayoutPanel->Controls->Add(this->EmployeesTableView, 2, 0);
         this->MainLayoutPanel->Controls->Add(this->EmployeesEditView, 3, 0);
         this->MainLayoutPanel->Controls->Add(this->ArticleTableView, 6, 0);
-        this->MainLayoutPanel->Controls->Add(this->ClientsTableLabel, 4, 0);
+        this->MainLayoutPanel->Controls->Add(this->ClientsTableView, 4, 0);
         this->MainLayoutPanel->Controls->Add(this->ClientEditLabel, 5, 0);
         this->MainLayoutPanel->Controls->Add(this->ArticleEditView, 7, 0);
         this->MainLayoutPanel->Controls->Add(this->OrderTableView, 8, 0);
@@ -171,14 +172,18 @@ private:
         this->ArticleTableView->ArticleClick += gcnew System::EventHandler<int>(
             this, &WindowForm::ArticleTableView_ArticleClick);
         // 
-        // ClientsTableLabel
-        // 
-        this->ClientsTableLabel->AutoSize = true;
-        this->ClientsTableLabel->Location = System::Drawing::Point(494, 0);
-        this->ClientsTableLabel->Name = L"ClientsTableLabel";
-        this->ClientsTableLabel->Size = System::Drawing::Size(74, 16);
-        this->ClientsTableLabel->TabIndex = 5;
-        this->ClientsTableLabel->Text = L"Client Table";
+        // ClientTableView
+        //
+        this->ClientsTableView->Location = System::Drawing::Point(311, 0);
+        this->ClientsTableView->Margin = System::Windows::Forms::Padding(0);
+        this->ClientsTableView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->ClientsTableView->Name = L"ClientsTableView";
+        this->ClientsTableView->Size = System::Drawing::Size(111, 561);
+        this->ClientsTableView->TabIndex = 4;
+        this->ClientsTableView->CreateClick += gcnew System::EventHandler(
+            this, &WindowForm::ClientsTableView_CreateClick);
+        this->EmployeesTableView->EmployeeClick += gcnew System::EventHandler<int>(
+            this, &WindowForm::ClientsTableView_ClientClick);
         // 
         // ClientEditLabel
         // 
@@ -245,13 +250,17 @@ private:
             SetCurrentView(ApplicationViews::EmployeesTable);
             break;
         case SidebarActions::Clients:
-            SetCurrentView(ApplicationViews::ClientsEdit);
+            SetCurrentView(ApplicationViews::Loading);
+            ClientsTableView->LoadData();
+            SetCurrentView(ApplicationViews::ClientsTable);
             break;
         case SidebarActions::Articles:
+            SetCurrentView(ApplicationViews::Loading);
             ArticleTableView->LoadData();
             SetCurrentView(ApplicationViews::ArticlesTable);
             break;
         case SidebarActions::Orders:
+            SetCurrentView(ApplicationViews::Loading);
             OrderTableView->LoadData();
             SetCurrentView(ApplicationViews::OrdersTable);
             break;
@@ -367,7 +376,17 @@ private:
         EmployeesEditView->LoadForm(EditorMode::Edit, staffId);
         SetCurrentView(ApplicationViews::EmployeeEdit);
     }
+    
+    System::Void ClientsTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        SetCurrentView(ApplicationViews::ClientsEdit);
+    }
 
+    System::Void ClientsTableView_ClientClick(System::Object^ sender, int clientId)
+    {
+        SetCurrentView(ApplicationViews::ClientsEdit);
+    }
+    
     System::Void ArticleTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
     {
         this->ArticleEditView->LoadForm(EditorMode::Create);
