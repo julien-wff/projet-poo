@@ -199,6 +199,10 @@
     <ClInclude Include="views\LoadingView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="views\OrderTableView.h">
+      <FileType>CppControl</FileType>
+      <DependentUpon>OrderTableView.cpp</DependentUpon>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -321,6 +325,7 @@
     <ClCompile Include="views\EmployeesEditView.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
     <ClCompile Include="views\LoadingView.cpp" />
+    <ClCompile Include="views\OrderTableView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
@@ -386,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\EmployeesTableView.resx">
       <DependentUpon>views\EmployeesTableView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\OrderTableView.resx">
+      <DependentUpon>OrderTableView.cpp</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -3,14 +3,23 @@
 
 DataTable^ Services::OrderService::GetOrders()
 {
-    auto command = gcnew SqlClient::SqlCommand("SELECT * FROM [management].[orders]");
+    auto command = gcnew SqlClient::SqlCommand(
+    "SELECT orders.reference,\
+       persons.firstname,\
+       persons.lastname,\
+       orders.creation_date,\
+       ROUND((SELECT SUM(price) FROM [management].[order_items] WHERE order_reference = orders.reference), 2) AS order_price,\
+       (SELECT SUM(item_count) FROM [management].[order_items] WHERE order_reference = orders.reference) AS item_count\
+        FROM [management].[orders]\
+         LEFT JOIN [management].[clients] ON clients.id = orders.client_id\
+         LEFT JOIN [management].[persons] ON persons.id = clients.person_id");
     return dbProvider->ExecuteDataTable(command);
 }
 
 Entities::OrderEntity^ Services::OrderService::GetOrder(String^ orderReference)
 {
-    auto command = gcnew SqlClient::SqlCommand("SELECT * FROM [management].[orders] WHERE [id] = @id");
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", orderReference));
+    auto command = gcnew SqlClient::SqlCommand("SELECT * FROM [management].[orders] WHERE [reference] = @reference");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", orderReference));
     auto row = dbProvider->ExecuteDataRow(command);
     if (row == nullptr)
         return nullptr;

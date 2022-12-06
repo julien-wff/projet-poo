@@ -9,4 +9,7 @@ public enum class ApplicationViews
     ClientsTable,
     ArticlesTable,
     ArticlesEdit,
+    OrdersTable,
+    OrdersEdit,
+    Statistics,
 };
