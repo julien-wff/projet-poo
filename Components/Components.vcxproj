@@ -190,7 +190,12 @@
     <ClInclude Include="views\ArticleTableView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
-    <ClInclude Include="views\ClientsTableView.h" />
+    <ClInclude Include="views\ClientsEditView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="views\ClientsTableView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="views\EmployeesEditView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -330,6 +335,7 @@
     <ClCompile Include="services\StaffService.cpp" />
     <ClCompile Include="views\ArticleEditView.cpp" />
     <ClCompile Include="views\ArticleTableView.cpp" />
+    <ClCompile Include="views\ClientsEditView.cpp" />
     <ClCompile Include="views\ClientsTableView.cpp" />
     <ClCompile Include="views\EmployeesEditView.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
