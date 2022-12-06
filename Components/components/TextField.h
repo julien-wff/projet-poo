@@ -70,6 +70,19 @@ namespace Components
             }
         }
 
+        property bool Hidden
+        {
+            bool get()
+            {
+                return TextBox->UseSystemPasswordChar;
+            }
+
+            void set(bool value)
+            {
+                TextBox->UseSystemPasswordChar = value;
+            }
+        }
+
         event EventHandler^ TextChanged;
         event EventHandler^ Leave;
 

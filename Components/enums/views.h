@@ -12,4 +12,5 @@ public enum class ApplicationViews
     OrdersTable,
     OrdersEdit,
     Statistics,
+    Login,
 };

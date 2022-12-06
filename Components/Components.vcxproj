@@ -205,6 +205,9 @@
     <ClInclude Include="views\LoadingView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="views\LoginView.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="views\OrderEditView.h">
       <FileType>CppControl</FileType>
       <DependentUpon>OrderEditView.cpp</DependentUpon>
@@ -340,6 +343,7 @@
     <ClCompile Include="views\EmployeesEditView.cpp" />
     <ClCompile Include="views\EmployeesTableView.cpp" />
     <ClCompile Include="views\LoadingView.cpp" />
+    <ClCompile Include="views\LoginView.cpp" />
     <ClCompile Include="views\OrderEditView.cpp" />
     <ClCompile Include="views\OrderTableView.cpp" />
     <ClCompile Include="views\StatisticsView.cpp" />
@@ -359,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enums\TextFieldMode.h" />
+    <Content Include="icons\round_account_circle_black_24dp.png" />
     <Content Include="icons\round_article_black_24dp.png" />
     <Content Include="icons\round_delete_black_24dp.png" />
     <Content Include="icons\round_engineering_black_24dp.png" />
@@ -394,6 +399,9 @@
     <EmbeddedResource Include="components\TextField.resx">
       <DependentUpon>components\TextField.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoginView.resx">
+      <DependentUpon>views\LoginView.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sidebar.resx">
       <DependentUpon>components\Sidebar.h</DependentUpon>
     </EmbeddedResource>
@@ -408,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\EmployeesTableView.resx">
       <DependentUpon>views\EmployeesTableView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\LoginView.resx">
+      <DependentUpon>views\LoginView.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\OrderEditView.resx">
       <DependentUpon>OrderEditView.cpp</DependentUpon>

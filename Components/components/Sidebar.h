@@ -48,7 +48,8 @@ namespace Components
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
-            System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Sidebar::typeid));
+            System::ComponentModel::ComponentResourceManager^ resources = (gcnew
+                System::ComponentModel::ComponentResourceManager(Sidebar::typeid));
             this->TableLayout = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->EmployeesBtn = (gcnew Components::SidebarBtn());
             this->ClientsBtn = (gcnew Components::SidebarBtn());
@@ -62,7 +63,8 @@ namespace Components
             // TableLayout
             // 
             this->TableLayout->ColumnCount = 1;
-            this->TableLayout->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayout->ColumnStyles->Add(
+                (gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayout->Controls->Add(this->EmployeesBtn, 0, 2);
             this->TableLayout->Controls->Add(this->ClientsBtn, 0, 3);
             this->TableLayout->Controls->Add(this->MenuBtn, 0, 0);
@@ -73,25 +75,37 @@ namespace Components
             this->TableLayout->Location = System::Drawing::Point(0, 0);
             this->TableLayout->Name = L"TableLayout";
             this->TableLayout->RowCount = 9;
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
-            this->TableLayout->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+            this->TableLayout->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
             this->TableLayout->Size = System::Drawing::Size(200, 600);
             this->TableLayout->TabIndex = 1;
             // 
             // EmployeesBtn
             // 
-            this->EmployeesBtn->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(57)), static_cast<System::Int32>(static_cast<System::Byte>(99)),
+            this->EmployeesBtn->BackColor = System::Drawing::Color::FromArgb(
+                static_cast<System::Int32>(static_cast<System::Byte>(57)),
+                static_cast<System::Int32>(static_cast<System::Byte>(99)),
                 static_cast<System::Int32>(static_cast<System::Byte>(173)));
-            this->EmployeesBtn->BtnActive = true;
+            this->EmployeesBtn->BtnActive = false;
             this->EmployeesBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->EmployeesBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"EmployeesBtn.IconImage")));
+            this->EmployeesBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"EmployeesBtn.IconImage")));
             this->EmployeesBtn->LabelText = L"Employés";
             this->EmployeesBtn->Location = System::Drawing::Point(0, 200);
             this->EmployeesBtn->Margin = System::Windows::Forms::Padding(0);
@@ -105,7 +119,8 @@ namespace Components
             this->ClientsBtn->BackColor = System::Drawing::Color::Transparent;
             this->ClientsBtn->BtnActive = false;
             this->ClientsBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->ClientsBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ClientsBtn.IconImage")));
+            this->ClientsBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"ClientsBtn.IconImage")));
             this->ClientsBtn->LabelText = L"Clients";
             this->ClientsBtn->Location = System::Drawing::Point(0, 240);
             this->ClientsBtn->Margin = System::Windows::Forms::Padding(0);
@@ -119,7 +134,8 @@ namespace Components
             this->MenuBtn->BackColor = System::Drawing::Color::Transparent;
             this->MenuBtn->BtnActive = false;
             this->MenuBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->MenuBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"MenuBtn.IconImage")));
+            this->MenuBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"MenuBtn.IconImage")));
             this->MenuBtn->LabelText = L"Menu";
             this->MenuBtn->Location = System::Drawing::Point(0, 0);
             this->MenuBtn->Margin = System::Windows::Forms::Padding(0);
@@ -132,7 +148,8 @@ namespace Components
             this->ArticlesBtn->BackColor = System::Drawing::Color::Transparent;
             this->ArticlesBtn->BtnActive = false;
             this->ArticlesBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->ArticlesBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"ArticlesBtn.IconImage")));
+            this->ArticlesBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"ArticlesBtn.IconImage")));
             this->ArticlesBtn->LabelText = L"Articles";
             this->ArticlesBtn->Location = System::Drawing::Point(0, 280);
             this->ArticlesBtn->Margin = System::Windows::Forms::Padding(0);
@@ -146,7 +163,8 @@ namespace Components
             this->OrdersBtn->BackColor = System::Drawing::Color::Transparent;
             this->OrdersBtn->BtnActive = false;
             this->OrdersBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->OrdersBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"OrdersBtn.IconImage")));
+            this->OrdersBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"OrdersBtn.IconImage")));
             this->OrdersBtn->LabelText = L"Commandes";
             this->OrdersBtn->Location = System::Drawing::Point(0, 320);
             this->OrdersBtn->Margin = System::Windows::Forms::Padding(0);
@@ -160,7 +178,8 @@ namespace Components
             this->StatisticsBtn->BackColor = System::Drawing::Color::Transparent;
             this->StatisticsBtn->BtnActive = false;
             this->StatisticsBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->StatisticsBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"StatisticsBtn.IconImage")));
+            this->StatisticsBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
+                L"StatisticsBtn.IconImage")));
             this->StatisticsBtn->LabelText = L"Statistiques";
             this->StatisticsBtn->Location = System::Drawing::Point(0, 360);
             this->StatisticsBtn->Margin = System::Windows::Forms::Padding(0);
@@ -173,17 +192,21 @@ namespace Components
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-            this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(4)), static_cast<System::Int32>(static_cast<System::Byte>(23)),
-                static_cast<System::Int32>(static_cast<System::Byte>(55)));
+            this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(4)),
+                                                               static_cast<System::Int32>(static_cast<System::Byte>(
+                                                                   23)),
+                                                               static_cast<System::Int32>(static_cast<System::Byte>(
+                                                                   55)));
             this->Controls->Add(this->TableLayout);
-            this->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(253)), static_cast<System::Int32>(static_cast<System::Byte>(254)),
+            this->ForeColor = System::Drawing::Color::FromArgb(
+                static_cast<System::Int32>(static_cast<System::Byte>(253)),
+                static_cast<System::Int32>(static_cast<System::Byte>(254)),
                 static_cast<System::Int32>(static_cast<System::Byte>(250)));
             this->Margin = System::Windows::Forms::Padding(0);
             this->Name = L"Sidebar";
             this->Size = System::Drawing::Size(200, 600);
             this->TableLayout->ResumeLayout(false);
             this->ResumeLayout(false);
-
         }
 #pragma endregion
     private:
@@ -228,6 +251,7 @@ namespace Components
             this->SetActiveBtn(args->Action);
         }
 
+    public:
         System::Void SetActiveBtn(SidebarActions action)
         {
             this->EmployeesBtn->BtnActive = action == SidebarActions::Employees;
