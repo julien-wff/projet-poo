@@ -151,3 +151,33 @@ INSERT INTO [management].[address_types] (name)
 VALUES ('billing'),
        ('delivering'),
        ('staff')
+
+INSERT INTO [management].[payment_modes] (name)
+VALUES ('Carte bancaire'),
+       ('Chèque'),
+       ('Espèces'),
+       ('Virement'),
+       ('Paypal')
+
+-- Accounts
+
+CREATE LOGIN Julien WITH PASSWORD = '' GO
+CREATE USER Julien FOR LOGIN Julien GO
+GRANT SELECT ON SCHEMA ::management TO Julien GO
+GRANT INSERT ON SCHEMA ::management TO Julien GO
+GRANT UPDATE ON SCHEMA ::management TO Julien GO
+GRANT DELETE ON SCHEMA ::management TO Julien GO
+
+CREATE LOGIN Romain WITH PASSWORD = '' GO
+CREATE USER Romain FOR LOGIN Romain GO
+GRANT SELECT ON SCHEMA ::management TO Romain GO
+GRANT INSERT ON SCHEMA ::management TO Romain GO
+GRANT UPDATE ON SCHEMA ::management TO Romain GO
+GRANT DELETE ON SCHEMA ::management TO Romain GO
+
+CREATE LOGIN Antonin WITH PASSWORD = '' GO
+CREATE USER Antonin FOR LOGIN Antonin GO
+GRANT SELECT ON SCHEMA ::management TO Antonin GO
+GRANT INSERT ON SCHEMA ::management TO Antonin GO
+GRANT UPDATE ON SCHEMA ::management TO Antonin GO
+GRANT DELETE ON SCHEMA ::management TO Antonin GO
