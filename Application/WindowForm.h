@@ -182,7 +182,7 @@ private:
         this->ClientsTableView->TabIndex = 4;
         this->ClientsTableView->CreateClick += gcnew System::EventHandler(
             this, &WindowForm::ClientsTableView_CreateClick);
-        this->EmployeesTableView->EmployeeClick += gcnew System::EventHandler<int>(
+        this->ClientsTableView->ClientClick += gcnew System::EventHandler<int>(
             this, &WindowForm::ClientsTableView_ClientClick);
         // 
         // ClientEditLabel
