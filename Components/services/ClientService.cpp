@@ -46,3 +46,35 @@ bool Services::ClientService::DeleteClient(Entities::ClientEntity^ client)
 {
     return DeleteClient(client->GetClientId());
 }
+
+Entities::AddressEntity^ Services::ClientService::GetBillingAddress(Entities::ClientEntity^ client)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT addresses.id, person_id, city_id, address_type_id, street, at.name AS address_type_name, c.name AS city_name, zipcode \
+        FROM [management].[addresses] \
+        LEFT JOIN [management].[address_types] AS at ON at.id = addresses.address_type_id \
+        LEFT JOIN [management].[cities] AS c ON c.id = addresses.city_id \
+        WHERE addresses.person_id = @person_id AND addresses.address_type_id = @address_type_id");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@person_id", client->GetPersonId()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@address_type_id", 1));
+    auto addressRow = dbProvider->ExecuteDataRow(command);
+    if (addressRow == nullptr)
+        return nullptr;
+    return gcnew Entities::AddressEntity(addressRow);
+}
+
+Entities::AddressEntity^ Services::ClientService::GetDeliveryAddress(Entities::ClientEntity^ client)
+{
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT addresses.id, person_id, city_id, address_type_id, street, at.name AS address_type_name, c.name AS city_name, zipcode \
+        FROM [management].[addresses] \
+        LEFT JOIN [management].[address_types] AS at ON at.id = addresses.address_type_id \
+        LEFT JOIN [management].[cities] AS c ON c.id = addresses.city_id \
+        WHERE addresses.person_id = @person_id AND addresses.address_type_id = @address_type_id");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@person_id", client->GetPersonId()));
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@address_type_id", 2));
+    auto addressRow = dbProvider->ExecuteDataRow(command);
+    if (addressRow == nullptr)
+        return nullptr;
+    return gcnew Entities::AddressEntity(addressRow);
+}

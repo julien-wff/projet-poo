@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "PersonService.h"
+#include "../entities/AddressEntity.h"
 #include "../entities/ClientEntity.h"
 
 namespace Services
@@ -13,5 +14,7 @@ namespace Services
         bool UpdateClient(Entities::ClientEntity^ client);
         bool DeleteClient(int id);
         bool DeleteClient(Entities::ClientEntity^ client);
+        Entities::AddressEntity^ GetBillingAddress(Entities::ClientEntity^ client);
+        Entities::AddressEntity^ GetDeliveryAddress(Entities::ClientEntity^ client);
     };
 }

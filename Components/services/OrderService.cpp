@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "OrderService.h"
+#include "ClientService.h"
 
 DataTable^ Services::OrderService::GetOrders()
 {
     auto command = gcnew SqlClient::SqlCommand(
-    "SELECT orders.reference,\
+        "SELECT orders.reference,\
        persons.firstname,\
        persons.lastname,\
        orders.creation_date,\
@@ -26,17 +27,17 @@ Entities::OrderEntity^ Services::OrderService::GetOrder(String^ orderReference)
     return gcnew Entities::OrderEntity(row);
 }
 
-int Services::OrderService::AddOrder(Entities::OrderEntity^ order)
+String^ Services::OrderService::AddOrder(Entities::OrderEntity^ order)
 {
     auto command = gcnew SqlClient::SqlCommand(
         "INSERT INTO [management].[orders] (reference, client_id, delivery_date, creation_date) \
-        OUTPUT INSERTED.[id] \
+        OUTPUT INSERTED.[reference] \
         VALUES (@reference, @client_id, @delivery_date, @creation_date)");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", order->GetOrderReference()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@client_id", order->GetClientId()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@delivery_date", order->GetDeliveryDate()));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@creation_date", order->GetCreationDate()));
-    return safe_cast<int>(dbProvider->ExecuteScalar(command));
+    return Convert::ToString(dbProvider->ExecuteScalar(command));
 }
 
 bool Services::OrderService::UpdateOrder(Entities::OrderEntity^ order)
@@ -54,8 +55,8 @@ bool Services::OrderService::UpdateOrder(Entities::OrderEntity^ order)
 
 bool Services::OrderService::DeleteOrder(String^ orderReference)
 {
-    auto command = gcnew SqlClient::SqlCommand("DELETE FROM [management].[orders] WHERE [id] = @id");
-    command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", orderReference));
+    auto command = gcnew SqlClient::SqlCommand("DELETE FROM [management].[orders] WHERE [reference] = @reference");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", orderReference));
     return dbProvider->ExecuteNonQuery(command) == 1;
 }
 
@@ -100,4 +101,21 @@ Entities::ClientEntity^ Services::OrderService::GetClient(Entities::OrderEntity^
     if (person == nullptr)
         return nullptr;
     return gcnew Entities::ClientEntity(person);
+}
+
+String^ Services::OrderService::GenerateOrderReference(Entities::ClientEntity^ client)
+{
+    auto clientService = gcnew ClientService();
+    auto clientDeliveryAddress = clientService->GetDeliveryAddress(client);
+    String^ reference =
+        client->GetLastname()->Substring(0, 2)->ToUpper() +
+        client->GetFirstname()->Substring(0, 2)->ToUpper() +
+        System::DateTime::Now.Year.ToString() +
+        clientDeliveryAddress->GetCity()->Substring(0, 3)->ToUpper();
+    // Count orders that match the beginning of reference
+    auto command = gcnew SqlClient::SqlCommand(
+        "SELECT COUNT(orders.reference) AS orders FROM [management].[orders] WHERE [reference] LIKE @reference");
+    command->Parameters->Add(gcnew SqlClient::SqlParameter("@reference", reference + "%"));
+    auto count = safe_cast<int>(dbProvider->ExecuteScalar(command));
+    return reference + (count + 1).ToString("D3");
 }

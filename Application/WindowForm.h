@@ -41,6 +41,7 @@ private:
     System::Windows::Forms::Label^ ClientEditLabel;
     Components::ArticleEditView^ ArticleEditView;
     Components::OrderTableView^ OrderTableView;
+    Components::OrderEditView^ OrderEditView;
     System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -56,39 +57,43 @@ private:
         this->ClientEditLabel = (gcnew System::Windows::Forms::Label());
         this->ArticleEditView = (gcnew Components::ArticleEditView());
         this->OrderTableView = (gcnew Components::OrderTableView());
+        this->OrderEditView = (gcnew Components::OrderEditView());
         this->MainLayoutPanel->SuspendLayout();
         this->SuspendLayout();
         // 
         // MainLayoutPanel
         // 
-        this->MainLayoutPanel->ColumnCount = 9;
+        this->MainLayoutPanel->ColumnCount = 10;
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Absolute,
             200)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.49918F)));
+            11.11038F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.50167F)));
+            11.11259F)));
         this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
             System::Windows::Forms::SizeType::Percent,
-            12.50328F)));
+            11.11402F)));
+        this->MainLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+            System::Windows::Forms::SizeType::Percent,
+            11.11111F)));
         this->MainLayoutPanel->Controls->Add(this->Sidebar, 0, 0);
         this->MainLayoutPanel->Controls->Add(this->LoadingView, 1, 0);
         this->MainLayoutPanel->Controls->Add(this->EmployeesTableView, 2, 0);
@@ -98,6 +103,7 @@ private:
         this->MainLayoutPanel->Controls->Add(this->ClientEditLabel, 5, 0);
         this->MainLayoutPanel->Controls->Add(this->ArticleEditView, 7, 0);
         this->MainLayoutPanel->Controls->Add(this->OrderTableView, 8, 0);
+        this->MainLayoutPanel->Controls->Add(this->OrderEditView, 9, 0);
         this->MainLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
         this->MainLayoutPanel->Location = System::Drawing::Point(0, 0);
         this->MainLayoutPanel->Margin = System::Windows::Forms::Padding(0);
@@ -188,7 +194,7 @@ private:
         // ClientEditLabel
         // 
         this->ClientEditLabel->AutoSize = true;
-        this->ClientEditLabel->Location = System::Drawing::Point(591, 0);
+        this->ClientEditLabel->Location = System::Drawing::Point(551, 0);
         this->ClientEditLabel->Name = L"ClientEditLabel";
         this->ClientEditLabel->Size = System::Drawing::Size(67, 16);
         this->ClientEditLabel->TabIndex = 6;
@@ -197,21 +203,35 @@ private:
         // ArticleEditView
         // 
         this->ArticleEditView->Dock = System::Windows::Forms::DockStyle::Fill;
-        this->ArticleEditView->Location = System::Drawing::Point(782, 0);
+        this->ArticleEditView->Location = System::Drawing::Point(722, 0);
         this->ArticleEditView->Margin = System::Windows::Forms::Padding(0);
         this->ArticleEditView->Name = L"ArticleEditView";
-        this->ArticleEditView->Size = System::Drawing::Size(98, 561);
+        this->ArticleEditView->Size = System::Drawing::Size(87, 561);
         this->ArticleEditView->TabIndex = 7;
         this->ArticleEditView->Back += gcnew System::EventHandler(this, &WindowForm::ArticleEditView_BackClick);
         // 
         // OrderTableView
         // 
         this->OrderTableView->Dock = System::Windows::Forms::DockStyle::Fill;
-        this->OrderTableView->Location = System::Drawing::Point(880, 0);
+        this->OrderTableView->Location = System::Drawing::Point(809, 0);
         this->OrderTableView->Margin = System::Windows::Forms::Padding(0);
         this->OrderTableView->Name = L"OrderTableView";
-        this->OrderTableView->Size = System::Drawing::Size(104, 561);
+        this->OrderTableView->Size = System::Drawing::Size(87, 561);
         this->OrderTableView->TabIndex = 8;
+        this->OrderTableView->CreateClick += gcnew System::EventHandler(
+            this, &WindowForm::OrderTableView_CreateClick);
+        this->OrderTableView->OrderClick += gcnew System::EventHandler<String^>(
+            this, &WindowForm::OrderTableView_OrderClick);
+        // 
+        // OrderEditView
+        // 
+        this->OrderEditView->Dock = System::Windows::Forms::DockStyle::Fill;
+        this->OrderEditView->Location = System::Drawing::Point(722, 0);
+        this->OrderEditView->Margin = System::Windows::Forms::Padding(0);
+        this->OrderEditView->Name = L"ArticleEditView";
+        this->OrderEditView->Size = System::Drawing::Size(87, 561);
+        this->OrderEditView->TabIndex = 9;
+        this->OrderEditView->Back += gcnew System::EventHandler(this, &WindowForm::OrderEditView_BackClick);
         // 
         // WindowForm
         // 
@@ -344,6 +364,9 @@ private:
         case ApplicationViews::OrdersTable:
             ShowColumn(8);
             break;
+        case ApplicationViews::OrdersEdit:
+            ShowColumn(9);
+            break;
         }
 
         // Resume layout to apply changes
@@ -405,5 +428,25 @@ private:
         SetCurrentView(ApplicationViews::Loading);
         ArticleTableView->LoadData();
         SetCurrentView(ApplicationViews::ArticlesTable);
+    }
+
+    System::Void OrderTableView_CreateClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        this->OrderEditView->LoadForm(EditorMode::Create);
+        SetCurrentView(ApplicationViews::OrdersEdit);
+    }
+    
+    System::Void OrderTableView_OrderClick(System::Object^ sender, String^ orderReference)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+        this->OrderEditView->LoadForm(EditorMode::Edit, orderReference);
+        SetCurrentView(ApplicationViews::OrdersEdit);
+    }
+
+    System::Void OrderEditView_BackClick(System::Object^ sender, System::EventArgs^ e)
+    {
+        SetCurrentView(ApplicationViews::Loading);
+        OrderTableView->LoadData();
+        SetCurrentView(ApplicationViews::OrdersTable);
     }
 };

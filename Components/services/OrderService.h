@@ -15,12 +15,13 @@ namespace Services
     public:
         DataTable^ GetOrders();
         Entities::OrderEntity^ GetOrder(String^ orderReference);
-        int AddOrder(Entities::OrderEntity^ order);
+        String^ AddOrder(Entities::OrderEntity^ order);
         bool UpdateOrder(Entities::OrderEntity^ order);
         bool DeleteOrder(String^ orderReference);
         bool DeleteOrder(Entities::OrderEntity^ order);
         array<Entities::PaymentEntity^>^ GetPayments(Entities::OrderEntity^ order);
         array<Entities::OrderItemEntity^>^ GetOrderItems(Entities::OrderEntity^ order);
         Entities::ClientEntity^ GetClient(Entities::OrderEntity^ order);
+        String^ GenerateOrderReference(Entities::ClientEntity^ client);
     };
 }
