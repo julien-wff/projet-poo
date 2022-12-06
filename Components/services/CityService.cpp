@@ -10,7 +10,7 @@ DataTable^ Services::CityService::GetCities()
 Entities::CityEntity^ Services::CityService::GetCity(int id)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT id AS city_id, name, zipcode FROM [management].[cities] WHERE id = @id");
+        "SELECT id AS city_id, name AS city_name, zipcode FROM [management].[cities] WHERE id = @id");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", id));
     auto cityRow = dbProvider->ExecuteDataRow(command);
     if (cityRow == nullptr)
@@ -57,7 +57,7 @@ bool Services::CityService::DeleteCity(Entities::CityEntity^ city)
 array<Entities::CityEntity^>^ Services::CityService::GetCitiesByZipCode(int zipCode)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT id AS city_id, name, zipcode FROM [management].[cities] WHERE zipcode = @zipcode");
+        "SELECT id AS city_id, name AS city_name, zipcode FROM [management].[cities] WHERE zipcode = @zipcode");
     command->Parameters->AddWithValue("@zipcode", zipCode);
     auto cityRows = dbProvider->ExecuteDataTable(command);
     auto cities = gcnew array<Entities::CityEntity^>(cityRows->Rows->Count);

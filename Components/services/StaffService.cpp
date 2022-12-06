@@ -88,7 +88,7 @@ array<Entities::StaffEntity^>^ Services::StaffService::GetPossibleSupervisors(En
 Entities::AddressEntity^ Services::StaffService::GetAddress(Entities::StaffEntity^ staff)
 {
     auto command = gcnew SqlClient::SqlCommand(
-        "SELECT addresses.id AS id, person_id, city_id, address_type_id, street, cities.name AS name, zipcode  \
+        "SELECT addresses.id AS id, person_id, city_id, address_type_id, street, cities.name AS city_name, zipcode \
                 FROM management.addresses \
                 LEFT JOIN management.cities ON cities.id = addresses.city_id \
                 LEFT JOIN management.address_types ON address_types.id = addresses.address_type_id \
