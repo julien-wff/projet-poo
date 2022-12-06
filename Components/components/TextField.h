@@ -85,6 +85,7 @@ namespace Components
 
         event EventHandler^ TextChanged;
         event EventHandler^ Leave;
+        event EventHandler^ Submit;
 
     private:
         System::Windows::Forms::TableLayoutPanel^ TableLayoutPanel;
@@ -211,6 +212,12 @@ namespace Components
 
         Void TextBox_KeyPress(Object^ sender, KeyPressEventArgs^ e)
         {
+            if (e->KeyChar == '\r' && Value->Trim()->Length!=0)
+            {
+                Submit(this,e);
+                return;
+            } 
+            
             if (_mode == TextFieldMode::Text)
                 return;
 

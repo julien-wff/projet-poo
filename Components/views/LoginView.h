@@ -251,6 +251,7 @@ namespace Components
             this->PasswordField->TabIndex = 1;
             this->PasswordField->Value = L"";
             this->PasswordField->Hidden = true;
+            this->PasswordField->Submit += gcnew System::EventHandler(this, &LoginView::LoginBtn_Click);
             // 
             // LoginView
             // 
