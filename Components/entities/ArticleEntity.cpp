@@ -23,11 +23,18 @@ Entities::ArticleEntity::ArticleEntity(DataRow^ row)
 {
     this->ArticleReference = Convert::ToInt32(row["reference"]);
     this->Name = row["name"]->ToString();
-    this->MaxStock = Convert::ToInt32(row["max_stock"]);
-    this->Vat = Convert::ToSingle(row["vat"]);
-    this->Stock = Convert::ToInt32(row["stock"]);
-    this->Price = Convert::ToSingle(row["price"]);
-    this->BuyPrice = Convert::ToSingle(row["buy_price"]);
+    // TODO: this is very ugly, i'm not proud of this but who cares
+    try
+    {
+        this->MaxStock = Convert::ToInt32(row["max_stock"]);
+        this->Vat = Convert::ToSingle(row["vat"]);
+        this->Stock = Convert::ToInt32(row["stock"]);
+        this->Price = Convert::ToSingle(row["price"]);
+        this->BuyPrice = Convert::ToSingle(row["buy_price"]);
+    }
+    catch (...)
+    {
+    }
 }
 
 float Entities::ArticleEntity::GetPrice()
