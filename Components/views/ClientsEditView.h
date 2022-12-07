@@ -44,10 +44,22 @@ namespace Components
         System::Windows::Forms::TableLayoutPanel^ TableLayoutPanel;
         Components::EditorHeader^ EditorHeader;
         System::ComponentModel::Container^ components;
+        Components::TextField^ FirstNameField;
+        Components::TextField^ LastNameField;
+        System::Windows::Forms::TableLayoutPanel^ FormLayoutPanel;
+        Components::FormSeparator^ IdentitySeparator;
+        Components::FormSeparator^ StaffSeparator;
+        Components::DateField^ BirthDateField;
+        Components::SelectField^ SupervisorField;
+        Components::FormSeparator^ AddressSeparator;
+        Components::AddressCityFields^ AddressCityFields;
+        Components::TextField^ StreetField;
 
         Services::ClientService^ clientService = gcnew Services::ClientService();
         Entities::ClientEntity^ client;
-
+        Services::AddressService^ addressService = gcnew Services::AddressService();
+        Entities::AddressEntity^ address;
+        
         EditorMode currentEditorMode;
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
