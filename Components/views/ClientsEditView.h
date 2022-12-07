@@ -170,7 +170,9 @@ namespace Components
             this->FormLayoutPanel->Location = System::Drawing::Point(20, 60);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(20);
             this->FormLayoutPanel->Name = L"FormLayoutPanel";
-            this->FormLayoutPanel->RowCount = 9;
+            this->FormLayoutPanel->RowCount = 10;
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
