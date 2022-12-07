@@ -48,7 +48,6 @@ namespace Components
         Components::TextField^ LastNameField;
         System::Windows::Forms::TableLayoutPanel^ FormLayoutPanel;
         Components::FormSeparator^ IdentitySeparator;
-        Components::FormSeparator^ ClientSeparator;
         Components::DateField^ BirthDateField;
         Components::FormSeparator^ AddressBillingSeparator;
         Components::AddressCityFields^ AddressCityBillingFields;
@@ -76,7 +75,6 @@ namespace Components
             this->LastNameField = (gcnew Components::TextField());
             this->FirstNameField = (gcnew Components::TextField());
             this->IdentitySeparator = (gcnew Components::FormSeparator());
-            this->ClientSeparator = (gcnew Components::FormSeparator());
             this->BirthDateField = (gcnew Components::DateField());
             this->AddressDeliverySeparator = (gcnew Components::FormSeparator());
             this->AddressCityDeliveryFields = (gcnew Components::AddressCityFields());
@@ -161,7 +159,6 @@ namespace Components
             this->FormLayoutPanel->Controls->Add(this->LastNameField, 1, 1);
             this->FormLayoutPanel->Controls->Add(this->FirstNameField, 3, 1);
             this->FormLayoutPanel->Controls->Add(this->IdentitySeparator, 1, 0);
-            this->FormLayoutPanel->Controls->Add(this->ClientSeparator, 1, 2);
             this->FormLayoutPanel->Controls->Add(this->BirthDateField, 1, 3);
             this->FormLayoutPanel->Controls->Add(this->AddressDeliverySeparator, 1, 4);
             this->FormLayoutPanel->Controls->Add(this->AddressCityDeliveryFields, 1, 5);
@@ -222,17 +219,6 @@ namespace Components
             this->IdentitySeparator->Name = L"IdentitySeparator";
             this->IdentitySeparator->Size = System::Drawing::Size(520, 50);
             this->IdentitySeparator->TabIndex = 2;
-            // 
-            // ClientSeparator
-            // 
-            this->FormLayoutPanel->SetColumnSpan(this->ClientSeparator, 3);
-            this->ClientSeparator->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->ClientSeparator->LabelText = L"Client";
-            this->ClientSeparator->Location = System::Drawing::Point(120, 100);
-            this->ClientSeparator->Margin = System::Windows::Forms::Padding(0);
-            this->ClientSeparator->Name = L"ClientSeparator";
-            this->ClientSeparator->Size = System::Drawing::Size(520, 50);
-            this->ClientSeparator->TabIndex = 2;
             // 
             // BirthDateField
             // 
@@ -381,7 +367,7 @@ namespace Components
                 StreetBillingField->Value = "";
                 //delivery
                 addressdelivery = gcnew Entities::AddressEntity();
-                addressdelivery->SetAddressTypeId(1);
+                addressdelivery->SetAddressTypeId(2);
                 AddressCityDeliveryFields->ClearFields();
                 StreetDeliveryField->Value = "";
             }
@@ -443,6 +429,7 @@ namespace Components
                 clientService->UpdatePerson(client);
                 clientService->UpdateClient(client);
                 addressService->UpdateAddress(addressbilling);
+                addressService->UpdateAddress(addressdelivery);
             }
             Back(this, e);
         }
