@@ -54,41 +54,42 @@ namespace Components
         Components::FormSeparator^ AddressSeparator;
         Components::AddressCityFields^ AddressCityFields;
         Components::TextField^ StreetField;
+        System::Windows::Forms::Panel^ FormScrollPanel;
 
         Services::ClientService^ clientService = gcnew Services::ClientService();
         Entities::ClientEntity^ client;
         Services::AddressService^ addressService = gcnew Services::AddressService();
         Entities::AddressEntity^ address;
-        
+
         EditorMode currentEditorMode;
+
 #pragma region Windows Form Designer generated code
         void InitializeComponent(void)
         {
             this->TableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->EditorHeader = (gcnew Components::EditorHeader());
+            this->FormScrollPanel = (gcnew System::Windows::Forms::Panel());
+            this->FormLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->TableLayoutPanel->SuspendLayout();
+            this->FormScrollPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // TableLayoutPanel
             // 
             this->TableLayoutPanel->ColumnCount = 1;
-            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
-                System::Windows::Forms::SizeType::Percent,
+            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
                 100)));
-            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
-                System::Windows::Forms::SizeType::Absolute,
+            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
                 20)));
             this->TableLayoutPanel->Controls->Add(this->EditorHeader, 0, 0);
-            //this->TableLayoutPanel->Controls->Add(this->FormLayoutPanel, 0, 1);
+            this->TableLayoutPanel->Controls->Add(this->FormScrollPanel, 0, 1);
             this->TableLayoutPanel->Dock = System::Windows::Forms::DockStyle::Fill;
             this->TableLayoutPanel->Location = System::Drawing::Point(0, 0);
             this->TableLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->TableLayoutPanel->Name = L"TableLayoutPanel";
             this->TableLayoutPanel->RowCount = 2;
-            this->TableLayoutPanel->RowStyles->Add(
-                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayoutPanel->RowStyles->Add(
-                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayoutPanel->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->TabIndex = 0;
             // 
@@ -102,24 +103,49 @@ namespace Components
             this->EditorHeader->Name = L"EditorHeader";
             this->EditorHeader->Size = System::Drawing::Size(800, 40);
             this->EditorHeader->TabIndex = 0;
-            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
-                this, &ClientsEditView::EditorHeader_DeleteClick);
-            this->EditorHeader->CreateClick += gcnew System::EventHandler(
-                this, &ClientsEditView::EditorHeader_CreateClick);
-            this->EditorHeader->CancelClick += gcnew System::EventHandler(
-                this, &ClientsEditView::EditorHeader_CancelClick);
+            this->EditorHeader->DeleteClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_DeleteClick);
+            this->EditorHeader->CreateClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_CreateClick);
+            this->EditorHeader->CancelClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_CancelClick);
+            // 
+            // FormScrollPanel
+            // 
+            this->FormScrollPanel->AutoScroll = true;
+            this->FormScrollPanel->Controls->Add(this->FormLayoutPanel);
+            this->FormScrollPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+            this->FormScrollPanel->Location = System::Drawing::Point(0, 40);
+            this->FormScrollPanel->Margin = System::Windows::Forms::Padding(0);
+            this->FormScrollPanel->Name = L"FormScrollPanel";
+            this->FormScrollPanel->Padding = System::Windows::Forms::Padding(20);
+            this->FormScrollPanel->Size = System::Drawing::Size(800, 560);
+            this->FormScrollPanel->TabIndex = 1;
+            // 
+            // FormLayoutPanel
+            // 
+            this->FormLayoutPanel->ColumnCount = 1;
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->FormLayoutPanel->Location = System::Drawing::Point(20, 20);
+            this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(0);
+            this->FormLayoutPanel->Name = L"FormLayoutPanel";
+            this->FormLayoutPanel->RowCount = 1;
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+            this->FormLayoutPanel->Size = System::Drawing::Size(760, 452);
+            this->FormLayoutPanel->TabIndex = 0;
             // 
             // ClientsEditView
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->Controls->Add(this->TableLayoutPanel);
-            this->Name = L"EmployeesEditView";
+            this->Name = L"ClientsEditView";
             this->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->ResumeLayout(false);
+            this->FormScrollPanel->ResumeLayout(false);
             this->ResumeLayout(false);
+
         }
-#pragma endregion 
+#pragma endregion
 
     public:
         void LoadForm(EditorMode mode, int clientId)
