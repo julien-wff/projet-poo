@@ -339,7 +339,7 @@ namespace Components
             // 
             this->FormLayoutPanel->SetColumnSpan(this->ArticlesSellsSeparator, 3);
             this->ArticlesSellsSeparator->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->ArticlesSellsSeparator->LabelText = L"Meilleures et pires ventes";
+            this->ArticlesSellsSeparator->LabelText = L"Classement des ventes";
             this->ArticlesSellsSeparator->Location = System::Drawing::Point(111, 81);
             this->ArticlesSellsSeparator->Margin = System::Windows::Forms::Padding(0);
             this->ArticlesSellsSeparator->Name = L"ArticlesSellsSeparator";
@@ -378,7 +378,7 @@ namespace Components
             this->BestArticlesHeader->Name = L"BestArticlesHeader";
             this->BestArticlesHeader->Size = System::Drawing::Size(250, 16);
             this->BestArticlesHeader->TabIndex = 0;
-            this->BestArticlesHeader->Text = L"Meilleurs articles";
+            this->BestArticlesHeader->Text = L"Articles les plus vendus";
             // 
             // WorstArticlesLayoutPanel
             // 
@@ -412,13 +412,13 @@ namespace Components
             this->WorstArticlesHeader->Name = L"WorstArticlesHeader";
             this->WorstArticlesHeader->Size = System::Drawing::Size(250, 16);
             this->WorstArticlesHeader->TabIndex = 0;
-            this->WorstArticlesHeader->Text = L"Pires articles";
+            this->WorstArticlesHeader->Text = L"Articles les moins vendus";
             // 
             // ClientExpenseSeparator
             // 
             this->FormLayoutPanel->SetColumnSpan(this->ClientExpenseSeparator, 3);
             this->ClientExpenseSeparator->Dock = System::Windows::Forms::DockStyle::Top;
-            this->ClientExpenseSeparator->LabelText = L"Dépense d\'un client";
+            this->ClientExpenseSeparator->LabelText = L"Dépenses d\'un client";
             this->ClientExpenseSeparator->Location = System::Drawing::Point(111, 167);
             this->ClientExpenseSeparator->Margin = System::Windows::Forms::Padding(0);
             this->ClientExpenseSeparator->Name = L"ClientExpenseSeparator";
@@ -456,7 +456,7 @@ namespace Components
             // 
             this->FormLayoutPanel->SetColumnSpan(this->MonthTurnoverSeparator, 3);
             this->MonthTurnoverSeparator->Dock = System::Windows::Forms::DockStyle::Top;
-            this->MonthTurnoverSeparator->LabelText = L"Chiffre d\'affaire d\'un mois";
+            this->MonthTurnoverSeparator->LabelText = L"Chiffre d\'affaires d\'un mois";
             this->MonthTurnoverSeparator->Location = System::Drawing::Point(111, 267);
             this->MonthTurnoverSeparator->Margin = System::Windows::Forms::Padding(0);
             this->MonthTurnoverSeparator->Name = L"MonthTurnoverSeparator";
@@ -496,7 +496,7 @@ namespace Components
             // 
             this->FormLayoutPanel->SetColumnSpan(this->AverageCartSeparator, 3);
             this->AverageCartSeparator->Dock = System::Windows::Forms::DockStyle::Top;
-            this->AverageCartSeparator->LabelText = L"Valeur moyen des paniers";
+            this->AverageCartSeparator->LabelText = L"Valeur moyenne des paniers";
             this->AverageCartSeparator->Location = System::Drawing::Point(111, 367);
             this->AverageCartSeparator->Margin = System::Windows::Forms::Padding(0);
             this->AverageCartSeparator->Name = L"AverageCartSeparator";
@@ -516,7 +516,7 @@ namespace Components
             this->AverageCardLabel->Name = L"AverageCardLabel";
             this->AverageCardLabel->Size = System::Drawing::Size(520, 16);
             this->AverageCardLabel->TabIndex = 11;
-            this->AverageCardLabel->Text = L"Valeur moyen des paniers";
+            this->AverageCardLabel->Text = L"Valeur moyenne des paniers";
             // 
             // ProductRestockSeparator
             // 
