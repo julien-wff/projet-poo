@@ -98,10 +98,7 @@ namespace Components
             // 
             // EmployeesBtn
             // 
-            this->EmployeesBtn->BackColor = System::Drawing::Color::FromArgb(
-                static_cast<System::Int32>(static_cast<System::Byte>(57)),
-                static_cast<System::Int32>(static_cast<System::Byte>(99)),
-                static_cast<System::Int32>(static_cast<System::Byte>(173)));
+            this->EmployeesBtn->BackColor = System::Drawing::Color::Transparent;
             this->EmployeesBtn->BtnActive = false;
             this->EmployeesBtn->Dock = System::Windows::Forms::DockStyle::Fill;
             this->EmployeesBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
@@ -136,7 +133,7 @@ namespace Components
             this->MenuBtn->Dock = System::Windows::Forms::DockStyle::Fill;
             this->MenuBtn->IconImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(
                 L"MenuBtn.IconImage")));
-            this->MenuBtn->LabelText = L"Menu";
+            this->MenuBtn->LabelText = L"Digital Electronics";
             this->MenuBtn->Location = System::Drawing::Point(0, 0);
             this->MenuBtn->Margin = System::Windows::Forms::Padding(0);
             this->MenuBtn->Name = L"MenuBtn";

@@ -284,7 +284,11 @@ private:
         this->Margin = System::Windows::Forms::Padding(4);
         this->MinimumSize = System::Drawing::Size(950, 500);
         this->Name = L"WindowForm";
-        this->Text = L"Application de gestion";
+        this->Text = L"Digital Electronics";
+        if (System::IO::File::Exists("../../app.ico"))
+        {
+            this->Icon = (gcnew System::Drawing::Icon("../../app.ico"));
+        }
         this->Load += gcnew System::EventHandler(this, &WindowForm::WindowForm_Load);
         this->Shown += gcnew System::EventHandler(this, &WindowForm::WindowForm_Shown);
         this->MainLayoutPanel->ResumeLayout(false);

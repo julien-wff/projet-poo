@@ -371,6 +371,7 @@
     <Content Include="icons\round_engineering_black_24dp.png" />
     <Content Include="icons\round_group_black_24dp.png" />
     <Content Include="icons\round_insights_black_24dp.png" />
+    <Content Include="icons\round_memory_blue_24dp.png" />
     <Content Include="icons\round_menu_black_24dp.png" />
     <Content Include="icons\round_shopping_basket_black_24dp.png" />
   </ItemGroup>
