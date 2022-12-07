@@ -77,9 +77,11 @@ namespace Components
             // TableLayoutPanel
             // 
             this->TableLayoutPanel->ColumnCount = 1;
-            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 100)));
-            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
+            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Absolute,
                 20)));
             this->TableLayoutPanel->Controls->Add(this->EditorHeader, 0, 0);
             this->TableLayoutPanel->Controls->Add(this->FormScrollPanel, 0, 1);
@@ -88,8 +90,10 @@ namespace Components
             this->TableLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->TableLayoutPanel->Name = L"TableLayoutPanel";
             this->TableLayoutPanel->RowCount = 2;
-            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayoutPanel->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->TabIndex = 0;
             // 
@@ -103,9 +107,12 @@ namespace Components
             this->EditorHeader->Name = L"EditorHeader";
             this->EditorHeader->Size = System::Drawing::Size(800, 40);
             this->EditorHeader->TabIndex = 0;
-            this->EditorHeader->DeleteClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_DeleteClick);
-            this->EditorHeader->CreateClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_CreateClick);
-            this->EditorHeader->CancelClick += gcnew System::EventHandler(this, &ClientsEditView::EditorHeader_CancelClick);
+            this->EditorHeader->DeleteClick += gcnew System::EventHandler(
+                this, &ClientsEditView::EditorHeader_DeleteClick);
+            this->EditorHeader->CreateClick += gcnew System::EventHandler(
+                this, &ClientsEditView::EditorHeader_CreateClick);
+            this->EditorHeader->CancelClick += gcnew System::EventHandler(
+                this, &ClientsEditView::EditorHeader_CancelClick);
             // 
             // FormScrollPanel
             // 
@@ -122,14 +129,16 @@ namespace Components
             // FormLayoutPanel
             // 
             this->FormLayoutPanel->ColumnCount = 1;
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
             this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
             this->FormLayoutPanel->Location = System::Drawing::Point(20, 20);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->FormLayoutPanel->Name = L"FormLayoutPanel";
             this->FormLayoutPanel->RowCount = 1;
-            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+            this->FormLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
             this->FormLayoutPanel->Size = System::Drawing::Size(760, 452);
             this->FormLayoutPanel->TabIndex = 0;
             // 
@@ -143,7 +152,6 @@ namespace Components
             this->TableLayoutPanel->ResumeLayout(false);
             this->FormScrollPanel->ResumeLayout(false);
             this->ResumeLayout(false);
-
         }
 #pragma endregion
 
