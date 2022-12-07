@@ -83,3 +83,29 @@ array<Entities::ArticleEntity^>^ Services::StatisticService::GetProductToRestock
         restocks[i] = gcnew Entities::ArticleEntity(restockTable->Rows[i]);
     return restocks;
 }
+
+array<Entities::ClientEntity^>^ Services::StatisticService::GetBirthdayClients()
+{
+    auto command = gcnew  SqlClient::SqlCommand(
+        "SELECT * FROM management.clients \
+        LEFT JOIN management.persons ON persons.id = clients.person_id \
+        WHERE DAY(birth_date) = DAY(GETDATE()) AND MONTH(birth_date) = MONTH(GETDATE())");
+    auto clientsTable = dbProvider->ExecuteDataTable(command);
+    auto clients = gcnew array<Entities::ClientEntity^>(clientsTable->Rows->Count);
+    for (int i = 0; i < clientsTable->Rows->Count; i++)
+        clients[i] = gcnew Entities::ClientEntity(clientsTable->Rows[i]);
+    return clients;
+}
+
+array<Entities::ClientEntity^>^ Services::StatisticService::GetFutureBirthdayClients()
+{
+    auto command = gcnew  SqlClient::SqlCommand(
+        "SELECT * FROM management.clients \
+        LEFT JOIN management.persons ON persons.id = clients.person_id \
+        WHERE DAY(birth_date) = DAY(DATEADD(DAY, 15, GETDATE())) AND MONTH(birth_date) = MONTH(DATEADD(DAY, 15, GETDATE()))");
+    auto clientsTable = dbProvider->ExecuteDataTable(command);
+    auto clients = gcnew array<Entities::ClientEntity^>(clientsTable->Rows->Count);
+    for (int i = 0; i < clientsTable->Rows->Count; i++)
+        clients[i] = gcnew Entities::ClientEntity(clientsTable->Rows[i]);
+    return clients;
+}

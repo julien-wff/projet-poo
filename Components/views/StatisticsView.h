@@ -59,12 +59,15 @@ namespace Components
         System::Windows::Forms::Label^ AverageCardLabel;
         Components::FormSeparator^ ProductRestockSeparator;
         Components::TextField^ ProductRestockField;
+        System::Windows::Forms::Label^ ProductsRestockPanel;
+        Components::FormSeparator^ ClientBirthdaySeparator;
+        System::Windows::Forms::TableLayoutPanel^ ClientBirthdayTodayTablePanel;
+        System::Windows::Forms::Label^ ClientBirthdayTodayLabel;
+        System::Windows::Forms::TableLayoutPanel^ ClientFutureBirthdayTableLayoutPanel;
+        System::Windows::Forms::Label^ ClientFutureBirthdayLabel;
+        System::Windows::Forms::TableLayoutPanel^ ProductRestockTableLayoutPanel;
 
         Services::StatisticService^ statisticService = gcnew Services::StatisticService();
-    private: System::Windows::Forms::TableLayoutPanel^ ProductRestockLableLayoutPanel;
-    private: System::Windows::Forms::Label^ ProductsRestockPanel;
-
-
         Services::ClientService^ clientService = gcnew Services::ClientService();
 
 #pragma region Windows Form Designer generated code
@@ -76,6 +79,8 @@ namespace Components
             this->RefreshBtn = (gcnew System::Windows::Forms::Label());
             this->FormScrollPanel = (gcnew System::Windows::Forms::Panel());
             this->FormLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->ClientBirthdayTodayTablePanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->ClientBirthdayTodayLabel = (gcnew System::Windows::Forms::Label());
             this->CommercialStockValue = (gcnew Components::FormSeparator());
             this->CommercialStockValueLabel = (gcnew System::Windows::Forms::Label());
             this->ArticlesSellsSeparator = (gcnew Components::FormSeparator());
@@ -93,21 +98,27 @@ namespace Components
             this->AverageCardLabel = (gcnew System::Windows::Forms::Label());
             this->ProductRestockSeparator = (gcnew Components::FormSeparator());
             this->ProductRestockField = (gcnew Components::TextField());
-            this->ProductRestockLableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->ProductRestockTableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
             this->ProductsRestockPanel = (gcnew System::Windows::Forms::Label());
+            this->ClientBirthdaySeparator = (gcnew Components::FormSeparator());
+            this->ClientFutureBirthdayTableLayoutPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
+            this->ClientFutureBirthdayLabel = (gcnew System::Windows::Forms::Label());
             this->TableLayoutPanel->SuspendLayout();
             this->HeaderLayoutPanel->SuspendLayout();
             this->FormScrollPanel->SuspendLayout();
             this->FormLayoutPanel->SuspendLayout();
+            this->ClientBirthdayTodayTablePanel->SuspendLayout();
             this->BestArticlesLayoutPanel->SuspendLayout();
             this->WorstArticlesLayoutPanel->SuspendLayout();
-            this->ProductRestockLableLayoutPanel->SuspendLayout();
+            this->ProductRestockTableLayoutPanel->SuspendLayout();
+            this->ClientFutureBirthdayTableLayoutPanel->SuspendLayout();
             this->SuspendLayout();
             // 
             // TableLayoutPanel
             // 
             this->TableLayoutPanel->ColumnCount = 1;
-            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->TableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 100)));
             this->TableLayoutPanel->Controls->Add(this->HeaderLayoutPanel, 0, 0);
             this->TableLayoutPanel->Controls->Add(this->FormScrollPanel, 0, 1);
@@ -116,15 +127,18 @@ namespace Components
             this->TableLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->TableLayoutPanel->Name = L"TableLayoutPanel";
             this->TableLayoutPanel->RowCount = 2;
-            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
-            this->TableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->TableLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 40)));
+            this->TableLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->TableLayoutPanel->Size = System::Drawing::Size(800, 600);
             this->TableLayoutPanel->TabIndex = 0;
             // 
             // HeaderLayoutPanel
             // 
             this->HeaderLayoutPanel->ColumnCount = 2;
-            this->HeaderLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->HeaderLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 100)));
             this->HeaderLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle()));
             this->HeaderLayoutPanel->Controls->Add(this->HeaderLabel, 0, 0);
@@ -134,18 +148,22 @@ namespace Components
             this->HeaderLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->HeaderLayoutPanel->Name = L"HeaderLayoutPanel";
             this->HeaderLayoutPanel->RowCount = 1;
-            this->HeaderLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
+            this->HeaderLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
             this->HeaderLayoutPanel->Size = System::Drawing::Size(800, 40);
             this->HeaderLayoutPanel->TabIndex = 0;
             // 
             // HeaderLabel
             // 
             this->HeaderLabel->AutoSize = true;
-            this->HeaderLabel->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(4)), static_cast<System::Int32>(static_cast<System::Byte>(23)),
+            this->HeaderLabel->BackColor = System::Drawing::Color::FromArgb(
+                static_cast<System::Int32>(static_cast<System::Byte>(4)),
+                static_cast<System::Int32>(static_cast<System::Byte>(23)),
                 static_cast<System::Int32>(static_cast<System::Byte>(55)));
             this->HeaderLabel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->HeaderLabel->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-                static_cast<System::Byte>(0)));
+            this->HeaderLabel->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular,
+                                                                   System::Drawing::GraphicsUnit::Point,
+                                                                   static_cast<System::Byte>(0)));
             this->HeaderLabel->ForeColor = System::Drawing::Color::White;
             this->HeaderLabel->Location = System::Drawing::Point(0, 0);
             this->HeaderLabel->Margin = System::Windows::Forms::Padding(0);
@@ -159,12 +177,15 @@ namespace Components
             // RefreshBtn
             // 
             this->RefreshBtn->AutoSize = true;
-            this->RefreshBtn->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(69)), static_cast<System::Int32>(static_cast<System::Byte>(186)),
+            this->RefreshBtn->BackColor = System::Drawing::Color::FromArgb(
+                static_cast<System::Int32>(static_cast<System::Byte>(69)),
+                static_cast<System::Int32>(static_cast<System::Byte>(186)),
                 static_cast<System::Int32>(static_cast<System::Byte>(103)));
             this->RefreshBtn->Cursor = System::Windows::Forms::Cursors::Hand;
             this->RefreshBtn->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->RefreshBtn->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-                static_cast<System::Byte>(0)));
+            this->RefreshBtn->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular,
+                                                                  System::Drawing::GraphicsUnit::Point,
+                                                                  static_cast<System::Byte>(0)));
             this->RefreshBtn->ForeColor = System::Drawing::Color::White;
             this->RefreshBtn->Location = System::Drawing::Point(625, 0);
             this->RefreshBtn->Margin = System::Windows::Forms::Padding(0);
@@ -192,16 +213,23 @@ namespace Components
             // 
             this->FormLayoutPanel->AutoSize = true;
             this->FormLayoutPanel->ColumnCount = 5;
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Absolute,
                 250)));
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Absolute,
                 20)));
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Absolute,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Absolute,
                 250)));
-            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->FormLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
+            this->FormLayoutPanel->Controls->Add(this->ClientFutureBirthdayTableLayoutPanel, 3, 14);
+            this->FormLayoutPanel->Controls->Add(this->ClientBirthdayTodayTablePanel, 1, 14);
             this->FormLayoutPanel->Controls->Add(this->CommercialStockValue, 1, 0);
             this->FormLayoutPanel->Controls->Add(this->CommercialStockValueLabel, 1, 1);
             this->FormLayoutPanel->Controls->Add(this->ArticlesSellsSeparator, 1, 2);
@@ -217,12 +245,13 @@ namespace Components
             this->FormLayoutPanel->Controls->Add(this->AverageCardLabel, 1, 9);
             this->FormLayoutPanel->Controls->Add(this->ProductRestockSeparator, 1, 10);
             this->FormLayoutPanel->Controls->Add(this->ProductRestockField, 1, 11);
-            this->FormLayoutPanel->Controls->Add(this->ProductRestockLableLayoutPanel, 3, 11);
+            this->FormLayoutPanel->Controls->Add(this->ProductRestockTableLayoutPanel, 3, 11);
+            this->FormLayoutPanel->Controls->Add(this->ClientBirthdaySeparator, 1, 13);
             this->FormLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
             this->FormLayoutPanel->Location = System::Drawing::Point(20, 20);
             this->FormLayoutPanel->Margin = System::Windows::Forms::Padding(0);
             this->FormLayoutPanel->Name = L"FormLayoutPanel";
-            this->FormLayoutPanel->RowCount = 14;
+            this->FormLayoutPanel->RowCount = 16;
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
@@ -236,9 +265,48 @@ namespace Components
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
             this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
-            this->FormLayoutPanel->Size = System::Drawing::Size(743, 568);
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+            this->FormLayoutPanel->RowStyles->Add(
+                (gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 20)));
+            this->FormLayoutPanel->Size = System::Drawing::Size(743, 672);
             this->FormLayoutPanel->TabIndex = 0;
+            // 
+            // ClientBirthdayTodayTablePanel
+            // 
+            this->ClientBirthdayTodayTablePanel->AutoSize = true;
+            this->ClientBirthdayTodayTablePanel->ColumnCount = 1;
+            this->ClientBirthdayTodayTablePanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->ClientBirthdayTodayTablePanel->Controls->Add(this->ClientBirthdayTodayLabel, 0, 0);
+            this->ClientBirthdayTodayTablePanel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ClientBirthdayTodayTablePanel->Location = System::Drawing::Point(111, 603);
+            this->ClientBirthdayTodayTablePanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
+            this->ClientBirthdayTodayTablePanel->Name = L"ClientBirthdayTodayTablePanel";
+            this->ClientBirthdayTodayTablePanel->RowCount = 2;
+            this->ClientBirthdayTodayTablePanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->ClientBirthdayTodayTablePanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Absolute,
+                20)));
+            this->ClientBirthdayTodayTablePanel->Size = System::Drawing::Size(250, 39);
+            this->ClientBirthdayTodayTablePanel->TabIndex = 16;
+            // 
+            // ClientBirthdayTodayLabel
+            // 
+            this->ClientBirthdayTodayLabel->AutoSize = true;
+            this->ClientBirthdayTodayLabel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ClientBirthdayTodayLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(0)));
+            this->ClientBirthdayTodayLabel->Location = System::Drawing::Point(0, 0);
+            this->ClientBirthdayTodayLabel->Margin = System::Windows::Forms::Padding(0, 0, 0, 3);
+            this->ClientBirthdayTodayLabel->Name = L"ClientBirthdayTodayLabel";
+            this->ClientBirthdayTodayLabel->Size = System::Drawing::Size(250, 16);
+            this->ClientBirthdayTodayLabel->TabIndex = 0;
+            this->ClientBirthdayTodayLabel->Text = L"Anniversaire aujourd\'hui";
             // 
             // CommercialStockValue
             // 
@@ -256,7 +324,8 @@ namespace Components
             this->CommercialStockValueLabel->AutoSize = true;
             this->FormLayoutPanel->SetColumnSpan(this->CommercialStockValueLabel, 3);
             this->CommercialStockValueLabel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->CommercialStockValueLabel->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->CommercialStockValueLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->CommercialStockValueLabel->Location = System::Drawing::Point(111, 55);
             this->CommercialStockValueLabel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
@@ -282,7 +351,8 @@ namespace Components
             this->BestArticlesLayoutPanel->AutoSize = true;
             this->BestArticlesLayoutPanel->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
             this->BestArticlesLayoutPanel->ColumnCount = 1;
-            this->BestArticlesLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->BestArticlesLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
             this->BestArticlesLayoutPanel->Controls->Add(this->BestArticlesHeader, 0, 0);
             this->BestArticlesLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
@@ -290,7 +360,8 @@ namespace Components
             this->BestArticlesLayoutPanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
             this->BestArticlesLayoutPanel->Name = L"BestArticlesLayoutPanel";
             this->BestArticlesLayoutPanel->RowCount = 1;
-            this->BestArticlesLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
+            this->BestArticlesLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
             this->BestArticlesLayoutPanel->Size = System::Drawing::Size(250, 21);
             this->BestArticlesLayoutPanel->TabIndex = 3;
@@ -299,7 +370,8 @@ namespace Components
             // 
             this->BestArticlesHeader->AutoSize = true;
             this->BestArticlesHeader->Dock = System::Windows::Forms::DockStyle::Top;
-            this->BestArticlesHeader->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+            this->BestArticlesHeader->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->BestArticlesHeader->Location = System::Drawing::Point(0, 0);
             this->BestArticlesHeader->Margin = System::Windows::Forms::Padding(0, 0, 0, 5);
@@ -313,7 +385,8 @@ namespace Components
             this->WorstArticlesLayoutPanel->AutoSize = true;
             this->WorstArticlesLayoutPanel->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
             this->WorstArticlesLayoutPanel->ColumnCount = 1;
-            this->WorstArticlesLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->WorstArticlesLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
             this->WorstArticlesLayoutPanel->Controls->Add(this->WorstArticlesHeader, 0, 0);
             this->WorstArticlesLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
@@ -321,7 +394,8 @@ namespace Components
             this->WorstArticlesLayoutPanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
             this->WorstArticlesLayoutPanel->Name = L"WorstArticlesLayoutPanel";
             this->WorstArticlesLayoutPanel->RowCount = 1;
-            this->WorstArticlesLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
+            this->WorstArticlesLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
             this->WorstArticlesLayoutPanel->Size = System::Drawing::Size(250, 21);
             this->WorstArticlesLayoutPanel->TabIndex = 3;
@@ -330,7 +404,8 @@ namespace Components
             // 
             this->WorstArticlesHeader->AutoSize = true;
             this->WorstArticlesHeader->Dock = System::Windows::Forms::DockStyle::Top;
-            this->WorstArticlesHeader->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+            this->WorstArticlesHeader->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->WorstArticlesHeader->Location = System::Drawing::Point(0, 0);
             this->WorstArticlesHeader->Margin = System::Windows::Forms::Padding(0, 0, 0, 5);
@@ -359,13 +434,15 @@ namespace Components
             this->ClientExpenseSelect->SelectedIndex = -1;
             this->ClientExpenseSelect->Size = System::Drawing::Size(250, 50);
             this->ClientExpenseSelect->TabIndex = 5;
-            this->ClientExpenseSelect->SelectionChanged += gcnew System::EventHandler<System::Object^ >(this, &StatisticsView::ClientExpenseSelect_SelectionChanged);
+            this->ClientExpenseSelect->SelectionChanged += gcnew System::EventHandler<System::Object^>(
+                this, &StatisticsView::ClientExpenseSelect_SelectionChanged);
             // 
             // ClientExpensesLabel
             // 
             this->ClientExpensesLabel->AutoSize = true;
             this->ClientExpensesLabel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->ClientExpensesLabel->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->ClientExpensesLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->ClientExpensesLabel->Location = System::Drawing::Point(381, 237);
             this->ClientExpensesLabel->Margin = System::Windows::Forms::Padding(0, 20, 0, 0);
@@ -397,13 +474,15 @@ namespace Components
             this->MonthTurnoverDateField->Size = System::Drawing::Size(250, 50);
             this->MonthTurnoverDateField->TabIndex = 8;
             this->MonthTurnoverDateField->Value = System::DateTime(2022, 12, 7, 0, 37, 26, 295);
-            this->MonthTurnoverDateField->DateChanged += gcnew System::EventHandler(this, &StatisticsView::MonthTurnoverDateField_DateChanged);
+            this->MonthTurnoverDateField->DateChanged += gcnew System::EventHandler(
+                this, &StatisticsView::MonthTurnoverDateField_DateChanged);
             // 
             // MonthTurnoverLabel
             // 
             this->MonthTurnoverLabel->AutoSize = true;
             this->MonthTurnoverLabel->Dock = System::Windows::Forms::DockStyle::Fill;
-            this->MonthTurnoverLabel->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->MonthTurnoverLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->MonthTurnoverLabel->Location = System::Drawing::Point(381, 337);
             this->MonthTurnoverLabel->Margin = System::Windows::Forms::Padding(0, 20, 0, 0);
@@ -429,7 +508,8 @@ namespace Components
             this->AverageCardLabel->AutoSize = true;
             this->FormLayoutPanel->SetColumnSpan(this->AverageCardLabel, 3);
             this->AverageCardLabel->Dock = System::Windows::Forms::DockStyle::Top;
-            this->AverageCardLabel->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->AverageCardLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->AverageCardLabel->Location = System::Drawing::Point(111, 422);
             this->AverageCardLabel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
@@ -461,33 +541,39 @@ namespace Components
             this->ProductRestockField->Size = System::Drawing::Size(250, 50);
             this->ProductRestockField->TabIndex = 13;
             this->ProductRestockField->Value = L"5";
-            this->ProductRestockField->Leave += gcnew System::EventHandler(this, &StatisticsView::ProductRestockField_Leave);
-            this->ProductRestockField->Submit += gcnew System::EventHandler(this, &StatisticsView::ProductRestockField_Submit);
+            this->ProductRestockField->Submit += gcnew System::EventHandler(
+                this, &StatisticsView::ProductRestockField_Submit);
+            this->ProductRestockField->Leave += gcnew System::EventHandler(
+                this, &StatisticsView::ProductRestockField_Leave);
             // 
-            // ProductRestockLableLayoutPanel
+            // ProductRestockTableLayoutPanel
             // 
-            this->ProductRestockLableLayoutPanel->AutoSize = true;
-            this->ProductRestockLableLayoutPanel->ColumnCount = 1;
-            this->ProductRestockLableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+            this->ProductRestockTableLayoutPanel->AutoSize = true;
+            this->ProductRestockTableLayoutPanel->ColumnCount = 1;
+            this->ProductRestockTableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
-            this->ProductRestockLableLayoutPanel->Controls->Add(this->ProductsRestockPanel, 0, 1);
-            this->ProductRestockLableLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
-            this->ProductRestockLableLayoutPanel->Location = System::Drawing::Point(381, 503);
-            this->ProductRestockLableLayoutPanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
-            this->ProductRestockLableLayoutPanel->Name = L"ProductRestockLableLayoutPanel";
-            this->ProductRestockLableLayoutPanel->RowCount = 2;
-            this->ProductRestockLableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent,
+            this->ProductRestockTableLayoutPanel->Controls->Add(this->ProductsRestockPanel, 0, 1);
+            this->ProductRestockTableLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ProductRestockTableLayoutPanel->Location = System::Drawing::Point(381, 503);
+            this->ProductRestockTableLayoutPanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
+            this->ProductRestockTableLayoutPanel->Name = L"ProductRestockTableLayoutPanel";
+            this->ProductRestockTableLayoutPanel->RowCount = 2;
+            this->ProductRestockTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
                 50)));
-            this->ProductRestockLableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute,
+            this->ProductRestockTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Absolute,
                 20)));
-            this->ProductRestockLableLayoutPanel->Size = System::Drawing::Size(250, 20);
-            this->ProductRestockLableLayoutPanel->TabIndex = 14;
+            this->ProductRestockTableLayoutPanel->Size = System::Drawing::Size(250, 20);
+            this->ProductRestockTableLayoutPanel->TabIndex = 14;
             // 
             // ProductsRestockPanel
             // 
             this->ProductsRestockPanel->AutoSize = true;
             this->ProductsRestockPanel->Dock = System::Windows::Forms::DockStyle::Top;
-            this->ProductsRestockPanel->Font = (gcnew System::Drawing::Font(L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+            this->ProductsRestockPanel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
                 static_cast<System::Byte>(0)));
             this->ProductsRestockPanel->Location = System::Drawing::Point(0, 0);
             this->ProductsRestockPanel->Margin = System::Windows::Forms::Padding(0, 0, 0, 3);
@@ -495,6 +581,53 @@ namespace Components
             this->ProductsRestockPanel->Size = System::Drawing::Size(250, 16);
             this->ProductsRestockPanel->TabIndex = 0;
             this->ProductsRestockPanel->Text = L"Produits à restocker";
+            // 
+            // ClientBirthdaySeparator
+            // 
+            this->FormLayoutPanel->SetColumnSpan(this->ClientBirthdaySeparator, 3);
+            this->ClientBirthdaySeparator->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ClientBirthdaySeparator->LabelText = L"Anniversaire des clients";
+            this->ClientBirthdaySeparator->Location = System::Drawing::Point(111, 548);
+            this->ClientBirthdaySeparator->Margin = System::Windows::Forms::Padding(0);
+            this->ClientBirthdaySeparator->Name = L"ClientBirthdaySeparator";
+            this->ClientBirthdaySeparator->Size = System::Drawing::Size(520, 50);
+            this->ClientBirthdaySeparator->TabIndex = 15;
+            // 
+            // ClientFutureBirthdayTableLayoutPanel
+            // 
+            this->ClientFutureBirthdayTableLayoutPanel->AutoSize = true;
+            this->ClientFutureBirthdayTableLayoutPanel->ColumnCount = 1;
+            this->ClientFutureBirthdayTableLayoutPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->ClientFutureBirthdayTableLayoutPanel->Controls->Add(this->ClientFutureBirthdayLabel, 0, 0);
+            this->ClientFutureBirthdayTableLayoutPanel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ClientFutureBirthdayTableLayoutPanel->Location = System::Drawing::Point(381, 603);
+            this->ClientFutureBirthdayTableLayoutPanel->Margin = System::Windows::Forms::Padding(0, 5, 0, 10);
+            this->ClientFutureBirthdayTableLayoutPanel->Name = L"ClientFutureBirthdayTableLayoutPanel";
+            this->ClientFutureBirthdayTableLayoutPanel->RowCount = 2;
+            this->ClientFutureBirthdayTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Percent,
+                50)));
+            this->ClientFutureBirthdayTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(
+                System::Windows::Forms::SizeType::Absolute,
+                20)));
+            this->ClientFutureBirthdayTableLayoutPanel->Size = System::Drawing::Size(250, 39);
+            this->ClientFutureBirthdayTableLayoutPanel->TabIndex = 17;
+            // 
+            // ClientFutureBirthdayLabel
+            // 
+            this->ClientFutureBirthdayLabel->AutoSize = true;
+            this->ClientFutureBirthdayLabel->Dock = System::Windows::Forms::DockStyle::Top;
+            this->ClientFutureBirthdayLabel->Font = (gcnew System::Drawing::Font(
+                L"Arial", 9.75F, System::Drawing::FontStyle::Underline, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(0)));
+            this->ClientFutureBirthdayLabel->Location = System::Drawing::Point(0, 0);
+            this->ClientFutureBirthdayLabel->Margin = System::Windows::Forms::Padding(0, 0, 0, 3);
+            this->ClientFutureBirthdayLabel->Name = L"ClientFutureBirthdayLabel";
+            this->ClientFutureBirthdayLabel->Size = System::Drawing::Size(250, 16);
+            this->ClientFutureBirthdayLabel->TabIndex = 0;
+            this->ClientFutureBirthdayLabel->Text = L"Anniversaire dans 15 jours";
             // 
             // StatisticsView
             // 
@@ -511,14 +644,17 @@ namespace Components
             this->FormScrollPanel->PerformLayout();
             this->FormLayoutPanel->ResumeLayout(false);
             this->FormLayoutPanel->PerformLayout();
+            this->ClientBirthdayTodayTablePanel->ResumeLayout(false);
+            this->ClientBirthdayTodayTablePanel->PerformLayout();
             this->BestArticlesLayoutPanel->ResumeLayout(false);
             this->BestArticlesLayoutPanel->PerformLayout();
             this->WorstArticlesLayoutPanel->ResumeLayout(false);
             this->WorstArticlesLayoutPanel->PerformLayout();
-            this->ProductRestockLableLayoutPanel->ResumeLayout(false);
-            this->ProductRestockLableLayoutPanel->PerformLayout();
+            this->ProductRestockTableLayoutPanel->ResumeLayout(false);
+            this->ProductRestockTableLayoutPanel->PerformLayout();
+            this->ClientFutureBirthdayTableLayoutPanel->ResumeLayout(false);
+            this->ClientFutureBirthdayTableLayoutPanel->PerformLayout();
             this->ResumeLayout(false);
-
         }
 #pragma endregion
 
@@ -555,16 +691,16 @@ namespace Components
         {
             auto threshold = Convert::ToInt32(ProductRestockField->Value);
             auto products = statisticService->GetProductToRestock(threshold);
-            
-            for (int i = ProductRestockLableLayoutPanel->Controls->Count - 1; i >= 1; i--)
+
+            for (int i = ProductRestockTableLayoutPanel->Controls->Count - 1; i >= 1; i--)
             {
-                auto control = ProductRestockLableLayoutPanel->Controls[i];
-                ProductRestockLableLayoutPanel->Controls->Remove(control);
-                ProductRestockLableLayoutPanel->RowStyles->RemoveAt(i);
-                ProductRestockLableLayoutPanel->RowCount--;
+                auto control = ProductRestockTableLayoutPanel->Controls[i];
+                ProductRestockTableLayoutPanel->Controls->Remove(control);
+                ProductRestockTableLayoutPanel->RowStyles->RemoveAt(i);
+                ProductRestockTableLayoutPanel->RowCount--;
                 delete control;
             }
-            
+
             for each (auto product in products)
             {
                 auto label = gcnew Label();
@@ -572,9 +708,9 @@ namespace Components
                 label->Text = "- " + product->GetName();
                 label->Dock = DockStyle::Top;
                 label->Margin = System::Windows::Forms::Padding(0, 2, 0, 0);
-                ProductRestockLableLayoutPanel->RowCount++;
-                ProductRestockLableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
-                ProductRestockLableLayoutPanel->Controls->Add(label, 0, ProductRestockLableLayoutPanel->RowCount - 1);
+                ProductRestockTableLayoutPanel->RowCount++;
+                ProductRestockTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+                ProductRestockTableLayoutPanel->Controls->Add(label, 0, ProductRestockTableLayoutPanel->RowCount - 1);
             }
         }
 
@@ -656,6 +792,54 @@ namespace Components
             AverageCardLabel->Text = "Valeur moyen des paniers : " + averageCartValue.ToString("C");
 
             RefreshProductRestock();
+
+            auto todayBirthdayClients = statisticService->GetBirthdayClients();
+            // Remove previous added rows
+            for (int i = ClientBirthdayTodayTablePanel->Controls->Count - 1; i >= 1; i--)
+            {
+                auto control = ClientBirthdayTodayTablePanel->Controls[i];
+                ClientBirthdayTodayTablePanel->Controls->Remove(control);
+                ClientBirthdayTodayTablePanel->RowStyles->RemoveAt(i);
+                ClientBirthdayTodayTablePanel->RowCount--;
+                delete control;
+            }
+            // Add new rows
+            for (int i = 0; i < todayBirthdayClients->Length; i++)
+            {
+                auto client = todayBirthdayClients[i];
+                auto label = gcnew System::Windows::Forms::Label();
+                label->AutoSize = true;
+                label->Dock = System::Windows::Forms::DockStyle::Top;
+                label->Text = "- " + client->GetFirstname() + " " + client->GetLastname();
+                label->Margin = System::Windows::Forms::Padding(0, 2, 0, 0);
+                ClientBirthdayTodayTablePanel->RowCount++;
+                ClientBirthdayTodayTablePanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+                ClientBirthdayTodayTablePanel->Controls->Add(label, 0, i + 1);
+            }
+
+            auto futureBirthdayClients = statisticService->GetFutureBirthdayClients();
+            // Remove previous added rows
+            for (int i = ClientFutureBirthdayTableLayoutPanel->Controls->Count - 1; i >= 1; i--)
+            {
+                auto control = ClientFutureBirthdayTableLayoutPanel->Controls[i];
+                ClientFutureBirthdayTableLayoutPanel->Controls->Remove(control);
+                ClientFutureBirthdayTableLayoutPanel->RowStyles->RemoveAt(i);
+                ClientFutureBirthdayTableLayoutPanel->RowCount--;
+                delete control;
+            }
+            // Add new rows
+            for (int i = 0; i < futureBirthdayClients->Length; i++)
+            {
+                auto client = futureBirthdayClients[i];
+                auto label = gcnew System::Windows::Forms::Label();
+                label->AutoSize = true;
+                label->Dock = System::Windows::Forms::DockStyle::Top;
+                label->Text = "- " + client->GetFirstname() + " " + client->GetLastname();
+                label->Margin = System::Windows::Forms::Padding(0, 2, 0, 0);
+                ClientFutureBirthdayTableLayoutPanel->RowCount++;
+                ClientFutureBirthdayTableLayoutPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle()));
+                ClientFutureBirthdayTableLayoutPanel->Controls->Add(label, 0, i + 1);
+            }
 
             this->FormLayoutPanel->ResumeLayout();
             this->FormScrollPanel->ResumeLayout();

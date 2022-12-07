@@ -18,6 +18,8 @@ namespace Services
         float GetTotalSpentPerClient(Entities::ClientEntity^ client);
         float GetTurnoverPerMonth(DateTime date);
         float GetAverageShoppingCartValue();
-       array<Entities::ArticleEntity^>^ GetProductToRestock(int threshold);
+        array<Entities::ArticleEntity^>^ GetProductToRestock(int threshold);
+        array<Entities::ClientEntity^>^ GetBirthdayClients();
+        array<Entities::ClientEntity^>^ GetFutureBirthdayClients();
     };
 }
