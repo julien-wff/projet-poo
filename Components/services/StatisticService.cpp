@@ -39,7 +39,14 @@ float Services::StatisticService::GetTotalSpentPerClient(Entities::ClientEntity^
     = [order_items].[order_reference] JOIN  [management].[clients]  ON  [clients].id = [orders].client_id\
     WHERE client_id = @id;");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@id", client->GetClientId()));
-    return Convert::ToSingle((dbProvider->ExecuteScalar(command)));
+    try
+    {
+        return Convert::ToSingle((dbProvider->ExecuteScalar(command)));
+    }
+    catch (...)
+    {
+        return 0;
+    }
 }
 
 float Services::StatisticService::GetTurnoverPerMonth(DateTime date)
