@@ -54,6 +54,27 @@ namespace Components
             }
         }
 
+        property bool HideDay
+        {
+            bool get()
+            {
+                return DateTimePicker->Format == DateTimePickerFormat::Custom;
+            }
+
+            void set(bool value)
+            {
+                if (value)
+                {
+                    this->DateTimePicker->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+                    this->DateTimePicker->CustomFormat = L"MMMM yyyy";
+                }
+                else
+                {
+                    this->DateTimePicker->Format = System::Windows::Forms::DateTimePickerFormat::Long;
+                }
+            }
+        }
+
         event EventHandler^ DateChanged;
 
     private:

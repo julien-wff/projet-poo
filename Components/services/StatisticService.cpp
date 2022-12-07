@@ -52,7 +52,14 @@ float Services::StatisticService::GetTurnoverPerMonth(DateTime date)
          WHERE MONTH([management].[orders].[creation_date])=@month AND YEAR([management].[orders].[creation_date])=@year;");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@month", date.Month));
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@year", date.Year));
-    return Convert::ToSingle(dbProvider->ExecuteScalar(command));
+    try
+    {
+        return Convert::ToSingle(dbProvider->ExecuteScalar(command));
+    }
+    catch (...)
+    {
+        return 0;
+    }
 }
 
 float Services::StatisticService::GetAverageShoppingCartValue()
@@ -68,7 +75,7 @@ float Services::StatisticService::GetAverageShoppingCartValue()
 array<Entities::ArticleEntity^>^ Services::StatisticService::GetProductToRestock(int threshold)
 {
     auto command = gcnew SqlClient::SqlCommand(
-    "SELECT * FROM [management].[articles] WHERE [management].[articles].[stock] < @threshold;");
+        "SELECT * FROM [management].[articles] WHERE [management].[articles].[stock] < @threshold;");
     command->Parameters->Add(gcnew SqlClient::SqlParameter("@threshold", threshold));
     auto restockTable = dbProvider->ExecuteDataTable(command);
     auto restocks = gcnew array<Entities::ArticleEntity^>(restockTable->Rows->Count);

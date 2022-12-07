@@ -413,6 +413,9 @@
     <EmbeddedResource Include="views\ArticleTableView.resx">
       <DependentUpon>views\ArticleTableView.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="views\ClientsEditView.resx">
+      <DependentUpon>views\ClientsEditView.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="views\EmployeesEditView.resx">
       <DependentUpon>views\EmployeesEditView.h</DependentUpon>
     </EmbeddedResource>

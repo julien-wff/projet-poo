@@ -351,6 +351,9 @@ private:
             SetCurrentView(ApplicationViews::OrdersTable);
             break;
         case SidebarActions::Statistics:
+            SetCurrentView(ApplicationViews::Loading);
+            Application::DoEvents();
+            StatisticsView->LoadData();
             SetCurrentView(ApplicationViews::Statistics);
             break;
         default:
