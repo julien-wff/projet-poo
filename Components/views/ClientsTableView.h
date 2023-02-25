@@ -112,8 +112,8 @@ namespace Components
         System::Void TableDisplay_Load(System::Object^ sender, System::EventArgs^ e)
         {
             this->TableDisplay->AddColumn("Identifiant", "id");
-            this->TableDisplay->AddColumn("Nom", "firstname");
-            this->TableDisplay->AddColumn("Prénom", "lastname");
+            this->TableDisplay->AddColumn("Nom", "lastname");
+            this->TableDisplay->AddColumn("Prénom", "firstname");
             this->TableDisplay->AddColumn("Date de naissance", "birth_date");
         }
 
