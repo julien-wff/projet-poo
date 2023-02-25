@@ -158,7 +158,7 @@ namespace Components
                                                                       static_cast<System::Byte>(0)));
             this->DateTimePicker->Location = System::Drawing::Point(8, 11);
             this->DateTimePicker->Margin = System::Windows::Forms::Padding(0);
-            this->DateTimePicker->MaxDate = System::DateTime(2022, 12, 31, 0, 0, 0, 0);
+            this->DateTimePicker->MaxDate = System::DateTime::Now.Add(TimeSpan::FromDays(1));
             this->DateTimePicker->MinDate = System::DateTime(1900, 1, 1, 0, 0, 0, 0);
             this->DateTimePicker->Name = L"DateTimePicker";
             this->DateTimePicker->Size = System::Drawing::Size(228, 22);
